@@ -18,7 +18,7 @@ about:
       href: https://www.linkedin.com/in/sofiya-vyshnya/
     - text: '<i class="fab fa-instagram fa-lg"></i>'
       href: https://www.instagram.com/sofiya.vyshnya/
-    - text: '<i class="fab fa-x-twitter fa-lg"></i>'
+    - text: '<i class="fab fa-twitter fa-lg"></i>'
       href: https://x.com/SofiyaVyshnya/
 ---
 
