@@ -8,16 +8,18 @@ execute:
 about:
   template: trestles
   links:
-    - text: '<i class="ai ai-cv fa-lg"></i>'
-      href: https://your-cv-link.com
-    - icon: github
-      href: https://github.com/SofiyaVyshnya
-    - icon: linkedin
-      href: https://www.linkedin.com/in/sofiya-vyshnya/
     - text: '<i class="ai ai-google-scholar fa-lg"></i>'
       href: https://scholar.google.com/citations?user=XXXX
     - text: '<i class="ai ai-orcid fa-lg"></i>'
       href: https://orcid.org/0000-0001-8713-9803
+    - icon: github
+      href: https://github.com/SofiyaVyshnya
+    - icon: linkedin
+      href: https://www.linkedin.com/in/sofiya-vyshnya/
+    - text: '<i class="fab fa-instagram fa-lg"></i>'
+      href: https://www.instagram.com/sofiya.vyshnya/
+    - text: '<i class="fab fa-x-twitter fa-lg"></i>'
+      href: https://x.com/SofiyaVyshnya/
 ---
 
 ### Sofiya Vyshnya
