@@ -23,11 +23,10 @@ format:
       - brand
     css: styles.css
     toc: true
+    site-dir: docs
     include-in-header:
       - text: |
           <!-- Load Academicons for CV, Google Scholar, ORCID -->
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css"/>
 
-
-site-dir: docs
 
