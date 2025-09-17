@@ -1,0 +1,45 @@
+```{=html}
+<div class="list quarto-listing-default">
+  <% for (const item of items) { %>
+
+    <div class="blog-post">
+
+      <!-- Banner / Thumbnail -->
+      <% if (item.image) { %>
+        <div class="blog-thumbnail-wrapper">
+          <img src="<%- item.image %>" alt="<%- item.title %>" class="blog-thumbnail">
+        </div>
+      <% } %>
+
+      <!-- Content -->
+      <div class="blog-content">
+        <h2 class="blog-title"><%- item.title %></h2>
+
+        <% if (item.author) { %>
+          <p class="blog-meta"><%- item.date %> | <%- item.author %></p>
+        <% } else { %>
+          <p class="blog-meta"><%- item.date %></p>
+        <% } %>
+
+        <% if (item.description) { %>
+          <p class="blog-description"><%- item.description %></p>
+        <% } %>
+
+        <% if (item.tags && item.tags.length) { %>
+          <p class="blog-tags">
+            <% item.tags.forEach(function(tag, i) { %>
+              <a href="../tags/<%- tag %>">#<%- tag %></a><% if (i < item.tags.length - 1) { %>, <% } %>
+            <% }); %>
+          </p>
+        <% } %>
+
+        <!-- Link to full post -->
+        <p>
+          <a href="<%- item.outputHref %>">Read full post &rarr;</a>
+        </p>
+
+      </div>
+    </div>
+
+  <% } %>
+</div>

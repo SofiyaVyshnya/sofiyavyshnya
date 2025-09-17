@@ -32,7 +32,7 @@
     "href": "blog/index.html",
     "title": "Blog",
     "section": "",
-    "text": "Blog Posts\nHere are my latest posts:\n\n\noptional: you can auto-list posts using quarto features"
+    "text": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey\n\n        \n          Sep 17, 2025 | Sofiya Vyshnya\n        \n\n        \n          How early clinical experiences inspired my journey as an MD-PhD student and my research in personalized medicine.\n        \n\n        \n          \n            \n              #Personal, \n            \n              #Research, \n            \n              #MD-PhD, \n            \n              #Personalized Medicine\n            \n          \n        \n\n        \n        \n          Read full post →\n        \n\n      \n    \n\n  \n\n\n\n```{=html}\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -49,32 +49,46 @@
     "text": "Curriculum Vitae\n📄 Download my CV (PDF)"
   },
   {
-    "objectID": "blog/welcome.html",
-    "href": "blog/welcome.html",
-    "title": "sofiyavyshnya",
+    "objectID": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html",
+    "href": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
     "section": "",
-    "text": "If you want Quarto to automatically generate a blog listing, it will look for posts in the same folder (blog/) and list them chronologically."
+    "text": "Clinical-Translational Research"
   },
   {
-    "objectID": "blog/welcome.html#create-a-blog-post",
-    "href": "blog/welcome.html#create-a-blog-post",
-    "title": "sofiyavyshnya",
-    "section": "Create a blog post",
-    "text": "Create a blog post\nEach post is a separate .qmd file in the blog/ folder. Example:\nblog/my-first-post.qmd:"
+    "objectID": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#a-patients-hope",
+    "href": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#a-patients-hope",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "A Patient’s Hope",
+    "text": "A Patient’s Hope\n\n“Thanks, Sofie,” said Mrs. H, squeezing my hand. She was suffering from a chronic leg wound, for which few treatments were available. I knew I could do more. Mrs. H’s hope for a cure inspired me to pursue clinical-translational research, and it became a defining moment in my journey toward becoming a physician-scientist."
   },
   {
-    "objectID": "blog/welcome.html#yaml",
-    "href": "blog/welcome.html#yaml",
-    "title": "sofiyavyshnya",
-    "section": "```yaml",
-    "text": "```yaml\ntitle: “My First Blog Post” date: 2025-09-16 author: Sofiya Vyshnya categories: [Research, AI, Personalized Medicine] tags: [MRI, AI, Cancer] toc: false —"
+    "objectID": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#from-compassion-to-research",
+    "href": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#from-compassion-to-research",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "From Compassion to Research",
+    "text": "From Compassion to Research\n During my undergraduate studies, I wanted to learn how I could one day address unmet clinical needs like Mrs. H’s. I joined Dr. Edward Botchwey’s lab to explore personalized stem cell therapies. I applied statistical and machine learning approaches to identify biomarkers in stem cells that correlated with therapeutic outcomes.\nLater, in Dr. May Wang’s lab, I developed a personalized model for predicting heart disease risk. This experience reinforced how computational tools can enable precision medicine by helping clinicians make patient-specific decisions. It was here that I realized the unique power of the MD-PhD path: combining deep clinical insight with technical expertise to develop truly personalized therapies."
   },
   {
-    "objectID": "blog/welcome.html#introduction",
-    "href": "blog/welcome.html#introduction",
-    "title": "sofiyavyshnya",
-    "section": "Introduction",
-    "text": "Introduction\nThis is my first blog post! I’m excited to share updates about my research and thoughts on personalized medicine."
+    "objectID": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#entering-the-md-phd-phase",
+    "href": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#entering-the-md-phd-phase",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "Entering the MD-PhD Phase",
+    "text": "Entering the MD-PhD Phase\n\nAI for Cancer Management\n As an MD-PhD student at Case Western Reserve University, I now integrate MRI, pathology imaging, and AI in the INVent Lab to personalize cancer care. Working alongside radiologists, pathologists, and oncologists, I help develop predictive models to identify patients who may benefit from less invasive treatments, learning that effective therapy always depends on individual patient characteristics."
+  },
+  {
+    "objectID": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#looking-ahead",
+    "href": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#looking-ahead",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "Looking Ahead",
+    "text": "Looking Ahead\nI aspire to bridge AI research and clinical practice, developing tools that improve patient outcomes and make personalized medicine the standard of care. Beyond research, I am passionate about mentoring, science communication, and community outreach, sharing biomedical innovation with students and the public alike.\n\n\nThis blog will share reflections on my research journey, insights into AI in healthcare, and the personal experiences that continue to shape my path as a physician-scientist."
+  },
+  {
+    "objectID": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#life-outside-the-lab",
+    "href": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html#life-outside-the-lab",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "Life Outside the Lab",
+    "text": "Life Outside the Lab\nIn my free time, I enjoy spending time outdoors… in any kind of weather. I love hiking, kayaking, apple picking, and anything else that involves being outside. I also enjoy visiting art and history museums and playing board games with friends. And of course, nothing beats a cozy night in with a cup of tea and a good TV show."
   },
   {
     "objectID": "index.html",

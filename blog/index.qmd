@@ -1,11 +1,18 @@
 ---
 title: "Blog"
-toc: false
+type: listing
+format: html
+listing:
+  - id: posts
+    template: ../_ejs/blog-post.ejs
+    contents: ../posts/*/*.qmd
+    sort: "date desc"
+    page-size: 10
+page-layout: full
 ---
 
-# Blog Posts
+<hr>
 
-Here are my latest posts:
-
-```{r}
-# optional: you can auto-list posts using quarto features
+<!-- Quarto will inject the posts here using the EJS template -->
+:::{#posts}
+:::
