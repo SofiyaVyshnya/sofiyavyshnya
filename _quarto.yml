@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "sofiyavyshnya"
@@ -23,7 +24,6 @@ format:
       - brand
     css: styles.css
     toc: true
-    site-dir: docs
     include-in-header:
       - text: |
           <!-- Load Academicons for CV, Google Scholar, ORCID -->
