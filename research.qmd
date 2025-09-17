@@ -1,0 +1,42 @@
+---
+title: "Research"
+toc: true
+toc-location: left
+preview: images/research_preview.jpg   # optional thumbnail
+lightbox: true
+execute: 
+  echo: false
+  warning: false
+---
+
+### Overview
+
+My research is driven by a long-term goal of advancing **personalized medicine**. I focus on integrating **MRI, pathology imaging, and artificial intelligence** to improve cancer diagnosis, prognosis, and treatment, with the ultimate aim of making therapies more **precise, efficient, and accessible** for every patient.  
+
+I am particularly interested in:  
+
+- **Multimodal imaging integration:** Combining MRI and pathology data to capture the full complexity of tumors and improve diagnostic accuracy.  
+- **Machine learning for therapy personalization:** Developing predictive models that help clinicians select the optimal treatment for individual patients.  
+- **Translational impact:** Creating tools that can be incorporated into clinical workflows to support real-world patient care.
+
+<!-- --- -->
+
+<!-- ## Selected Projects -->
+
+<!-- ### AI for Cancer Imaging -->
+<!-- Developing algorithms to analyze MRI and pathology images together, improving tumor characterization and predicting patient-specific outcomes. -->
+
+<!-- ### Multimodal Data Integration -->
+<!-- Integrating diverse imaging and clinical datasets to provide a comprehensive understanding of cancer progression. -->
+
+<!-- ### Personalized Therapy Models -->
+<!-- Building predictive models that guide clinicians in tailoring treatment plans to each patient’s unique disease profile. -->
+
+<!-- --- -->
+
+### Future Directions
+
+Looking ahead, I aim to expand my work to **broader applications of personalized medicine**, combining imaging, genomics, and AI-driven decision support to help bring precision therapies from the lab to the clinic efficiently.  
+
+<!-- Use this website for inspiration: https://faculty.washington.edu/masiello/research/, https://faculty.washington.edu/masiello/publications/, https://github.com/MasielloGroup/MasielloGroupWebsite/blob/main/index.qmd -->
+<!-- Also this: https://www.jhelvy.com/projects, https://www.jhelvy.com/blog/, https://github.com/jhelvy/jhelvy_quarto/blob/main/index.qmd -->

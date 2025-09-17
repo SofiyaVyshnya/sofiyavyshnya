@@ -1,0 +1,21 @@
+---
+title: "About"
+toc: true
+toc-location: left
+preview: images/headshot.jpg   # change to your own image
+lightbox: true
+execute: 
+  echo: false
+  warning: false
+---
+
+I am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, where I am pursuing my long-term goal of advancing personalized medicine. I am deeply motivated by the belief that medical care should be tailored to each individual—making treatments not only more effective, but also more streamlined, affordable, and accessible to all patients.
+
+My current research focuses on integrating MRI, pathology imaging, and artificial intelligence to personalize cancer management. By combining insights across different imaging modalities with advanced computational methods, I aim to develop tools that help clinicians deliver the right treatment to the right patient at the right time.
+
+Beyond research, I am passionate about science communication, mentoring, and community outreach. I enjoy helping others discover science, supporting students as they find their paths in STEM, and engaging with the public to make complex scientific ideas approachable and meaningful.
+
+Looking ahead, I aspire to build a career at the intersection of medicine, engineering, and innovation, working toward a future where personalized medicine is the standard of care.
+
+## Curriculum Vitae
+📄 [Download my CV (PDF)](files/Sofiya_Vyshnya_CV.pdf)

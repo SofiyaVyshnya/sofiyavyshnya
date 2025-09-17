@@ -1,0 +1,27 @@
+---
+title: " "
+image: "images/headshot.jpg"   # <- place your profile photo in /images/
+toc: false
+execute: 
+  echo: false
+  warning: false
+about:
+  template: trestles
+  links:
+    - text: '<i class="ai ai-cv fa-lg"></i>'
+      href: https://your-cv-link.com
+    - icon: github
+      href: https://github.com/SofiyaVyshnya
+    - icon: linkedin
+      href: https://www.linkedin.com/in/sofiya-vyshnya/
+    - text: '<i class="ai ai-google-scholar fa-lg"></i>'
+      href: https://scholar.google.com/citations?user=XXXX
+    - text: '<i class="ai ai-orcid fa-lg"></i>'
+      href: https://orcid.org/0000-0001-8713-9803
+---
+
+### Sofiya Vyshnya
+
+I am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach.  
+
+<div style="margin-top: 1.5rem;"> [Download my CV](files/Sofiya_Vyshnya_CV.pdf){.cv-button} </div> <p style="margin-top: 1rem; max-width: 600px; margin-left:auto; margin-right:auto; line-height:1.6;">

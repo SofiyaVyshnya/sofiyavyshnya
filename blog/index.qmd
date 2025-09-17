@@ -1,0 +1,11 @@
+---
+title: "Blog"
+toc: false
+---
+
+# Blog Posts
+
+Here are my latest posts:
+
+```{r}
+# optional: you can auto-list posts using quarto features

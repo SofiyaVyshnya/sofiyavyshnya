@@ -1,0 +1,33 @@
+project:
+  type: website
+
+website:
+  title: "sofiyavyshnya"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: research.qmd
+        text: Research
+      - href: blog/index.qmd
+        text: Blog
+      - href: contact.qmd
+        text: Contact
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+    include-in-header:
+      - text: |
+          <!-- Load Academicons for CV, Google Scholar, ORCID -->
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css"/>
+
+
+
+

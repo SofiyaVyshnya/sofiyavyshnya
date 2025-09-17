@@ -1,0 +1,35 @@
+---
+title: "Contact"
+toc: false
+preview: images/contact_preview.jpg  # optional
+execute: 
+  echo: false
+  warning: false
+---
+
+I welcome questions, collaboration inquiries, and discussions about research, outreach, or personalized medicine initiatives.  
+
+**Email:** [sofiya.vyshnya@gmail.com](mailto:sofiya.vyshnya@gmail.com)  
+
+**Connect on Social Media:**
+
+- [GitHub](https://github.com/SofiyaVyshnya)  
+- [LinkedIn](https://www.linkedin.com/in/sofiya-vyshnya/)  
+- [Google Scholar](https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AH8HC4y_nr6JnkeXJSCLKWYCp-J-fizzW74QAB9YYWXC5f1j7q6EvJGcc3wkfgyAYD3N_7BVHKpi8DEmFQmmhQ&user=gJquz1AAAAAJ)  
+
+## Send a Message
+
+You can also send me a message directly using the form below: 
+
+<form action="https://formspree.io/f/YOUR-FORMSPREE-ID" method="POST">
+  <label>Name:</label><br>
+  <input type="text" name="name" required><br><br>
+  <label>Email:</label><br>
+  <input type="email" name="_replyto" required><br><br>
+  <label>Message:</label><br>
+  <textarea name="message" rows="5" required></textarea><br><br>
+  <button type="submit">Send</button>
+</form>
+---
+
+Thank you for visiting my site! I look forward to connecting with colleagues, collaborators, and anyone interested in advancing **personalized medicine** and biomedical innovation.

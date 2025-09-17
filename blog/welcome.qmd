@@ -1,0 +1,24 @@
+
+> If you want Quarto to automatically generate a blog listing, it will look for posts in the same folder (`blog/`) and list them chronologically.
+
+---
+
+## Create a blog post
+
+Each post is a separate `.qmd` file in the `blog/` folder. Example:
+
+`blog/my-first-post.qmd`:
+
+```yaml
+---
+title: "My First Blog Post"
+date: 2025-09-16
+author: Sofiya Vyshnya
+categories: [Research, AI, Personalized Medicine]
+tags: [MRI, AI, Cancer]
+toc: false
+---
+
+## Introduction
+
+This is my first blog post! I’m excited to share updates about my research and thoughts on personalized medicine.
