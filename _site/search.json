@@ -1,24 +1,17 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "sofiyavyshnya",
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
     "section": "",
-    "text": "Sofiya Vyshnya\nI am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach.\n\nDownload my CV"
+    "text": "Overview\nMy research is driven by a long-term goal of advancing personalized medicine. I focus on integrating MRI, pathology imaging, and artificial intelligence to improve cancer diagnosis, prognosis, and treatment, with the ultimate aim of making therapies more precise, efficient, and accessible for every patient.\nI am particularly interested in:\n\nMultimodal imaging integration: Combining MRI and pathology data to capture the full complexity of tumors and improve diagnostic accuracy.\n\nMachine learning for therapy personalization: Developing predictive models that help clinicians select the optimal treatment for individual patients.\n\nTranslational impact: Creating tools that can be incorporated into clinical workflows to support real-world patient care.\n\n\n\n\n\n\n\n\n\n\n\n\nFuture Directions\nLooking ahead, I aim to expand my work to broader applications of personalized medicine, combining imaging, genomics, and AI-driven decision support to help bring precision therapies from the lab to the clinic efficiently."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "index_1.html",
+    "href": "index_1.html",
+    "title": "Sofiya Vyshnya",
     "section": "",
-    "text": "I am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, where I am pursuing my long-term goal of advancing personalized medicine. I am deeply motivated by the belief that medical care should be tailored to each individual—making treatments not only more effective, but also more streamlined, affordable, and accessible to all patients.\nMy current research focuses on integrating MRI, pathology imaging, and artificial intelligence to personalize cancer management. By combining insights across different imaging modalities with advanced computational methods, I aim to develop tools that help clinicians deliver the right treatment to the right patient at the right time.\nBeyond research, I am passionate about science communication, mentoring, and community outreach. I enjoy helping others discover science, supporting students as they find their paths in STEM, and engaging with the public to make complex scientific ideas approachable and meaningful.\nLooking ahead, I aspire to build a career at the intersection of medicine, engineering, and innovation, working toward a future where personalized medicine is the standard of care."
-  },
-  {
-    "objectID": "about.html#curriculum-vitae",
-    "href": "about.html#curriculum-vitae",
-    "title": "About",
-    "section": "Curriculum Vitae",
-    "text": "Curriculum Vitae\n📄 Download my CV (PDF)"
+    "text": "Welcome to my website!\nI am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach."
   },
   {
     "objectID": "contact.html",
@@ -35,18 +28,60 @@
     "text": "Send a Message\nYou can also send me a message directly using the form below:\n\nName:  Email:  Message:\n\n Send\n\n\nThank you for visiting my site! I look forward to connecting with colleagues, collaborators, and anyone interested in advancing personalized medicine and biomedical innovation."
   },
   {
-    "objectID": "research.html",
-    "href": "research.html",
-    "title": "Research",
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "Blog",
     "section": "",
-    "text": "Overview\nMy research is driven by a long-term goal of advancing personalized medicine. I focus on integrating MRI, pathology imaging, and artificial intelligence to improve cancer diagnosis, prognosis, and treatment, with the ultimate aim of making therapies more precise, efficient, and accessible for every patient.\nI am particularly interested in:\n\nMultimodal imaging integration: Combining MRI and pathology data to capture the full complexity of tumors and improve diagnostic accuracy.\n\nMachine learning for therapy personalization: Developing predictive models that help clinicians select the optimal treatment for individual patients.\n\nTranslational impact: Creating tools that can be incorporated into clinical workflows to support real-world patient care.\n\n\n\n\n\n\n\n\n\n\n\n\nFuture Directions\nLooking ahead, I aim to expand my work to broader applications of personalized medicine, combining imaging, genomics, and AI-driven decision support to help bring precision therapies from the lab to the clinic efficiently."
+    "text": "Blog Posts\nHere are my latest posts:\n\n\noptional: you can auto-list posts using quarto features"
   },
   {
-    "objectID": "research.html#future-directions",
-    "href": "research.html#future-directions",
-    "title": "Research",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "Looking ahead, I aim to expand my work to broader applications of personalized medicine, combining imaging, genomics, and AI-driven decision support to help bring precision therapies from the lab to the clinic efficiently."
+    "text": "I am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, where I am pursuing my long-term goal of advancing personalized medicine. I am deeply motivated by the belief that medical care should be tailored to each individual—making treatments not only more effective, but also more streamlined, affordable, and accessible to all patients.\nMy current research focuses on integrating MRI, pathology imaging, and artificial intelligence to personalize cancer management. By combining insights across different imaging modalities with advanced computational methods, I aim to develop tools that help clinicians deliver the right treatment to the right patient at the right time.\nBeyond research, I am passionate about science communication, mentoring, and community outreach. I enjoy helping others discover science, supporting students as they find their paths in STEM, and engaging with the public to make complex scientific ideas approachable and meaningful.\nLooking ahead, I aspire to build a career at the intersection of medicine, engineering, and innovation, working toward a future where personalized medicine is the standard of care."
+  },
+  {
+    "objectID": "about.html#curriculum-vitae",
+    "href": "about.html#curriculum-vitae",
+    "title": "About",
+    "section": "Curriculum Vitae",
+    "text": "Curriculum Vitae\n📄 Download my CV (PDF)"
+  },
+  {
+    "objectID": "blog/welcome.html",
+    "href": "blog/welcome.html",
+    "title": "sofiyavyshnya",
+    "section": "",
+    "text": "If you want Quarto to automatically generate a blog listing, it will look for posts in the same folder (blog/) and list them chronologically."
+  },
+  {
+    "objectID": "blog/welcome.html#create-a-blog-post",
+    "href": "blog/welcome.html#create-a-blog-post",
+    "title": "sofiyavyshnya",
+    "section": "Create a blog post",
+    "text": "Create a blog post\nEach post is a separate .qmd file in the blog/ folder. Example:\nblog/my-first-post.qmd:"
+  },
+  {
+    "objectID": "blog/welcome.html#yaml",
+    "href": "blog/welcome.html#yaml",
+    "title": "sofiyavyshnya",
+    "section": "```yaml",
+    "text": "```yaml\ntitle: “My First Blog Post” date: 2025-09-16 author: Sofiya Vyshnya categories: [Research, AI, Personalized Medicine] tags: [MRI, AI, Cancer] toc: false —"
+  },
+  {
+    "objectID": "blog/welcome.html#introduction",
+    "href": "blog/welcome.html#introduction",
+    "title": "sofiyavyshnya",
+    "section": "Introduction",
+    "text": "Introduction\nThis is my first blog post! I’m excited to share updates about my research and thoughts on personalized medicine."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "sofiyavyshnya",
+    "section": "",
+    "text": "Sofiya Vyshnya\nI am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach.\n\nDownload my CV"
   },
   {
     "objectID": "index_2.html",
@@ -54,26 +89,5 @@
     "title": "Sofiya Vyshnya",
     "section": "",
     "text": "source(“_common.R”)\n\n Sofiya Vyshnya MD-PhD Student | Biomedical Engineering | Advancing Personalized Medicine\n\nDownload my CV\n\n\nI am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach.\n\n\n   \n\n\n```"
-  },
-  {
-    "objectID": "index_1.html",
-    "href": "index_1.html",
-    "title": "Sofiya Vyshnya",
-    "section": "",
-    "text": "Welcome to my website!\nI am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach."
-  },
-  {
-    "objectID": "research.html#overview",
-    "href": "research.html#overview",
-    "title": "Research",
-    "section": "",
-    "text": "My research is driven by a long-term goal of advancing personalized medicine. I focus on integrating MRI, pathology imaging, and artificial intelligence to improve cancer diagnosis, prognosis, and treatment, with the ultimate aim of making therapies more precise, efficient, and accessible for every patient.\nI am particularly interested in:\n\nMultimodal imaging integration: Combining MRI and pathology data to capture the full complexity of tumors and improve diagnostic accuracy.\n\nMachine learning for therapy personalization: Developing predictive models that help clinicians select the optimal treatment for individual patients.\n\nTranslational impact: Creating tools that can be incorporated into clinical workflows to support real-world patient care.\n\n\n\n\n\n\n\n\n\n\n\n\nLooking ahead, I aim to expand my work to broader applications of personalized medicine, combining imaging, genomics, and AI-driven decision support to help bring precision therapies from the lab to the clinic efficiently."
-  },
-  {
-    "objectID": "blog/index.html",
-    "href": "blog/index.html",
-    "title": "Blog",
-    "section": "",
-    "text": "Blog Posts\nHere are my latest posts:\n\n\noptional: you can auto-list posts using quarto features"
   }
 ]
