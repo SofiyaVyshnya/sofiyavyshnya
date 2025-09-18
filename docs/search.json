@@ -7,13 +7,6 @@
     "text": "Overview\nMy research is driven by a long-term goal of advancing personalized medicine. I focus on integrating MRI, pathology imaging, and artificial intelligence to improve cancer diagnosis, prognosis, and treatment, with the ultimate aim of making therapies more precise, efficient, and accessible for every patient.\nI am particularly interested in:\n\nMultimodal imaging integration: Combining MRI and pathology data to capture the full complexity of tumors and improve diagnostic accuracy.\n\nMachine learning for therapy personalization: Developing predictive models that help clinicians select the optimal treatment for individual patients.\n\nTranslational impact: Creating tools that can be incorporated into clinical workflows to support real-world patient care.\n\n\n\n\n\n\n\n\n\n\n\n\nFuture Directions\nLooking ahead, I aim to expand my work to broader applications of personalized medicine, combining imaging, genomics, and AI-driven decision support to help bring precision therapies from the lab to the clinic efficiently."
   },
   {
-    "objectID": "index_1.html",
-    "href": "index_1.html",
-    "title": "Sofiya Vyshnya",
-    "section": "",
-    "text": "Welcome to my website!\nI am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach."
-  },
-  {
     "objectID": "contact.html",
     "href": "contact.html",
     "title": "Contact",
@@ -32,7 +25,7 @@
     "href": "blog/index.html",
     "title": "Blog",
     "section": "",
-    "text": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey\n\n        \n          Sep 17, 2025 | Sofiya Vyshnya\n        \n\n        \n          How early clinical experiences inspired my journey as an MD-PhD student and my research in personalized medicine.\n        \n\n        \n          \n            \n              #Personal, \n            \n              #Research, \n            \n              #MD-PhD, \n            \n              #Personalized Medicine\n            \n          \n        \n\n        \n        \n          Read full post →\n        \n\n      \n    \n\n  \n\n\n\n```{=html}\nNo matching items"
+    "text": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey\n\n        \n          Sep 17, 2025 | Sofiya Vyshnya\n        \n\n        \n          How early clinical experiences inspired my journey as an MD-PhD student and my research in personalized medicine.\n        \n\n        \n          \n            \n              #Personal, \n            \n              #Research, \n            \n              #MD-PhD, \n            \n              #Personalized Medicine\n            \n          \n        \n\n        \n        \n          Read full post →\n        \n\n      \n    \n\n  \n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -96,12 +89,5 @@
     "title": "sofiyavyshnya",
     "section": "",
     "text": "Sofiya Vyshnya\nI am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach.\n\nDownload my CV"
-  },
-  {
-    "objectID": "index_2.html",
-    "href": "index_2.html",
-    "title": "Sofiya Vyshnya",
-    "section": "",
-    "text": "source(“_common.R”)\n\n Sofiya Vyshnya MD-PhD Student | Biomedical Engineering | Advancing Personalized Medicine\n\nDownload my CV\n\n\nI am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach.\n\n\n   \n\n\n```"
   }
 ]
