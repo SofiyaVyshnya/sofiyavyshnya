@@ -10,7 +10,7 @@ categories: [MD-PhD, Career Journey]
 
 
 ::: {.post-banner}
-![Clinical-Translational Research](images/clinical_interests.jpg){.banner-image}
+![Clinical-Translational Research](images/banner.jpg){.banner-image}
 :::
 
 ## A Patient’s Hope
@@ -18,23 +18,27 @@ categories: [MD-PhD, Career Journey]
 > “Thanks, Sofie,” said Mrs. H, squeezing my hand. 
 She was suffering from a chronic leg wound, for which few treatments were available. I knew I could do more. Mrs. H’s hope for a cure inspired me to pursue **clinical-translational research**, and it became a defining moment in my journey toward becoming a physician-scientist.
 
----
+
 
 ## From Compassion to Research
-![Undergraduate Research Stem Cells and AI](images/college.jpg){.thumbnail}
-During my undergraduate studies, I wanted to learn how I could one day address unmet clinical needs like Mrs. H's. I joined Dr. Edward Botchwey’s lab to explore **personalized stem cell therapies**. I applied **statistical and machine learning approaches** to identify biomarkers in stem cells that correlated with therapeutic outcomes.
+<div style="float: left; width: 30%; margin-right: 1rem; margin-bottom: 0.5rem;">
+  <img src="images/college.jpg" alt="Undergraduate research at Georgia Tech in stem cell therapies and AI" style="width:100%; height:auto; border-radius: 8px;">
+</div>
+During my undergraduate studies, I wanted to learn how I could one day address unmet clinical needs like Mrs. H's. I joined Dr. Edward Botchwey’s lab to explore **stem cell therapies for regenerative medicine**. I applied **statistical and machine learning approaches** to identify biomarkers in stem cells that correlated with therapeutic outcomes. It was here that I realized the need for **personalizing teatment approaches**.
 
-Later, in Dr. May Wang’s lab, I developed a **personalized model for predicting heart disease risk**. This experience reinforced how computational tools can enable **precision medicine** by helping clinicians make patient-specific decisions. It was here that I realized the unique power of the MD-PhD path: combining deep clinical insight with technical expertise to develop truly personalized therapies.
+To explore my intetest in computational research and personalized medicine, I joined Dr. May Wang’s lab. There, I developed a **personalized model for predicting heart disease risk**. This experience reinforced how computational tools can enable **precision medicine** by helping clinicians make patient-specific decisions. It was here that I realized the unique power of the MD-PhD path: combining deep clinical insight with technical expertise to develop therapies tailored toward each patient.
 
----
+
 
 ## Entering the MD-PhD Phase
 
 ### AI for Cancer Management
-![Medical School](images/white_coat.jpeg){.thumbnail}
+<div style="float: right; width: 30%; margin-left: 1rem; margin-bottom: 0.5rem;">
+  <img src="images/white_coat.jpeg" alt="Medical school at Case Western Reserve University" style="width:100%; height:auto; border-radius: 8px;">
+</div>
 As an MD-PhD student at Case Western Reserve University, I now integrate **MRI, pathology imaging, and AI** in the **INVent Lab** to personalize cancer care. Working alongside radiologists, pathologists, and oncologists, I help develop predictive models to identify patients who may benefit from **less invasive treatments**, learning that effective therapy always depends on **individual patient characteristics**.
 
----
+
 
 ## Looking Ahead
 
@@ -45,12 +49,3 @@ I aspire to **bridge AI research and clinical practice**, developing tools that 
 > This blog will share reflections on my research journey, insights into AI in healthcare, and the personal experiences that continue to shape my path as a physician-scientist.
 
 ---
-
-## Life Outside the Lab
-
-In my free time, I enjoy spending time outdoors... in any kind of weather. I love hiking, kayaking, apple picking, and anything else that involves being outside. I also enjoy visiting art and history museums and playing board games with friends. And of course, nothing beats a cozy night in with a cup of tea and a good TV show.
-
-<div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem;">
-  <img src="images/winter_hike.jpg" alt="Hiking outdoors" style="width:48%; border-radius: 10px;" />
-  <img src="images/apple_farm.jpg" alt="Visiting a museum" style="width:48%; border-radius: 10px;" />
-</div>

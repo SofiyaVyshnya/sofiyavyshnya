@@ -252,6 +252,23 @@ body {
     line-height: 1.6;
 }
 
+/* Banner image container */
+.post-banner {
+    width: 100%;          /* full width of parent/container */
+    overflow: hidden;     /* hide any overflow if image is too big */
+    margin-bottom: 2rem;  /* optional spacing below banner */
+}
+
+/* The image itself */
+.post-banner .banner-image {
+    width: 100%;          /* stretch image to fill container width */
+    height: auto;         /* maintain aspect ratio */
+    display: block;       /* remove default inline spacing */
+    border-radius: 0;     /* optional: remove any rounding */
+    object-fit: cover;    /* optional: crop to fill container if needed */
+}
+
+
 /* ----- Responsive adjustments ----- */
 @media (max-width: 768px) {
     .blog-post {

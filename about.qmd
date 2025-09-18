@@ -20,3 +20,12 @@ Looking ahead, I aspire to build a career at the intersection of medicine, engin
 ## Curriculum Vitae
 📄 [Download my CV (PDF)](files/Sofiya_Vyshnya_CV.pdf)
 <!-- eventually have a social media feed on the side under the table of contents (or on the bottom for responsive design) -->
+
+## Life Outside the Lab
+
+In my free time, I enjoy spending time outdoors... in any kind of weather. I love hiking, kayaking, apple picking, and anything else that involves being outside. I also enjoy visiting art and history museums and playing board games with friends. And of course, nothing beats a cozy night in with a cup of tea and a good TV show.
+
+<div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem;">
+  <img src="images/winter_hike.jpg" alt="Hiking outdoors" style="height:400px; width:49%; border-radius:10px; object-fit:cover;" />
+  <img src="images/apple_farm.jpg" alt="Visiting a museum" style="height:400px; width:49%; border-radius:10px; object-fit:cover;" />
+</div>
