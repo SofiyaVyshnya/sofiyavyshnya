@@ -1,0 +1,355 @@
+---
+title: "NHANES Project Report"
+toc: true
+toc-location: left
+preview: images/research_preview.jpg   # optional thumbnail
+lightbox: true
+execute: 
+  echo: false
+  warning: false
+---
+
+# Central Hypothesis
+
+My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (e.g. lead exposure) have higher systolic blood pressure. To test this hypothesis, I am using data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years).
+
+# Setup and Data Ingest
+
+The dataset consists of 2015 adults ages 40-65 participating in NHANES 2017-2020 with complete data on the variables listed in Table 1.
+
+```{r}
+library(nhanesA)
+library(dplyr)
+library(tidyverse)
+
+# Download three datasets
+demo  <- nhanes("DEMO_J")   # demographics
+pbcd  <- nhanes("PBCD_J")   # heavy metals (lead, cadmium, manganese) in blood
+bpx   <- nhanes("BPX_J")    # blood pressure
+
+# Merge them
+nhanes_data <- Reduce(function(x, y) merge(x, y, by = "SEQN", all = TRUE),
+                      list(demo, pbcd, bpx))
+
+# Save to RDS for later use
+saveRDS(nhanes_data, "data/nhanes_combined.rds")
+
+# Pull out only variables of interest
+nhanes_subset <- nhanes_data %>%
+  select(
+    SEQN,       # participant ID
+    RIDAGEYR,   # age
+    RIAGENDR,   # gender
+    RIDRETH1,   # race
+    LBXBPB,     # blood lead
+    LBXBCD,     # blood cadmium
+    LBXBMN,     # blood manganese
+    BPXSY1,     # systolic BP
+    BPXDI1,     # diastolic BP
+    WTMEC2YR,   # MEC exam weight
+    SDMVPSU,    # PSU
+    SDMVSTRA    # Strata
+  )
+```
+
+# Cleaning the Data
+
+The original NHANES data from 2017-2020 contained 9254 observations collected from individuals age 0-80. Only individuals age 40-65 were selected, and individuals with missing data across any of the variables in Table 1 (Analytic Tibble) were included.
+
+```{r}
+# Filter for participants 18–65 years old
+nhanes_filtered <- nhanes_subset %>%
+  filter(RIDAGEYR >= 40, RIDAGEYR <= 65)
+
+# Make sure individuals included have complete data across all variables
+nhanes_clean <- nhanes_filtered %>%
+  drop_na()%>%
+  # Re-name "Other Race - Including Multi-Racial" category in RIDRETH1 to Exclude Prohibited Characters
+  mutate(
+    RIDRETH1 = fct_recode(RIDRETH1,
+                           "Other/Multiracial" = "Other Race - Including Multi-Racial")
+  )
+
+
+# Save cleaned data too
+saveRDS(nhanes_clean, "data/nhanes_cleaned.rds")
+```
+
+# Codebook and Dataset Description
+
+## Analytic Tibble
+
+Table 1: Variables included in the data.
+
+| Variable | Description | Data Type |
+|:---|:---|:---|
+| **SEQN** | Subject ID: Individual Identifier | Quantitative (Integer) |
+| **RIDAGEYR** | Age: Age in years at screening, range 40-65 | Quantitative (Integer) |
+| **RIAGENDR** | Sex: male or female | Binary |
+| **RIDRETH1** | Race | Multi-level Categorical |
+| **LBXBPB** | Blood lead (µg/dL) | Quantitative (Continuous) |
+| **LBXBCD** | Blood cadmium (µg/dL) | Quantitative (Continuous) |
+| **LBXBMN** | Blood manganese (µg/dL) | Quantitative (Continuous) |
+| **BPXSY1** | Systolic BP, first reading | Quantitative (Integer) |
+| **BPXDI1** | Diastolic BP, first reading | Quantitative (Integer) |
+
+## Cleaning the Data
+
+The original NHANES data from 2017-2020 contained 9254 observations collected from individuals age 0-80. Only individuals age 40-65 were selected, and individuals with missing data across any of the variables in Table 1 (Analytic Tibble) were included.
+
+## Data Summary
+
+Summary statistics for the continuous and categorical variables:
+
+Table 1: Summary of numeric data.
+
+| Variable     | mean   | stdev | median | min   | max    |
+|:-------------|:-------|:------|:-------|:------|:-------|
+| **RIDAGEYR** | 53.67  | 7.54  | 55.00  | 40.00 | 65.00  |
+| **LBXBPB**   | 1.36   | 1.69  | 1.02   | 0.12  | 42.48  |
+| **LBXBCD**   | 0.53   | 0.60  | 0.34   | 0.07  | 7.50   |
+| **LBXBMN**   | 10.07  | 3.78  | 9.39   | 1.57  | 35.56  |
+| **BPXSY1**   | 127.95 | 18.52 | 126.00 | 78.00 | 224.00 |
+| **BPXDI1**   | 76.06  | 12.04 | 76.00  | 0.00  | 124.00 |
+
+Table 2: Summary of categorical data.
+
+| Variable                            | Count (Percent) |
+|:------------------------------------|:----------------|
+| **RIAGENDR: Sex**                   |                 |
+| Male                                | 975 (48.39%)    |
+| Female                              | 1040 (51.61%)   |
+| **RIDRETH1: Race**                  |                 |
+| Mexican American                    | 303 (15.03%)    |
+| Other Hispanic                      | 208 (10.32%)    |
+| Non-Hispanic White                  | 581 (28.83%)    |
+| Non-Hispanic Black                  | 483 (23.97%)    |
+| Other Race - Including Multi-Racial | 440 (21.84%)    |
+
+```{r}
+numeric_vars <- c("RIDAGEYR", "LBXBPB", "LBXBCD", "LBXBMN", "BPXSY1", "BPXDI1")
+
+numeric_summary <- nhanes_clean %>%
+  select(all_of(numeric_vars)) %>%
+  summarise(across(
+    everything(),
+    list(
+      mean = mean,
+      sd = sd,
+      median = median,
+      min = min,
+      max = max
+    )
+  )) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_",
+    values_to = "Value"
+  ) %>%
+  pivot_wider(
+    names_from = Statistic,
+    values_from = Value
+  )
+
+numeric_summary
+```
+
+```{r}
+# Categorical summary
+library(dplyr)
+library(tidyr)
+
+# List of categorical variables to summarize
+cat_vars <- c("RIAGENDR", "RIDRETH1")
+
+# Function to summarize one categorical variable
+summarize_cat <- function(var_name, data) {
+  data %>%
+    count(.data[[var_name]]) %>%
+    mutate(
+      Proportion = n / sum(n),
+      variable = var_name,
+      level = .data[[var_name]]
+    ) %>%
+    select(variable, level, n, Proportion)
+}
+
+# Loop over variables and combine
+cat_summary <- lapply(cat_vars, summarize_cat, data = nhanes_clean) %>%
+  bind_rows()
+
+cat_summary
+```
+
+# Analysis B: Comparing 2 Means with Independent Samples (Blood Lead (LBXBPB) by Sex)
+
+**Question:** Is the blood lead level different in males and females?
+
+**Dataset Description:** The dataset was stratified by sex. Mean blood lead levels, in µg/dL (LBXBPB), were compared between the two sexes (male, female). There were 975 males and 1040 females in the dataset.
+
+**Main analysis:** A Mann-Whitney U test was used to compare the distribution of blood lead levels between the two sexes. A significance level of 0.1 was used. This test does not assume anything about the underlying distribution of the data. The effect size was also computed (small: 0.1, medium: 0.3, large: 0.5).
+
+**Conclusions:** The median blood lead level was 1.13 ± 0.93 µg/dL (median ± IQR) for males and 0.94 ± 0.8 µg/dL for females. The difference was statistically significant at the 0.1 level, but the effect size was low (0.15). I conclude that males and females have no appreciable difference in blood lead levels.
+
+*Note:* The same analyses were conducted for other numeric variables: blood cadmium level (LBXBCD), blood manganese level (LBXBMN), systolic blood pressure (BPXSY1), and diastolic blood pressure (BPXDI1).
+
+**RE-CHECK THE TEST STATS AND EFFECT SIZES!!!**
+
+```{r}
+library(dplyr)
+library(rstatix)
+library(tidyr)
+
+# List of numeric variables to summarize
+numeric_vars <- c("LBXBPB", "LBXBCD", "LBXBMN", "BPXSY1", "BPXDI1")
+
+# List of numeric variables
+numeric_vars <- c("LBXBPB", "LBXBCD", "LBXBMN", "BPXSY1", "BPXDI1")
+
+# Function to summarize one variable
+summarize_var_one_row <- function(var_name, data) {
+  
+  # Compute median ± IQR by gender
+  summary_tbl <- data %>%
+    group_by(RIAGENDR) %>%
+    summarise(
+      n = n(),
+      median = median(.data[[var_name]], na.rm = TRUE),
+      IQR = IQR(.data[[var_name]], na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    mutate(`Median ± IQR` = paste0(median, " ± ", IQR)) %>%
+    select(RIAGENDR, n, `Median ± IQR`)
+  
+  # Mann-Whitney test
+  mw_test <- wilcox_test(data, formula = as.formula(paste(var_name, "~ RIAGENDR")))
+  
+  # Effect size (r) 
+  group_sizes <- data %>%
+    group_by(RIAGENDR) %>%
+    summarise(n = sum(!is.na(.data[[var_name]]))) %>%
+    pull(n)
+  
+  n1 <- group_sizes[1]
+  n2 <- group_sizes[2]
+  W <- mw_test$statistic
+  mu_W <- n1 * n2 / 2
+  sigma_W <- sqrt(n1 * n2 * (n1 + n2 + 1) / 12)
+  Z <- (W - mu_W) / sigma_W
+  N <- sum(!is.na(data[[var_name]]))
+  r <- Z / sqrt(N)
+  
+  # Pivot summary to have one row per variable
+  summary_wide <- summary_tbl %>%
+    pivot_wider(
+      names_from = RIAGENDR,
+      values_from = c(n, `Median ± IQR`),
+      names_sep = "_"
+    ) %>%
+    mutate(
+      variable = var_name,
+      p_value = round(mw_test$p, 3),
+      significant = ifelse(p_value < 0.05, "Yes", "No"),
+      effect_size_r = round(r, 3)
+    ) %>%
+    select(variable, n_Male, `Median ± IQR_Male`, n_Female, `Median ± IQR_Female`,
+           p_value, significant, effect_size_r)
+  
+  return(summary_wide)
+}
+
+# Apply function to all numeric variables
+all_summaries <- lapply(numeric_vars, summarize_var_one_row, data = nhanes_clean) %>%
+  bind_rows()
+
+# Display as tibble
+all_summaries
+```
+
+Distribution of blood lead levels:
+
+```{r}
+library(ggplot2)
+
+# Compute mean and SD of LBXBPB
+mean_lead <- mean(nhanes_clean$LBXBPB, na.rm = TRUE)
+sd_lead   <- sd(nhanes_clean$LBXBPB, na.rm = TRUE)
+
+# Plot histogram
+ggplot(nhanes_clean, aes(x = LBXBPB)) +
+  geom_histogram(aes(y = ..density..),  # density scale for overlay
+                 binwidth = 0.5,       # adjust as needed
+                 color = "black", fill = "lightblue") +
+  stat_function(fun = dnorm, 
+                args = list(mean = mean_lead, sd = sd_lead),
+                color = "red", size = 1) +
+  labs(
+    title = "Histogram of Blood Lead Levels with Normal Density",
+    x = "Blood Lead Level (µg/dL)",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+```
+
+# Analysis C: Comparing Blood Lead Levels (LBXBPB) Across Races
+
+**Question:** Are blood lead levels different between races?
+
+**Dataset Description:** The dataset was stratified by race (Mexican American, other Hispanic, non-Hispanic white, non-Hispanic black, other/multiracial). Mean blood levels of lead, in µg/dL (LBXBPB), were compared across the 5 racial/ethnic groups. There were 303 individuals identifying as Mexican American, 208 as other Hispanic, 581 as non-Hispanic white, 483 as non-Hispanic black, and 440 as other/multiracial.
+
+**Main analysis:** A Kruskal-Wallis test was used to compare the distributions of blood lead levels across the 5 racial/ethnic groups, followed by post-hoc Mann-Whitney U tests to investigate significant comparisons. The effect size was also computed for Mann-Whitney U tests. (small: 0.1, medium: 0.3, large: 0.5). A significance level of 0.1 was used. This test does not assume anything about the underlying distribution of the data.
+
+**Conclusions:** The median blood lead level
+
+```{r}
+nhanes_clean %>%
+  group_by(RIDRETH1) %>%
+  summarise(
+    total = n(),
+    non_missing_LBXBPB = sum(!is.na(LBXBPB))
+  )
+
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(rstatix)
+
+library(dplyr)
+library(rstatix)
+
+# Perform Kruskal-Wallis test
+kruskal_test_result <- nhanes_clean %>%
+  kruskal_test(LBXBPB ~ RIDRETH1)
+
+# View the Kruskal-Wallis test result
+kruskal_test_result
+
+```
+
+```{r}
+# Perform Dunn's test for pairwise comparisons
+dunn_test_result <- nhanes_clean %>%
+  dunn_test(LBXBPB ~ RIDRETH1, p.adjust.method = "bonferroni")
+
+# View the Dunn's test results
+dunn_test_result
+
+```
+
+Effect size:
+
+```{r}
+# Calculate effect size (eta-squared)
+eta_squared <- kruskal_test_result$statistic / (nrow(nhanes_clean) - 1)
+
+# Display the effect size
+eta_squared
+```
+
+# Analysis D: Analyzing a 2x2 table
+
+# Analysis E: Analyzing a JxK table (where you substitute in the values for J and K)

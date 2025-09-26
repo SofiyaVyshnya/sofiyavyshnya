@@ -40,4 +40,5 @@ Looking ahead, I aim to expand my work to **broader applications of personalized
 
 <!-- Use this website for inspiration: https://faculty.washington.edu/masiello/research/, https://faculty.washington.edu/masiello/publications/, https://github.com/MasielloGroup/MasielloGroupWebsite/blob/main/index.qmd -->
 <!-- Also this: https://www.jhelvy.com/projects, https://www.jhelvy.com/blog/, https://github.com/jhelvy/jhelvy_quarto/blob/main/index.qmd -->
+<!-- And this: https://www.isaaczz.com/research.html -->
 <!-- eventually have a social media feed on the side under the table of contents (or on the bottom for responsive design) -->
