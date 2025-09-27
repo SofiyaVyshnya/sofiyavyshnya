@@ -15,11 +15,11 @@ My central hypothesis for this study is that middle-aged adults (age 40-65) adul
 
 # Setup and Data Ingest
 
-The dataset consists of 2015 adults ages 40-65 participating in NHANES 2017-2020 with complete data on the variables listed in Table 1 (Analytic Tibble section). The original NHANES data from 2017-2020 contained 9254 observations collected from individuals age 0-80. However, after selecting individuals aged 40-65 with complete data, 2015 individuals were left.
+The dataset consists of 2475 adults ages 40-65 participating in NHANES 2017-2020. The original NHANES data from 2017-2020 contained 9254 observations collected from individuals age 0-80. However, after selecting individuals aged 40-65, 2475 individuals were left.
 
 ```{r}
 library(nhanesA)
-library(dplyr)
+suppressWarnings(library(dplyr))
 library(tidyverse)
 
 # Download three datasets
@@ -46,116 +46,136 @@ nhanes_subset <- nhanes_data %>%
     LBXBMN,     # blood manganese
     BPXSY1,     # systolic BP
     BPXDI1,     # diastolic BP
-    WTMEC2YR,   # MEC exam weight
-    SDMVPSU,    # PSU
-    SDMVSTRA    # Strata
   )
+
+# Filter for participants 18–65 years old 
+nhanes_filtered <- nhanes_subset %>% 
+  filter(RIDAGEYR >= 40, RIDAGEYR <= 65) %>%
+
+  # Re-name "Other Race - Including Multi-Racial" category in RIDRETH1 to Exclude Prohibited Characters 
+  mutate( 
+    RIDRETH1 = fct_recode(RIDRETH1, "Other/Multiracial" = "Other Race - Including Multi-Racial") 
+    )
 ```
 
-# Cleaning the Data
+# Data Cleaning
 
-see below
+*General:* Individuals with missing data for any of the variables listed in Table 1 were removed.
+
+*Numeric Variable Processing:* Outliers (defined as values \< Q1- 1.5*IQR or \> Q3+1.5*IQR) were removed. Numeric variables were subsequently log-transformed to make them approximately log-normal.
+
+The resulting dataset has 1590 observations.
 
 ```{r}
-# Filter for participants 18–65 years old
-nhanes_filtered <- nhanes_subset %>%
-  filter(RIDAGEYR >= 40, RIDAGEYR <= 65)
+# ------------- Helper functions --------------------
 
-# Make sure individuals included have complete data across all variables
+# define helper function for visualization: function takes in the original data, drops outliers for numeric variables and log transforms continuous variables
+make_three_plots <- function(data, var, var_label = var) {
+  
+  data <- data %>%
+    drop_na()
+  
+  vals <- data[[var]]
+  
+  # Outlier removal (IQR rule)
+  Q1 <- quantile(vals, 0.25, na.rm = TRUE)
+  Q3 <- quantile(vals, 0.75, na.rm = TRUE)
+  IQR_val <- IQR(vals, na.rm = TRUE)
+  
+  lower <- Q1 - 1.5 * IQR_val
+  upper <- Q3 + 1.5 * IQR_val
+  
+  clean_vals <- vals[vals >= lower & vals <= upper]
+  log_vals <- log(clean_vals)  # use log1p if zeros possible
+  
+  # Plots
+  p_all <- ggplot(data.frame(x = vals), aes(x = x)) +
+    geom_histogram(binwidth = diff(range(vals, na.rm=TRUE))/30,
+                   fill = "gray70", color = "white") +
+    labs(title = str_wrap(paste(var_label, "(All Data)"), width = 25),
+         x = var_label, y = "Count") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 10))
+  
+  p_clean <- ggplot(data.frame(x = clean_vals), aes(x = x)) +
+    geom_histogram(binwidth = diff(range(clean_vals))/30,
+                   fill = "skyblue", color = "white") +
+    labs(title = str_wrap(paste(var_label, "(Outliers Removed)"), width = 25),
+         x = var_label, y = "Count") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 10))
+  
+  p_log <- ggplot(data.frame(x = log_vals), aes(x = x)) +
+    geom_histogram(binwidth = diff(range(log_vals))/30,
+                   fill = "tomato", color = "white") +
+    labs(title = str_wrap(paste("log(", var_label, ") (Outliers Removed)"), width = 25),
+         x = paste0("log(", var_label, ")"), y = "Count") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 10))
+  
+  return(p_all + p_clean + p_log) # 3-column row
+}
+
+# define helper function for removing outliers from the data (for continuous variables) and log transforming them
+remove_outliers <- function(x) {
+  if (!is.numeric(x)) return(x)  # skip non-numeric
+  q1 <- quantile(x, 0.25, na.rm = TRUE)
+  q3 <- quantile(x, 0.75, na.rm = TRUE)
+  iqr <- q3 - q1
+  lower <- q1 - 1.5 * iqr
+  upper <- q3 + 1.5 * iqr
+  x[x < lower | x > upper] <- NA
+  return(x)
+}
+
+```
+
+```{r}
+
+# Generate plots showing why outlier removal and log transformation is necessary
+p_lead      <- make_three_plots(nhanes_filtered, "LBXBPB", "Blood Lead")
+p_cadmium   <- make_three_plots(nhanes_filtered, "LBXBCD", "Blood Cadmium")
+p_manganese <- make_three_plots(nhanes_filtered, "LBXBMN", "Blood Manganese")
+# Plot the 3 numeric variables (original and cleaned versions) on a 3x3 grid
+final_plot <- (p_lead / p_cadmium / p_manganese)
+
+final_plot
+
+# Apply helper function to lab values (numeric variables) to remove outliers and log normalize the data
+numeric_vars <- c("LBXBPB", "LBXBCD", "LBXBMN")
+
 nhanes_clean <- nhanes_filtered %>%
-  drop_na()%>%
-  # Re-name "Other Race - Including Multi-Racial" category in RIDRETH1 to Exclude Prohibited Characters
-  mutate(
-    RIDRETH1 = fct_recode(RIDRETH1,
-                           "Other/Multiracial" = "Other Race - Including Multi-Racial")
-  )
+  # Remove outliers -> temporary "_clean" columns
+  mutate(across(all_of(numeric_vars), remove_outliers, .names = "{.col}_clean")) %>%
+  
+  # Log-transform -> new "_log" columns
+  mutate(across(ends_with("_clean"), ~log1p(.), .names = "{.col}_log")) %>%
+  
+  # Drop rows with NA values introduced by outlier removal
+  drop_na(all_of(paste0(numeric_vars, "_clean_log")))  %>%
+
+  # Drop intermediate "_clean" columns
+  select(-all_of(paste0(numeric_vars, "_clean")))
 
 
-# Save cleaned data too
+# Apply helper function to blood pressure data(integers but treat as numeric variables for modeling) but don't log transform
+numeric_vars <- c("BPXSY1", "BPXDI1")
+
+nhanes_clean <- nhanes_clean %>%
+  # Remove outliers -> "_clean" columns
+  mutate(across(all_of(numeric_vars), remove_outliers, .names = "{.col}_clean")) %>%
+  
+  # Drop rows with NA values introduced by outlier removal
+  drop_na(all_of(paste0(numeric_vars, "_clean")))
+
+  
+# Save cleaned data 
 saveRDS(nhanes_clean, "data/nhanes_cleaned.rds")
 ```
 
-```{r}
-library(ggplot2)
-library(patchwork)  # install.packages("patchwork") if needed
+# Dataset Description and Codebook
 
-# --- Remove outliers ---
-Q1 <- quantile(nhanes_clean$LBXBPB, 0.25, na.rm = TRUE)
-Q3 <- quantile(nhanes_clean$LBXBPB, 0.75, na.rm = TRUE)
-IQR_val <- IQR(nhanes_clean$LBXBPB, na.rm = TRUE)
-
-lower_bound <- Q1 - 1.5 * IQR_val
-upper_bound <- Q3 + 1.5 * IQR_val
-
-LBXBPB_clean <- nhanes_clean$LBXBPB[
-  nhanes_clean$LBXBPB >= lower_bound & nhanes_clean$LBXBPB <= upper_bound
-]
-
-# --- Log transform ---
-# (use log1p if your data contains zeros)
-LBXBPB_log <- log(LBXBPB_clean)
-
-# --- Create plots ---
-p1 <- ggplot(data.frame(LBXBPB_clean), aes(x = LBXBPB_clean)) +
-  geom_histogram(binwidth = diff(range(LBXBPB_clean))/30, 
-                 fill = "skyblue", color = "white") +
-  labs(title = "LBXBPB (Outliers Removed)", x = "LBXBPB", y = "Count") +
-  theme_minimal()
-
-p2 <- ggplot(data.frame(LBXBPB_log), aes(x = LBXBPB_log)) +
-  geom_histogram(binwidth = diff(range(LBXBPB_log))/30, 
-                 fill = "tomato", color = "white") +
-  labs(title = "log(LBXBPB) (Outliers Removed)", x = "log(LBXBPB)", y = "Count") +
-  theme_minimal()
-
-# --- Combine side by side ---
-p1 + p2
-
-```
-```{r}
-library(ggplot2)
-library(patchwork)  # install.packages("patchwork") if needed
-
-# Standard scale LBXBPB
-LBXBMN_scaled <- as.numeric(scale(nhanes_clean$LBXBMN))
-
-# --- Remove outliers ---
-# --- Compute mean and SD ---
-mean_val <- mean(LBXBMN_scaled, na.rm = TRUE)
-sd_val   <- sd(LBXBMN_scaled, na.rm = TRUE)
-
-lower_bound <- mean_val - 2.5 * sd_val
-upper_bound <- mean_val + 2.5 * sd_val
-
-LBXBPB_clean <- nhanes_clean$LBXBPB[
-  nhanes_clean$LBXBPB >= lower_bound & nhanes_clean$LBXBPB <= upper_bound
-]
-
-# --- Log transform ---
-# (use log1p if your data contains zeros)
-LBXBPB_log <- log(LBXBPB_clean)
-
-# --- Create plots ---
-p1 <- ggplot(data.frame(LBXBPB_clean), aes(x = LBXBPB_clean)) +
-  geom_histogram(binwidth = diff(range(LBXBPB_clean))/30, 
-                 fill = "skyblue", color = "white") +
-  labs(title = "LBXBPB (Outliers Removed)", x = "LBXBPB", y = "Count") +
-  theme_minimal()
-
-p2 <- ggplot(data.frame(LBXBPB_log), aes(x = LBXBPB_log)) +
-  geom_histogram(binwidth = diff(range(LBXBPB_log))/30, 
-                 fill = "tomato", color = "white") +
-  labs(title = "log(LBXBPB) (Outliers Removed)", x = "log(LBXBPB)", y = "Count") +
-  theme_minimal()
-
-# --- Combine side by side ---
-p1 + p2
-```
-
-
-# Codebook and Dataset Description
-
-## Analytic Tibble
+## \[Final\] Dataset Description & Summary Statistics
 
 Table 1: Variables included in the data.
 
@@ -166,22 +186,19 @@ Table 1: Variables included in the data.
 | **RIAGENDR** | Sex: male or female | Binary |
 | **RIDRETH1** | Race | Multi-level Categorical |
 | **LBXBPB** | Blood lead (µg/dL) | Quantitative (Continuous) |
+| **LBXBPB_clean_log** | Blood lead after outlier removal and log transformation | Quantitative (Continuous) |
 | **LBXBCD** | Blood cadmium (µg/dL) | Quantitative (Continuous) |
+| **LBXBCD_clean_log** | Blood cadmium (µg/dL) after outlier removal and log transformation | Quantitative (Continuous) |
 | **LBXBMN** | Blood manganese (µg/dL) | Quantitative (Continuous) |
+| **LBXBMN_clean_log** | Blood manganese (µg/dL) after outlier removal and log transformation | Quantitative (Continuous) |
 | **BPXSY1** | Systolic BP, first reading | Quantitative (Integer) |
+| **BPXSY1_clean** | Systolic BP, first reading, after outlier removal | Quantitative (Integer) |
 | **BPXDI1** | Diastolic BP, first reading | Quantitative (Integer) |
-
-## Cleaning the Data
-
-The original NHANES data from 2017-2020 contained 9254 observations collected from individuals age 0-80. Only individuals age 40-65 were selected, and individuals with missing data across any of the variables in Table 1 (Analytic Tibble) were included.
-
-
-
-## Data Summary
+| **BPXDI1_clean** | Diastolic BP, first reading, after outlier removal | Quantitative (Integer) |
 
 Summary statistics for the continuous and categorical variables:
 
-Table 1: Summary of numeric data.
+Table 2: Summary of numeric data.
 
 | Variable     | mean   | stdev | median | min   | max    |
 |:-------------|:-------|:------|:-------|:------|:-------|
@@ -192,7 +209,7 @@ Table 1: Summary of numeric data.
 | **BPXSY1**   | 127.95 | 18.52 | 126.00 | 78.00 | 224.00 |
 | **BPXDI1**   | 76.06  | 12.04 | 76.00  | 0.00  | 124.00 |
 
-Table 2: Summary of categorical data.
+Table 3: Summary of categorical data.
 
 | Variable                            | Count (Percent) |
 |:------------------------------------|:----------------|
@@ -206,37 +223,128 @@ Table 2: Summary of categorical data.
 | Non-Hispanic Black                  | 483 (23.97%)    |
 | Other Race - Including Multi-Racial | 440 (21.84%)    |
 
+## Codebook (HTML Rendering)
+
 ```{r}
-numeric_vars <- c("RIDAGEYR", "LBXBPB", "LBXBCD", "LBXBMN", "BPXSY1", "BPXDI1")
+library(labelled)
+library(dataReporter)
 
-numeric_summary <- nhanes_clean %>%
-  select(all_of(numeric_vars)) %>%
-  summarise(across(
-    everything(),
-    list(
-      mean = mean,
-      sd = sd,
-      median = median,
-      min = min,
-      max = max
+# Assign variable labels
+var_labels <- c(
+  SEQN = "Subject ID: Individual Identifier",
+  RIDAGEYR = "Age in years at screening (40-65)",
+  RIAGENDR = "Sex: male or female",
+  RIDRETH1 = "Race / Ethnicity",
+  LBXBPB = "Blood lead (µg/dL)",
+  LBXBPB_clean_log = "Blood lead after outlier removal and log transformation",
+  LBXBCD = "Blood cadmium (µg/dL)",
+  LBXBCD_clean_log = "Blood cadmium after outlier removal and log transformation",
+  LBXBMN = "Blood manganese (µg/dL)",
+  LBXBMN_clean_log = "Blood manganese after outlier removal and log transformation",
+  BPXSY1 = "Systolic BP, first reading",
+  BPXSY1_clean = "Systolic BP, first reading after outlier removal",
+  BPXDI1 = "Diastolic BP, first reading",
+  BPXDI1_clean = "Diastolic BP, first reading after outlier removal"
+)
+
+# Convert your named character vector to a named list
+var_labels_list <- as.list(var_labels)
+
+# Apply labels to the dataframe
+nhanes_clean <- set_variable_labels(nhanes_clean, .labels = var_labels_list)
+
+
+suppressWarnings(makeCodebook(nhanes_clean, file = "my_data_report.html", output = "html", replace = TRUE))
+```
+
+## Codebook (Table Rendering)
+
+```{r}
+library(dplyr)
+library(purrr)
+library(tibble)
+
+# Numeric variables codebook
+numeric_codebook <- nhanes_clean %>%
+  select(where(is.numeric)) %>%
+  map_dfr(~{
+    tibble(
+      type = class(.x)[1],
+      missing = sum(is.na(.x)),
+      min = min(.x, na.rm = TRUE),
+      q25 = quantile(.x, 0.25, na.rm = TRUE),
+      median = median(.x, na.rm = TRUE),
+      mean = mean(.x, na.rm = TRUE),
+      q75 = quantile(.x, 0.75, na.rm = TRUE),
+      max = max(.x, na.rm = TRUE)
     )
-  )) %>%
-  pivot_longer(
-    cols = everything(),
-    names_to = c("Variable", "Statistic"),
-    names_sep = "_",
-    values_to = "Value"
-  ) %>%
-  pivot_wider(
-    names_from = Statistic,
-    values_from = Value
-  )
+  }, .id = "variable")
 
-numeric_summary
+
+# Display results
+print(numeric_codebook, n = Inf)
+
 ```
 
 ```{r}
-# Categorical summary
+# Categorical variables codebook
+categorical_codebook <- nhanes_clean %>%
+  select(where(~is.factor(.x) || is.character(.x))) %>%
+  map_dfr(~{
+    unique_vals <- unique(.x)
+    tibble(
+      type = class(.x)[1],
+      missing = sum(is.na(.x)),
+      n_unique = length(unique_vals),
+      levels = paste(head(unique_vals, 10), collapse = ", ") # show first 10
+    )
+  }, .id = "variable")
+
+# Display results
+print(categorical_codebook, n = Inf)
+
+```
+
+```{r}
+# categorical codebook -- easier to see
+categorical_vars <- c("RIAGENDR", "RIDRETH1")
+
+categorical_summary <- lapply(categorical_vars, function(var) {
+  nhanes_clean %>%
+    group_by(.data[[var]]) %>%
+    summarise(
+      count = n(),
+      .groups = "drop"
+    ) %>%
+    mutate(
+      variable = var,
+      missing = sum(is.na(nhanes_clean[[var]]))
+    ) %>%
+    select(variable, level = .data[[var]], count, missing)
+}) %>%
+  bind_rows()
+
+categorical_summary
+```
+
+## Analytic Tibble
+
+```{r}
+head(nhanes_clean)
+
+```
+
+# Summary Statistics
+
+```{r}
+library(psych)
+
+# numeric variables
+describe(nhanes_clean)
+```
+
+```{r}
+# Categorical variables
 library(dplyr)
 library(tidyr)
 
@@ -262,174 +370,200 @@ cat_summary <- lapply(cat_vars, summarize_cat, data = nhanes_clean) %>%
 cat_summary
 ```
 
-# Analysis B: Comparing 2 Means with Independent Samples (Blood Lead (LBXBPB) by Sex)
+# Study 1 Analyses
+
+## Analysis B: Comparing 2 Means with Independent Samples (Blood Lead Levels by Sex)
 
 **Question:** Is the blood lead level different in males and females?
 
-**Dataset Description:** The dataset was stratified by sex. Mean blood lead levels, in µg/dL (LBXBPB), were compared between the two sexes (male, female). There were 975 males and 1040 females in the dataset.
+**Dataset Description:** The dataset was stratified by sex. Mean blood lead levels (LBXBPB_clean_log), were compared between the two sexes (male, female). There were 769 males and 821 females in the dataset.
 
-**Main analysis:** A Mann-Whitney U test was used to compare the distribution of blood lead levels between the two sexes. A significance level of 0.1 was used. This test does not assume anything about the underlying distribution of the data. The effect size was also computed (small: 0.1, medium: 0.3, large: 0.5).
+**Main analysis:** A two-tailed t-test was used to compare the difference in mean blood lead levels (log-transformed) between males and females. A significance level of 0.1 was used. The effect size (Cohen's d) was also computed (small: 0.2, medium: 0.5, large: 0.8). This set-up is essentially equivalent to univariate OLS, where the beta coefficient ($\beta_1$) corresponds to the difference in means of the two groups and the intercept ($\beta_0$) corresponds to the mean lead concentration of the reference group. OLS assumes that the data (or rather, the errors) follow a normal distribution, the errors are independent, and the errors have a constant variance. $$log(lead\_conc) = \beta_0 + \beta_1(male\_sex) \\
+lead\_conc = e^{\beta_0 + \beta_1(male\_sex)} \\
+\text{Fold change }lead\_conc = e^{\beta_1}$$
 
-**Conclusions:** The median blood lead level was 1.13 ± 0.93 µg/dL (median ± IQR) for males and 0.94 ± 0.8 µg/dL for females. The difference was statistically significant at the 0.1 level, but the effect size was low (0.15). I conclude that males and females have no appreciable difference in blood lead levels.
+**Conclusions:** The median blood lead level was 0.71 ± 0.25 (mean ± SD) for males and 0.65 ± 0.25 for females, which translates to a 6% (difference in means: 0.71-0.65 = 0.06 $\rightarrow$ fold change: $e^{0.06} = 1.06$, $\rightarrow$ 6% increase) difference in blood lead concentrations between males and females. The difference was statistically significant at the 0.1 level, but the effect size was low (0.26). I conclude that males and females have no appreciable difference in blood lead levels.
 
 *Note:* The same analyses were conducted for other numeric variables: blood cadmium level (LBXBCD), blood manganese level (LBXBMN), systolic blood pressure (BPXSY1), and diastolic blood pressure (BPXDI1).
 
-**RE-CHECK THE TEST STATS AND EFFECT SIZES!!!**
-
 ```{r}
+# I'm only using the blood lead levels for the write-up, but I repeated the other analyses for the dashboard
+
 library(dplyr)
 library(rstatix)
-library(tidyr)
 
-# List of numeric variables to summarize
-numeric_vars <- c("LBXBPB", "LBXBCD", "LBXBMN", "BPXSY1", "BPXDI1")
 
-# List of numeric variables
-numeric_vars <- c("LBXBPB", "LBXBCD", "LBXBMN", "BPXSY1", "BPXDI1")
-
-# Function to summarize one variable
-summarize_var_one_row <- function(var_name, data) {
+# Function to summarize one variable by sex
+summarize_ttest <- function(var_name, data, group_var) {
   
-  # Compute median ± IQR by gender
-  summary_tbl <- data %>%
-    group_by(RIAGENDR) %>%
+  # Run t-test
+  t_res <- data %>%
+    t_test(as.formula(paste(var_name, "~", group_var)))
+  
+  # Calculate effect size (Cohen's d)
+  d_res <- data %>%
+    cohens_d(as.formula(paste(var_name, "~", group_var)))
+  
+  # Compute mean and SD by group
+  group_stats <- data %>%
+    group_by(.data[[group_var]]) %>%
     summarise(
       n = n(),
-      median = median(.data[[var_name]], na.rm = TRUE),
-      IQR = IQR(.data[[var_name]], na.rm = TRUE),
+      mean = mean(.data[[var_name]], na.rm = TRUE),
+      sd = sd(.data[[var_name]], na.rm = TRUE),
       .groups = "drop"
     ) %>%
-    mutate(`Median ± IQR` = paste0(median, " ± ", IQR)) %>%
-    select(RIAGENDR, n, `Median ± IQR`)
-  
-  # Mann-Whitney test
-  mw_test <- wilcox_test(data, formula = as.formula(paste(var_name, "~ RIAGENDR")))
-  
-  # Effect size (r) 
-  group_sizes <- data %>%
-    group_by(RIAGENDR) %>%
-    summarise(n = sum(!is.na(.data[[var_name]]))) %>%
-    pull(n)
-  
-  n1 <- group_sizes[1]
-  n2 <- group_sizes[2]
-  W <- mw_test$statistic
-  mu_W <- n1 * n2 / 2
-  sigma_W <- sqrt(n1 * n2 * (n1 + n2 + 1) / 12)
-  Z <- (W - mu_W) / sigma_W
-  N <- sum(!is.na(data[[var_name]]))
-  r <- Z / sqrt(N)
-  
-  # Pivot summary to have one row per variable
-  summary_wide <- summary_tbl %>%
     pivot_wider(
-      names_from = RIAGENDR,
-      values_from = c(n, `Median ± IQR`),
+      names_from = group_var,
+      values_from = c(n, mean, sd),
       names_sep = "_"
-    ) %>%
-    mutate(
-      variable = var_name,
-      p_value = round(mw_test$p, 3),
-      significant = ifelse(p_value < 0.05, "Yes", "No"),
-      effect_size_r = round(r, 3)
-    ) %>%
-    select(variable, n_Male, `Median ± IQR_Male`, n_Female, `Median ± IQR_Female`,
-           p_value, significant, effect_size_r)
+    )
   
-  return(summary_wide)
+  # Combine results
+  summary_tbl <- group_stats %>%
+    mutate(
+      t_statistic = round(t_res$statistic, 3),
+      p_value = round(t_res$p, 3),
+      cohen_d = round(d_res$effsize, 3)
+    )
+  
+  # Add descriptor column for pivoting
+  summary_long <- summary_tbl %>%
+    pivot_longer(
+      cols = everything(),
+      names_to = "descriptor",
+      values_to = var_name
+    )
+  
+  return(summary_long)
 }
 
+
+
+# Variables of interest
+numeric_vars <- c("LBXBPB_clean_log", "LBXBCD_clean_log", "LBXBMN_clean_log", "BPXSY1_clean", "BPXDI1_clean")
+group_var <- "RIAGENDR"
+
 # Apply function to all numeric variables
-all_summaries <- lapply(numeric_vars, summarize_var_one_row, data = nhanes_clean) %>%
-  bind_rows()
+ttest_results_long <- lapply(numeric_vars, summarize_ttest,
+                             data = nhanes_clean, group_var = group_var) %>%
+  reduce(left_join, by = "descriptor")
 
-# Display as tibble
-all_summaries
-```
-
-Distribution of blood lead levels:
-
-```{r}
-library(ggplot2)
-
-# Compute mean and SD of LBXBPB
-mean_lead <- mean(nhanes_clean$LBXBPB, na.rm = TRUE)
-sd_lead   <- sd(nhanes_clean$LBXBPB, na.rm = TRUE)
-
-# Plot histogram
-ggplot(nhanes_clean, aes(x = LBXBPB)) +
-  geom_histogram(aes(y = ..density..),  # density scale for overlay
-                 binwidth = 0.5,       # adjust as needed
-                 color = "black", fill = "lightblue") +
-  stat_function(fun = dnorm, 
-                args = list(mean = mean_lead, sd = sd_lead),
-                color = "red", size = 1) +
-  labs(
-    title = "Histogram of Blood Lead Levels with Normal Density",
-    x = "Blood Lead Level (µg/dL)",
-    y = "Density"
-  ) +
-  theme_minimal()
+# Display result for all vars as tibble
+ttest_results_long
 
 ```
 
-# Analysis C: Comparing Blood Lead Levels (LBXBPB) Across Races
+## Analysis C: Comparing Blood Lead Levels Across Races
 
 **Question:** Are blood lead levels different between races?
 
-**Dataset Description:** The dataset was stratified by race (Mexican American, other Hispanic, non-Hispanic white, non-Hispanic black, other/multiracial). Mean blood levels of lead, in µg/dL (LBXBPB), were compared across the 5 racial/ethnic groups. There were 303 individuals identifying as Mexican American, 208 as other Hispanic, 581 as non-Hispanic white, 483 as non-Hispanic black, and 440 as other/multiracial.
+**Dataset Description:** The dataset was stratified by race (Mexican American, other Hispanic, non-Hispanic white, non-Hispanic black, other/multiracial). Mean blood levels of lead (LBXBPB_clean_log), were compared across the 5 racial/ethnic groups. There were 303 individuals identifying as Mexican American, 208 as other Hispanic, 581 as non-Hispanic white, 483 as non-Hispanic black, and 440 as other/multiracial.
 
-**Main analysis:** A Kruskal-Wallis test was used to compare the distributions of blood lead levels across the 5 racial/ethnic groups, followed by post-hoc Mann-Whitney U tests to investigate significant comparisons. The effect size was also computed for Mann-Whitney U tests. (small: 0.1, medium: 0.3, large: 0.5). A significance level of 0.1 was used. This test does not assume anything about the underlying distribution of the data.
+**Main analysis:** Race/ethnicity was dummy-coded. A multivariate OLS model was used to compare mean blood lead levels, setting nonHhispanic white as the reference group. A significance level of 0.1 was used. This set-up is similar to an ANOVA followed by post-hoc testing. OLS assumes that the errors are iid, follow a normal distribution with a mean of 0, and have constant variance.
 
-**Conclusions:** The median blood lead level
+**Conclusions:** The mean blood lead level was 0.64 ± 0.25 (mean ± SD) for non-Hispanic whites, 0.66 ± 0.24 for Mexican Americans, 0.59 ± 0.24 for other Hispanics, 0.71 ± 0.26 for blacks, and 0.74 ± 0.24 for multiracial individuals. This translates into a 1.7% increase in blood lead levels in Mexican Americans compared to non-Hispanic whites, a 5.2% decrease in other Hispanics, a 6.23% increase in black individuals, and a 10.0% increase in blood lead levels multiracial individuals. All the comparisons were statistically significant except for Mexican Americans, whose blood lead levels were closer to the reference group. In conclusion,
 
 ```{r}
-nhanes_clean %>%
+# Compute mean blood lead per group
+group_means <- nhanes_clean %>%
   group_by(RIDRETH1) %>%
   summarise(
-    total = n(),
-    non_missing_LBXBPB = sum(!is.na(LBXBPB))
+    mean_LBXBPB_log = mean(LBXBPB_clean_log, na.rm = TRUE),
+    sd_LBXBPB_log   = sd(LBXBPB_clean_log, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) %>%
+  #filter(RIDRETH1 != "Non-Hispanic White") %>% # exclude reference if desired
+  rename(group = RIDRETH1)
+
+# Combine model results with group means
+group_means
+```
+
+```{r}
+# Ensure RIDRETH1 is a factor
+nhanes_clean <- nhanes_clean %>%
+  mutate(
+    RIDRETH1 = factor(RIDRETH1)
   )
 
-```
+# Set non-Hispanic White as the reference group
+nhanes_clean$RIDRETH1 <- relevel(nhanes_clean$RIDRETH1, ref = "Non-Hispanic White")
 
-```{r}
-library(dplyr)
-library(tidyr)
-library(rstatix)
 
-library(dplyr)
-library(rstatix)
+# Linear regression predicting log-transformed blood lead
+model <- lm(LBXBPB_clean_log ~ RIDRETH1, data = nhanes_clean)
 
-# Perform Kruskal-Wallis test
-kruskal_test_result <- nhanes_clean %>%
-  kruskal_test(LBXBPB ~ RIDRETH1)
-
-# View the Kruskal-Wallis test result
-kruskal_test_result
+# Summarize results
+summary(model)
 
 ```
 
 ```{r}
-# Perform Dunn's test for pairwise comparisons
-dunn_test_result <- nhanes_clean %>%
-  dunn_test(LBXBPB ~ RIDRETH1, p.adjust.method = "bonferroni")
+# Exponentiate coefficients to interpret them on the original scale
 
-# View the Dunn's test results
-dunn_test_result
+# Tidy the model output
+tidy_tbl <- tidy(model) %>%
+  filter(term != "(Intercept)") %>%  # remove intercept
+  # Exponentiate coefficients for interpretation on original scale
+  mutate(
+    fold_change = exp(estimate),
+    percent_change = (fold_change-1)*100,
+    # Clean up term names for group labels
+    group = gsub("RIDRETH1", "", term)
+  ) %>%
+  select(group, fold_change, percent_change) %>%
+  arrange(factor(group, levels = c("Mexican American", "Other Hispanic", "Non-Hispanic Black", "Other/Multiracial")))
 
-```
-
-Effect size:
-
-```{r}
-# Calculate effect size (eta-squared)
-eta_squared <- kruskal_test_result$statistic / (nrow(nhanes_clean) - 1)
-
-# Display the effect size
-eta_squared
+tidy_tbl
 ```
 
 # Analysis D: Analyzing a 2x2 table
+**Question:** Is the proportion of adults with high systolic blood pressure (>140 mmHg) different between males and females?
 
-# Analysis E: Analyzing a JxK table (where you substitute in the values for J and K)
+**Dataset Description:** There were 769 males and 821 females in the dataset. The exposure or grouping variable is sex (male/female). The outcome variable is high blood pressure (Yes/No). (It doesn't quite make sense to think of sex as an "exposure", but if we had something like "smoking" or "adverse childhood experiences" here, we could easily consider them exposures.) Of the males, 139 have high blood pressure, and 630 don't. Of the females, 141 have high blood pressure, and 680 don't. Ideally, this analysis would also be stratified by age (as males and females might have a different age distribution, and age is correlated with high BP), but that's outside the scope of this analysis.
+
+**Main analysis:** A two-way contingency table was used to determine the frequency of adverse outcomes (high systolic blood pressure) across the two exposure groups, and a chi squared test was used to assess statistical significance. A significance level of 0.1 was used. The null hypothesis is that high BP is equally likely in males and females, and the two variables (sex and high BP) are independent. In other words, the joint probability is the product of the marginal probabilities: $P(\text{male and high BP}) = P(male) \times P(\text{high BP})$. The expected counts for the 2x2 contingency table are derived from the joint probabilities under the assumption of independence (expected counts = joint probability * n). The null hypothesis will be rejected if the actual counts different significantly from the expected counts, meaning that the marginal probabilities are not independent. The chi squared test assumes that variables are categorical. Expected counts should be >5 for each cell (if not, a Fisher's exact test should be used).
+
+**Conclusions:** X-squared = 0.16451, df = 1, p-value = 0.685. We fail to reject the null hypothesis, meaning that we have no evidence to suggest that males and females have different rates of high blood pressure in our sample.
+
+```{r}
+# Binarize systolic BP into high (>140) and normal/low (<= 140)
+nhanes_clean <- nhanes_clean %>%
+  mutate(
+    
+    HighBP = ifelse(BPXSY1_clean > 140, "Yes", "No")
+  )
+
+# 2x2 Contingency Table to analyze exposures (or in this case, high BP) between two groups (male and female sex)
+tab <- table(nhanes_clean$RIAGENDR, nhanes_clean$HighBP)  # assuming HighBP = yes/no
+
+# Chi-squared test
+chisq.test(tab)
+
+# Odds ratio
+library(epitools)
+oddsratio(tab)
+
+```
+
+# Analysis E: Analyzing a 5x2 Contingency Table 
+
+**Question:** Is the proportion of adults with high systolic blood pressure (>140 mmHg) different between different racial and ethnic groups?
+
+**Dataset Description:** The null hypothesis is that the proportion of adults with high BP is the same across all racial/ethnic groups.
+
+**Main analysis:** 
+
+**Conclusions:** 
+
+```{r}
+tab <- table(nhanes_clean$RIDRETH1, nhanes_clean$HighBP)  # Race x BP category
+chisq_res <- chisq.test(tab)
+chisq_res
+
+# Cramer's V
+library(rcompanion)
+cramerV(tab)
+```
