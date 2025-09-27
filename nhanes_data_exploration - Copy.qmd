@@ -1,17 +1,24 @@
 ---
-title: "NHANES Project Report"
+title: "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)"
+author: 
+  - name: "First Last"       # Add full name(s), can list multiple authors
+    affiliation: "Your Institution"
+date: last-modified
+date-format: iso
 toc: true
 toc-location: left
+number-sections: true
 preview: images/research_preview.jpg   # optional thumbnail
 lightbox: true
-execute: 
+execute:
   echo: false
   warning: false
+  message: false
 ---
 
 # Central Hypothesis
 
-My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (e.g. lead exposure) have higher systolic blood pressure. To test this hypothesis, I am using data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years).
+My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (e.g. lead exposure) have higher systolic blood pressure. To test this hypothesis, I am using data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). In this study (Study 1 analyses), I am simply exploring the data and learning about the distributions of each of my variables of interest (sex, race/ethnicity, and heavy metal concentrations in the blood).
 
 # Setup and Data Ingest
 
@@ -21,6 +28,7 @@ The dataset consists of 2475 adults ages 40-65 participating in NHANES 2017-2020
 library(nhanesA)
 suppressWarnings(library(dplyr))
 library(tidyverse)
+library(patchwork)
 
 # Download three datasets
 demo  <- nhanes("DEMO_J")   # demographics
@@ -378,9 +386,10 @@ cat_summary
 
 **Dataset Description:** The dataset was stratified by sex. Mean blood lead levels (LBXBPB_clean_log), were compared between the two sexes (male, female). There were 769 males and 821 females in the dataset.
 
-**Main analysis:** A two-tailed t-test was used to compare the difference in mean blood lead levels (log-transformed) between males and females. A significance level of 0.1 was used. The effect size (Cohen's d) was also computed (small: 0.2, medium: 0.5, large: 0.8). This set-up is essentially equivalent to univariate OLS, where the beta coefficient ($\beta_1$) corresponds to the difference in means of the two groups and the intercept ($\beta_0$) corresponds to the mean lead concentration of the reference group. OLS assumes that the data (or rather, the errors) follow a normal distribution, the errors are independent, and the errors have a constant variance. $$log(lead\_conc) = \beta_0 + \beta_1(male\_sex) \\
-lead\_conc = e^{\beta_0 + \beta_1(male\_sex)} \\
-\text{Fold change }lead\_conc = e^{\beta_1}$$
+**Main analysis:** A two-tailed t-test was used to compare the difference in mean blood lead levels (log-transformed) between males and females. A significance level of 0.1 was used. The effect size (Cohen's d) was also computed (small: 0.2, medium: 0.5, large: 0.8). This set-up is essentially equivalent to univariate OLS, where the beta coefficient ($\beta_1$) corresponds to the difference in means of the two groups and the intercept ($\beta_0$) corresponds to the mean lead concentration of the reference group. OLS assumes that the data (or rather, the errors) follow a normal distribution, the errors are independent, and the errors have a constant variance. 
+$$log(lead\_conc) = \beta_0 + \beta_1(male\_sex)$$ 
+$$lead\_conc = e^{\beta_0 + \beta_1(male\_sex)}$$
+$$\text{Fold change }lead\_conc = e^{\beta_1}$$
 
 **Conclusions:** The median blood lead level was 0.71 ± 0.25 (mean ± SD) for males and 0.65 ± 0.25 for females, which translates to a 6% (difference in means: 0.71-0.65 = 0.06 $\rightarrow$ fold change: $e^{0.06} = 1.06$, $\rightarrow$ 6% increase) difference in blood lead concentrations between males and females. The difference was statistically significant at the 0.1 level, but the effect size was low (0.26). I conclude that males and females have no appreciable difference in blood lead levels.
 
@@ -458,9 +467,9 @@ ttest_results_long
 
 **Question:** Are blood lead levels different between races?
 
-**Dataset Description:** The dataset was stratified by race (Mexican American, other Hispanic, non-Hispanic white, non-Hispanic black, other/multiracial). Mean blood levels of lead (LBXBPB_clean_log), were compared across the 5 racial/ethnic groups. There were 303 individuals identifying as Mexican American, 208 as other Hispanic, 581 as non-Hispanic white, 483 as non-Hispanic black, and 440 as other/multiracial.
+**Dataset Description:** The dataset was stratified by race (Mexican American, other Hispanic, non-Hispanic white, non-Hispanic black, other/multiracial). Mean blood levels of lead (LBXBPB_clean_log), were compared across the 5 racial/ethnic groups. There were 459 individuals identifying as non-Hispanic white, 249 individuals identifying as Mexican American, 179 as other Hispanic, 376 as non-Hispanic black, and 327 as other/multiracial.
 
-**Main analysis:** Race/ethnicity was dummy-coded. A multivariate OLS model was used to compare mean blood lead levels, setting nonHhispanic white as the reference group. A significance level of 0.1 was used. This set-up is similar to an ANOVA followed by post-hoc testing. OLS assumes that the errors are iid, follow a normal distribution with a mean of 0, and have constant variance.
+**Main analysis:** Race/ethnicity was dummy-coded. A multivariate OLS model was used to compare mean blood lead levels, setting non-Hispanic white as the reference group. A significance level of 0.1 was used. This set-up is similar to an ANOVA followed by post-hoc testing. OLS assumes that the errors are iid, follow a normal distribution with a mean of 0, and have constant variance.
 
 **Conclusions:** The mean blood lead level was 0.64 ± 0.25 (mean ± SD) for non-Hispanic whites, 0.66 ± 0.24 for Mexican Americans, 0.59 ± 0.24 for other Hispanics, 0.71 ± 0.26 for blacks, and 0.74 ± 0.24 for multiracial individuals. This translates into a 1.7% increase in blood lead levels in Mexican Americans compared to non-Hispanic whites, a 5.2% decrease in other Hispanics, a 6.23% increase in black individuals, and a 10.0% increase in blood lead levels multiracial individuals. All the comparisons were statistically significant except for Mexican Americans, whose blood lead levels were closer to the reference group. In conclusion,
 
@@ -522,7 +531,7 @@ tidy_tbl
 # Analysis D: Analyzing a 2x2 table
 **Question:** Is the proportion of adults with high systolic blood pressure (>140 mmHg) different between males and females?
 
-**Dataset Description:** There were 769 males and 821 females in the dataset. The exposure or grouping variable is sex (male/female). The outcome variable is high blood pressure (Yes/No). (It doesn't quite make sense to think of sex as an "exposure", but if we had something like "smoking" or "adverse childhood experiences" here, we could easily consider them exposures.) Of the males, 139 have high blood pressure, and 630 don't. Of the females, 141 have high blood pressure, and 680 don't. Ideally, this analysis would also be stratified by age (as males and females might have a different age distribution, and age is correlated with high BP), but that's outside the scope of this analysis.
+**Dataset Description:** There were 769 males and 821 females in the dataset. There were 280 individuals with high systolic BP and 1310 individuals with normal-low systolic BP. The exposure or grouping variable is sex (male/female). The outcome variable is high blood pressure (Yes/No). (It doesn't quite make sense to think of sex as an "exposure", but if we had something like "smoking" or "adverse childhood experiences" here, we could easily consider them exposures.) Of the males, 139 have high blood pressure, and 630 don't. Of the females, 141 have high blood pressure, and 680 don't. Ideally, this analysis would also be stratified by age (as males and females might have a different age distribution, and age is correlated with high BP), but that's outside the scope of this analysis.
 
 **Main analysis:** A two-way contingency table was used to determine the frequency of adverse outcomes (high systolic blood pressure) across the two exposure groups, and a chi squared test was used to assess statistical significance. A significance level of 0.1 was used. The null hypothesis is that high BP is equally likely in males and females, and the two variables (sex and high BP) are independent. In other words, the joint probability is the product of the marginal probabilities: $P(\text{male and high BP}) = P(male) \times P(\text{high BP})$. The expected counts for the 2x2 contingency table are derived from the joint probabilities under the assumption of independence (expected counts = joint probability * n). The null hypothesis will be rejected if the actual counts different significantly from the expected counts, meaning that the marginal probabilities are not independent. The chi squared test assumes that variables are categorical. Expected counts should be >5 for each cell (if not, a Fisher's exact test should be used).
 
@@ -552,11 +561,11 @@ oddsratio(tab)
 
 **Question:** Is the proportion of adults with high systolic blood pressure (>140 mmHg) different between different racial and ethnic groups?
 
-**Dataset Description:** The null hypothesis is that the proportion of adults with high BP is the same across all racial/ethnic groups.
+**Dataset Description:** There were 459 individuals identifying as non-Hispanic white, 249 individuals identifying as Mexican American, 179 as other Hispanic, 376 as non-Hispanic black, and 327 as other/multiracial. There were 280 individuals with high systolic BP and 1310 individuals with normal-low systolic BP. 
 
-**Main analysis:** 
+**Main analysis:** A chi square test was used to assess whether the probability of having high systolic BP is different across different racial/ethnic groups. The null hypothesis is that the probability of adults having high BP is the same across all racial/ethnic groups (the expected counts don't all have to be the same because we have a different number of people from each racial/ethnic group, but they all have the same probability of having high BP). A significance level of 0.1 was used.
 
-**Conclusions:** 
+**Conclusions:** The probability of having high systolic blood pressure does differ slightly by racial and ethnic group (X-squared = 23.096, df = 4, p-value = 0.0001211, Cramer's V = 0.1205, indicating a small effect size). The actual difference is not very large, but it is statistically significant due to the large sample size. Non-Hispanic whites have disproportionately lower proportion of individuals with high systolic BP (Pearson residual < -2), while non-Hispanic blacks have a disproportionately higher proportion of people with high BP (Pearson residual > 2).
 
 ```{r}
 tab <- table(nhanes_clean$RIDRETH1, nhanes_clean$HighBP)  # Race x BP category
@@ -566,4 +575,8 @@ chisq_res
 # Cramer's V
 library(rcompanion)
 cramerV(tab)
+```
+```{r}
+# look at chi square Pearson residuals: (observed - expected)/(sqrt expected)
+chisq_res$residuals
 ```

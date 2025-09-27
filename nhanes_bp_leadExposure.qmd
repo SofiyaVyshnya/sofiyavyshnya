@@ -1,0 +1,548 @@
+---
+title: "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure"
+author: 
+  - name: "First Last"       # Add full name(s), can list multiple authors
+    affiliation: "Your Institution"
+date: last-modified
+date-format: iso
+toc: true
+toc-location: left
+number-sections: true
+preview: images/research_preview.jpg   # optional thumbnail
+lightbox: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Central Hypothesis
+
+My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (e.g. lead exposure) have higher systolic blood pressure. To test this hypothesis, I am using data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). In this study (Study 2 analyses), I am modeling the relationship between the concentration of lead in the blood and blood pressure.
+
+# Setup and Data Ingest
+
+The dataset consists of 2475 adults ages 40-65 participating in NHANES 2017-2020. The original NHANES data from 2017-2020 contained 9254 observations collected from individuals age 0-80. However, after selecting individuals aged 40-65, 2475 individuals were left.
+
+```{r}
+library(nhanesA)
+suppressWarnings(library(dplyr))
+library(tidyverse)
+library(patchwork)
+
+# Download three datasets
+demo  <- nhanes("DEMO_J")   # demographics
+pbcd  <- nhanes("PBCD_J")   # heavy metals (lead, cadmium, manganese) in blood
+bpx   <- nhanes("BPX_J")    # blood pressure
+
+# Merge them
+nhanes_data <- Reduce(function(x, y) merge(x, y, by = "SEQN", all = TRUE),
+                      list(demo, pbcd, bpx))
+
+# Save to RDS for later use
+saveRDS(nhanes_data, "data/nhanes_combined.rds")
+
+# Pull out only variables of interest
+nhanes_subset <- nhanes_data %>%
+  select(
+    SEQN,       # participant ID
+    RIDAGEYR,   # age
+    RIAGENDR,   # gender
+    RIDRETH1,   # race
+    LBXBPB,     # blood lead
+    LBXBCD,     # blood cadmium
+    LBXBMN,     # blood manganese
+    BPXSY1,     # systolic BP
+    BPXDI1,     # diastolic BP
+  )
+
+# Filter for participants 18–65 years old 
+nhanes_filtered <- nhanes_subset %>% 
+  filter(RIDAGEYR >= 40, RIDAGEYR <= 65) %>%
+
+  # Re-name "Other Race - Including Multi-Racial" category in RIDRETH1 to Exclude Prohibited Characters 
+  mutate( 
+    RIDRETH1 = fct_recode(RIDRETH1, "Other/Multiracial" = "Other Race - Including Multi-Racial") 
+    )
+```
+
+# Data Cleaning
+
+Outliers (defined as values \< Q1- 1.5*IQR or \> Q3+1.5*IQR) were removed. Data were imputed using MICE. The resulting dataset has 2475 observations.
+
+## Data Imputation
+### Demonstration of Missing Data & Investigating Patterns of Data Missingness (MCAR, MAR, NMAR)
+First, I want to find out any patterns in my missing values to understand whether the data is missing completely at random (MCAR), missing at random (MAR), or missing not at random (MNAR).
+```{r}
+# Explore where missing values occur on a heatmap of the data
+library(naniar)
+
+vis_miss(nhanes_filtered)
+miss_var_summary(nhanes_filtered)
+```
+The data is not missing completely at random. Missingness is observed in blocks/clusters: one cluster is for lab values (LBXBPB, LBXBCD, LBXBMN) and another is for blood pressure readings (BPXSY1, BPXDI1). Individuals who are missing one lab value are also going to be missing the others. Likewise, individuals who are missing one blood pressure reading will also be missing the others. Furthermore, it's possible that individuals missing lab values are also more likely to have blood pressure readings missing. To investigate this, I will use a Chi square test to see if there is any dependency in the missingness of lab values and blood pressure:
+
+```{r}
+# create indicators
+nhanes_filtered$lab_missing  <- as.integer(
+  is.na(nhanes_filtered$LBXBPB) | is.na(nhanes_filtered$LBXBCD) | is.na(nhanes_filtered$LBXBMN)
+)
+nhanes_filtered$bp_missing   <- as.integer(
+  is.na(nhanes_filtered$BPXSY1) | is.na(nhanes_filtered$BPXDI1)
+)
+
+# Contingency table
+tab <- table(nhanes_filtered$lab_missing, nhanes_filtered$bp_missing)
+tab
+
+# Chi-squared test
+chisq.test(tab)    
+
+# Effect size: Cramer's V (equivalent to phi coefficient for 2x2)
+library(rcompanion)
+cramerV(tab)
+```
+The significant test result and moderate effect size suggests some dependency: individuals missing lab values are also somewhat more likely to have BP values missing (or vice versa?).
+
+Next, I want to check if the missingness is associated with observed covariates. This makes it more likely that the missing values are MAR.
+```{r}
+# logistic regression predicting missingness (binary outcome) on other covariates
+model_lab <- glm(lab_missing ~ RIDAGEYR + RIAGENDR + RIDRETH1, 
+                 data = nhanes_filtered, family = binomial)
+summary(model_lab)
+
+model_bp  <- glm(bp_missing ~ RIDAGEYR + RIAGENDR + RIDRETH1, 
+                 data = nhanes_filtered, family = binomial)
+summary(model_bp)
+
+```
+From the regression otput, it appears that missingness in lab values is related to observed covariates in the dataset -- certain sexes and races are more likely to have data missing. Therefore, I can plausibly assume that the data is missing at random (MAR). However, for blood pressure values, that does not seem to be the case. It is therefore possible that missingness is driven by some unobserved variable and BP values could be NMAR. However, for the purposes of this assignment, *I will assume that all data is MAR*. Thus, standard imputation methods like multiple imputation (MICE) are appropriate.
+
+### Imputation Method: MICE (Based on Desired Model that uses heavy metal concentrations in the blood + race/ethnicity + sex to predict systolic blood pressure)
+I used predictive mean matching (PMM) for continuous variables. The categorical variables in the dataset (sex, race/ethnicity) had no missing values according to the heatmap in the section "Demonstration of Missing Data & Investigating Patterns of Data Missingness (MCAR, MAR, NMAR)". Only predictor variables were imputed; the outcome variable, systolic blood pressure (BPXSY1), was not imputed.
+```{r, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
+library(mice)
+
+# Impute filtered dataset 
+# Define methods per variable
+meth <- make.method(nhanes_filtered)
+meth[c("LBXBPB", "LBXBCD", "LBXBMN")] <- "pmm"
+meth["SEQN"] <- ""  # ID variable excluded
+
+# Perform imputation
+set.seed(123)
+imp <- mice(
+  nhanes_filtered,
+  m = 1,       # single imputed dataset
+  method = meth,
+  maxit = 20,
+  printFlag = FALSE    # <-- suppress iteration output
+)
+
+# Complete data after imputation
+nhanes_imputed <- complete(imp, 1)
+```
+
+```{r}
+# confirm no missing data for predictors
+sapply(nhanes_imputed, function(x) sum(is.na(x)))  
+```
+The only missing values should be in the outcome variable, not the predictor variables.
+
+
+## Outlier Removal
+An alternative strategy would be to impute outliers instead of simply dropping them.
+
+```{r}
+# ------------- Helper functions --------------------
+
+# define helper function for visualization: function takes in the original data & drops outliers for numeric variables 
+make_three_plots <- function(data, var, var_label = var) {
+  
+  #data <- data %>%
+  #  drop_na()
+  
+  vals <- data[[var]]
+  
+  # Outlier removal (IQR rule)
+  Q1 <- quantile(vals, 0.25, na.rm = TRUE)
+  Q3 <- quantile(vals, 0.75, na.rm = TRUE)
+  IQR_val <- IQR(vals, na.rm = TRUE)
+  
+  lower <- Q1 - 1.5 * IQR_val
+  upper <- Q3 + 1.5 * IQR_val
+  
+  clean_vals <- vals[vals >= lower & vals <= upper]
+  
+  # Plots
+  p_all <- ggplot(data.frame(x = vals), aes(x = x)) +
+    geom_histogram(binwidth = diff(range(vals, na.rm=TRUE))/30,
+                   fill = "gray70", color = "white") +
+    labs(title = str_wrap(paste(var_label, "(All Data)"), width = 25),
+         x = var_label, y = "Count") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 10))
+  
+  p_clean <- ggplot(data.frame(x = clean_vals), aes(x = x)) +
+    geom_histogram(binwidth = diff(range(clean_vals))/30,
+                   fill = "skyblue", color = "white") +
+    labs(title = str_wrap(paste(var_label, "(Outliers Removed)"), width = 25),
+         x = var_label, y = "Count") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 10))
+  
+  return(p_all + p_clean) # 2-column row
+}
+
+# define helper function for removing outliers from the data (for continuous variables) 
+remove_outliers <- function(x) {
+  if (!is.numeric(x)) return(x)  # skip non-numeric
+  q1 <- quantile(x, 0.25, na.rm = TRUE)
+  q3 <- quantile(x, 0.75, na.rm = TRUE)
+  iqr <- q3 - q1
+  lower <- q1 - 1.5 * iqr
+  upper <- q3 + 1.5 * iqr
+  x[x < lower | x > upper] <- NA
+  return(x)
+}
+
+```
+
+Check data distributions before and after dropping outliers
+```{r}
+
+# Generate distribution plots
+p_lead      <- make_three_plots(nhanes_imputed, "LBXBPB", "Blood Lead")
+p_cadmium   <- make_three_plots(nhanes_imputed, "LBXBCD", "Blood Cadmium")
+p_manganese <- make_three_plots(nhanes_imputed, "LBXBMN", "Blood Manganese")
+p_sbp <- make_three_plots(nhanes_imputed, "BPXSY1", "Systolic BP")
+# Plot the 4 numeric variables (original and cleaned versions) on a 4x2 grid
+final_plot <- (p_lead / p_cadmium / p_manganese / p_sbp)
+
+final_plot
+
+# Apply helper function to lab values (numeric variables) to remove outliers and plot the data
+numeric_vars <- c("LBXBPB", "LBXBCD", "LBXBMN", "BPXSY1", "BPXDI1")
+
+nhanes_clean <- nhanes_imputed %>%
+  # Remove outliers -> "_clean" columns
+  mutate(across(all_of(numeric_vars), remove_outliers, .names = "{.col}_clean"))  %>%
+
+  # Drop rows with NA values introduced by outlier removal
+  drop_na()
+
+
+
+# Save cleaned data 
+saveRDS(nhanes_clean, "data/nhanes_cleaned_study2.rds")
+```
+
+
+
+
+# Dataset Description and Codebook
+
+## \[Final\] Dataset Description & Summary Statistics
+
+Table 1: Variables included in the data.
+
+| Variable | Description | Data Type |
+|:-----------------------|:-----------------------|:-----------------------|
+| **SEQN** | Subject ID: Individual Identifier | Quantitative (Integer) |
+| **RIDAGEYR** | Age: Age in years at screening, range 40-65 | Quantitative (Integer) |
+| **RIAGENDR** | Sex: male or female | Binary |
+| **RIDRETH1** | Race | Multi-level Categorical |
+| **LBXBPB** | Blood lead (µg/dL) | Quantitative (Continuous) |
+| **LBXBPB_clean** | **Key Predictor**: Blood lead after outlier removal| Quantitative (Continuous) |
+| **LBXBCD** | Blood cadmium (µg/dL) | Quantitative (Continuous) |
+| **LBXBCD_clean** | **Key Predictor**: Blood cadmium (µg/dL) after outlier removal | Quantitative (Continuous) |
+| **LBXBMN** | Blood manganese (µg/dL) | Quantitative (Continuous) |
+| **LBXBMN_clean** | **Key Predictor**: Blood manganese (µg/dL) after outlier removal | Quantitative (Continuous) |
+| **BPXSY1** | Systolic BP, first reading | Quantitative (Integer) |
+| **BPXSY1_clean** | **Outcome**: Systolic BP, first reading, after outlier removal | Quantitative (Integer) |
+| **BPXDI1** | Diastolic BP, first reading | Quantitative (Integer) |
+| **BPXDI1_clean** | Diastolic BP, first reading, after outlier removal | Quantitative (Integer) |
+
+Summary statistics for the continuous and categorical variables:
+
+Table 2: Summary of numeric data.
+
+| Variable     | mean   | stdev | median | min   | max    |
+|:-------------|:-------|:------|:-------|:------|:-------|
+| **RIDAGEYR** | 53.46  | 7.59  | 54.00  | 40.00 | 65.00  |
+| **LBXBPB**   | 1.04   | 0.54  | 0.94   | 0.12  | 2.79  |
+| **LBXBCD**   | 0.37   | 0.25  | 0.30   | 0.07  | 1.21   |
+| **LBXBMN**   | 9.67  | 3.01  | 9.32   | 3.07  | 18.34  |
+| **BPXSY1**   | 126.68 | 16.01 | 126.00 | 88.00 | 170.00 |
+| **BPXDI1**   | 76.17  | 10.02 | 76.00  | 50.00  | 104.00 |
+| **LBXBPB_clean**   | 1.04   | 0.54  | 0.94   | 0.11  | 0.12  |
+| **LBXBCD_clean**   | 0.37   | 0.25  | 0.30   | 0.07  | 0.07   |
+| **LBXBMN_clean**   | 9.67  | 3.01  | 9.32   | 1.40  | 3.07  |
+| **BPXSY1_clean**   | 126.68 | 16.01 | 126.00 | 88.00 | 170.00 |
+| **BPXDI1_clean**   | 76.17  | 10.02 | 76.00  | 50.00  | 104.00 |
+
+Table 3: Summary of categorical data.
+
+| Variable                            | Count (Percent) |
+|:------------------------------------|:----------------|
+| **RIAGENDR: Sex**                   |                 |
+| Male                                | 943 (47.99%)    |
+| Female                              | 1022 (52.01%)   |
+| **RIDRETH1: Race**                  |                 |
+| Mexican American                    | 294 (14.96%)    |
+| Other Hispanic                      | 218 (11.09%)    |
+| Non-Hispanic White                  | 559 (28.44%)    |
+| Non-Hispanic Black                  | 489 (24.88%)    |
+| Other Race - Including Multi-Racial | 405 (20.61%)    |
+
+## Codebook (HTML Rendering)
+
+```{r}
+library(labelled)
+library(dataReporter)
+
+# Assign variable labels
+var_labels <- c(
+  SEQN = "Subject ID: Individual Identifier",
+  RIDAGEYR = "Age in years at screening (40-65)",
+  RIAGENDR = "Sex: male or female",
+  RIDRETH1 = "Race / Ethnicity",
+  LBXBPB = "Blood lead (µg/dL)",
+  LBXBPB_clean = "Blood lead after outlier removal",
+  LBXBCD = "Blood cadmium (µg/dL)",
+  LBXBCD_clean = "Blood cadmium after outlier removal",
+  LBXBMN = "Blood manganese (µg/dL)",
+  LBXBMN_clean = "Blood manganese after outlier removal",
+  BPXSY1 = "Systolic BP, first reading",
+  BPXSY1_clean = "Systolic BP, first reading after outlier removal",
+  BPXDI1 = "Diastolic BP, first reading",
+  BPXDI1_clean = "Diastolic BP, first reading after outlier removal"
+)
+
+# Convert your named character vector to a named list
+var_labels_list <- as.list(var_labels)
+
+# Apply labels to the dataframe
+nhanes_clean <- set_variable_labels(nhanes_clean, .labels = var_labels_list)
+
+
+suppressWarnings(makeCodebook(nhanes_clean, file = "my_data_report_study2.html", output = "html", replace = TRUE))
+```
+
+## Codebook (Table Rendering)
+
+```{r}
+library(dplyr)
+library(purrr)
+library(tibble)
+
+# Numeric variables codebook
+numeric_codebook <- nhanes_clean %>%
+  select(where(is.numeric)) %>%
+  map_dfr(~{
+    tibble(
+      type = class(.x)[1],
+      missing = sum(is.na(.x)),
+      min = min(.x, na.rm = TRUE),
+      q25 = quantile(.x, 0.25, na.rm = TRUE),
+      median = median(.x, na.rm = TRUE),
+      mean = mean(.x, na.rm = TRUE),
+      q75 = quantile(.x, 0.75, na.rm = TRUE),
+      max = max(.x, na.rm = TRUE)
+    )
+  }, .id = "variable")
+
+
+# Display results
+print(numeric_codebook, n = Inf)
+
+```
+
+```{r}
+# Categorical variables codebook
+categorical_codebook <- nhanes_clean %>%
+  select(where(~is.factor(.x) || is.character(.x))) %>%
+  map_dfr(~{
+    unique_vals <- unique(.x)
+    tibble(
+      type = class(.x)[1],
+      missing = sum(is.na(.x)),
+      n_unique = length(unique_vals),
+      levels = paste(head(unique_vals, 10), collapse = ", ") # show first 10
+    )
+  }, .id = "variable")
+
+# Display results
+print(categorical_codebook, n = Inf)
+
+```
+
+```{r}
+# categorical codebook -- easier to see
+categorical_vars <- c("RIAGENDR", "RIDRETH1")
+
+categorical_summary <- lapply(categorical_vars, function(var) {
+  nhanes_clean %>%
+    group_by(.data[[var]]) %>%
+    summarise(
+      count = n(),
+      .groups = "drop"
+    ) %>%
+    mutate(
+      variable = var,
+      missing = sum(is.na(nhanes_clean[[var]]))
+    ) %>%
+    select(variable, level = .data[[var]], count, missing)
+}) %>%
+  bind_rows()
+
+categorical_summary
+```
+
+## Analytic Tibble
+
+```{r}
+head(nhanes_clean)
+
+```
+
+# Summary Statistics
+
+```{r}
+library(psych)
+
+# numeric variables
+describe(nhanes_clean)
+```
+
+```{r}
+# Categorical variables
+library(dplyr)
+library(tidyr)
+
+# List of categorical variables to summarize
+cat_vars <- c("RIAGENDR", "RIDRETH1")
+
+# Function to summarize one categorical variable
+summarize_cat <- function(var_name, data) {
+  data %>%
+    count(.data[[var_name]]) %>%
+    mutate(
+      Proportion = n / sum(n),
+      variable = var_name,
+      level = .data[[var_name]]
+    ) %>%
+    select(variable, level, n, Proportion)
+}
+
+# Loop over variables and combine
+cat_summary <- lapply(cat_vars, summarize_cat, data = nhanes_clean) %>%
+  bind_rows()
+
+cat_summary
+```
+
+# My Research Question
+*How does blood pressure vary with concentration of heavy metals in the blood?* I know that heavy metals can lead to inflammation, which can affect cardiovascular health. My hypothesis is that blood pressure has a positive relationship with heavy metal concentrations in the blood. In Study 1, I learned that blood pressure is also influenced by sex (to a small degree) and by race/ethnicity (to a larger degree), so I will control for these demographic variables.
+
+# Partitioning the Data
+Perform an 80/20 train/test split:
+```{r}
+library(rsample)
+
+set.seed(123)  # for reproducibility
+
+# Create a split object
+split <- initial_split(nhanes_clean, prop = 0.8)
+
+# Extract training and testing datasets
+train_data <- training(split)
+test_data  <- testing(split)
+
+# ----------- Demonstrate that each subject is in exactly one set
+all_subjects <- nhanes_clean$SEQN
+train_subjects <- train_data$SEQN
+test_subjects  <- test_data$SEQN
+
+# a) no overlap
+intersect(train_subjects, test_subjects)  # should return integer(0)
+
+# b) all subjects accounted for
+setdiff(all_subjects, c(train_subjects, test_subjects))  # should return integer(0)
+```
+
+# Transforming the Outcome
+I did not transform the outcome variable because it already follows an approximately Gaussian distribution.
+
+# The Big Model
+I am regressing systolic BP on blood concentrations of heavy metals (lead: LBXBPB, cadmium: LBXBCD, and manganese: LBXBMN). I am also controlling for potential demographic influences on systolic BP -- age, sex, and race/ethnicity.
+
+```{r}
+# Linear regression predicting systolic BP from heavy metal concentration in blood
+model <- lm(BPXSY1_clean ~ LBXBPB_clean + LBXBCD_clean + LBXBMN_clean + RIDAGEYR + RIAGENDR + RIDRETH1, data = train_data)
+
+# Model fit statistics
+model_stats <- glance(model) %>%
+  select(r.squared, adj.r.squared, AIC, BIC) %>%
+  mutate(across(where(is.numeric), round, 3))
+
+# Summarize results
+summary(model)
+model_stats
+```
+
+```{r}
+library(ggplot2)
+
+# Create a dataframe for plotting
+resid_data <- data.frame(
+  Fitted = model$fitted.values,
+  Residuals = model$residuals
+)
+
+ggplot(resid_data, aes(x = Fitted, y = Residuals)) +
+  geom_point(alpha = 0.6) +                        # scatter points
+  geom_smooth(method = "loess", se = FALSE, color = "blue") + # LOESS smooth
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed") + 
+  theme_minimal() +
+  labs(title = "Residuals vs Fitted with LOESS",
+       x = "Fitted values",
+       y = "Residuals")
+```
+
+# The Smaller Model
+I am regressing systolic BP on blood concentrations of heavy metals (lead: LBXBPB, cadmium: LBXBCD, and manganese: LBXBMN). I am, however, leaving out the demographic features.
+
+```{r}
+# Linear regression predicting systolic BP from heavy metal concentration in blood
+model_small <- lm(BPXSY1_clean ~ LBXBPB_clean + LBXBCD_clean + LBXBMN_clean, data = train_data)
+
+# Model fit statistics
+model_stats_small <- glance(model_small) %>%
+  select(r.squared, adj.r.squared, AIC, BIC) %>%
+  mutate(across(where(is.numeric), round, 3))
+
+# Summarize results
+summary(model_small)
+model_stats_small
+```
+
+```{r}
+# Create a dataframe for plotting
+resid_data <- data.frame(
+  Fitted = model_small$fitted.values,
+  Residuals = model_small$residuals
+)
+
+ggplot(resid_data, aes(x = Fitted, y = Residuals)) +
+  geom_point(alpha = 0.6) +                        # scatter points
+  geom_smooth(method = "loess", se = FALSE, color = "blue") + # LOESS smooth
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed") + 
+  theme_minimal() +
+  labs(title = "Residuals vs Fitted with LOESS",
+       x = "Fitted values",
+       y = "Residuals")
+```
+
+# In-Sample Comparison
+The full model does a much better job predicting blood pressure. It has a significantly higher adjusted $R^2$ (full: 0.115, small: 0.009) and lower AIC (full: 13022.1, small: 13193.24) and BIC (full: 13081.06, small: 13220.04). Moreover, in the full model, the residuals are normally-distributed with a mean of 0, exhibit no correlation, and have constant variance -- meet iid assumptions. In the reduced model, the residual-vs-fitted plot shows some correlation at smaller systolic BP values, suggesting that the model is under-predicting the actual data. The small model is missing some key predictors, leading to omitted variable bias (observed as correlated residuals for small fitted values).
