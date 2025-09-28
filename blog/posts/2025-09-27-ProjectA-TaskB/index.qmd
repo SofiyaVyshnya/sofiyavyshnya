@@ -1,51 +1,83 @@
 ---
-title: "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey"
-date: 2025-09-17
+title: "Project A Task B Write-Up"
+date: 2025-09-27
 author: "Sofiya Vyshnya"
-image: images/clinical_interests.jpg
-description: "How early clinical experiences inspired my journey as an MD-PhD student and my research in personalized medicine."
-tags: [Personal, Research, MD-PhD, Personalized Medicine]
-categories: [MD-PhD, Career Journey]
+image: images/what-is-big-data.png
+description: "A description of how I created my website and blog, as well as my analyses for Study 1 and 2."
+tags: [PQHS431]
+categories: [PQHS431, Dashboard, ProjectA]
 ---
 
 
 ::: {.post-banner}
-![Clinical-Translational Research](images/banner.jpg){.banner-image}
+![](images/what-is-big-data.png){.banner-image}
 :::
 
-## A Patient’s Hope
+## Central Hypothesis
 
-> “Thanks, Sofie,” said Mrs. H, squeezing my hand. 
-She was suffering from a chronic leg wound, for which few treatments were available. I knew I could do more. Mrs. H’s hope for a cure inspired me to pursue **clinical-translational research**, and it became a defining moment in my journey toward becoming a physician-scientist.
-
+My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (particularly lead exposure) have higher systolic blood pressure. This question is motivated by several studies showing a link between high blood lead levels and elevated prevalence of cardiovascular disease, potentially as a result of inflammation.  To test this hypothesis, I used data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). First, I conducted data visualization and exploration (Study 1) to understand the data distributions, variable relationships, and trends. Next, I modeled the relationship between systolic blood pressure and the concentrations of 3 heavy metals (lead, cadmium, and manganese) while also controlling for demographic covariates.
 
 
-## From Compassion to Research
-<div style="float: left; width: 30%; margin-right: 1rem; margin-bottom: 0.5rem;">
-  <img src="images/college.jpg" alt="Undergraduate research at Georgia Tech in stem cell therapies and AI" style="width:100%; height:auto; border-radius: 8px;">
-</div>
-During my undergraduate studies, I wanted to learn how I could one day address unmet clinical needs like Mrs. H's. I joined Dr. Edward Botchwey’s lab to explore **stem cell therapies for regenerative medicine**. I applied **statistical and machine learning approaches** to identify biomarkers in stem cells that correlated with therapeutic outcomes. It was here that I realized the need for **personalizing teatment approaches**.
+## Dataset Description
+The NHANES dataset from 2017-2020 consists of 9254 observations collected from individuals age 0-80. After filtering for individuals ages 40-65, 2475 observations were left. Missing data were imputed assuming missing at random (Study 2) or dropped (Study 1). For Study 1, concentrations of heavy metals in the blood were log-normalized. 
 
-To explore my intetest in computational research and personalized medicine, I joined Dr. May Wang’s lab. There, I developed a **personalized model for predicting heart disease risk**. This experience reinforced how computational tools can enable **precision medicine** by helping clinicians make patient-specific decisions. It was here that I realized the unique power of the MD-PhD path: combining deep clinical insight with technical expertise to develop therapies tailored toward each patient.
+Table 1: Variables included in the data.
+
+| Variable | Description | Data Type |
+|:-----------------------|:-----------------------|:-----------------------|
+| **SEQN** | Subject ID: Individual Identifier | Quantitative (Integer) |
+| **RIDAGEYR** | Age: Age in years at screening, range 40-65 | Quantitative (Integer) |
+| **RIAGENDR** | Sex: male or female | Binary |
+| **RIDRETH1** | Race | Multi-level Categorical |
+| **LBXBPB** | Blood lead (µg/dL) | Quantitative (Continuous) |
+| **LBXBPB_clean_log** | Blood lead after outlier removal and log transformation | Quantitative (Continuous) |
+| **LBXBCD** | Blood cadmium (µg/dL) | Quantitative (Continuous) |
+| **LBXBCD_clean_log** | Blood cadmium (µg/dL) after outlier removal and log transformation | Quantitative (Continuous) |
+| **LBXBMN** | Blood manganese (µg/dL) | Quantitative (Continuous) |
+| **LBXBMN_clean_log** | Blood manganese (µg/dL) after outlier removal and log transformation | Quantitative (Continuous) |
+| **BPXSY1** | Systolic BP, first reading | Quantitative (Integer) |
+| **BPXSY1_clean** | Systolic BP, first reading, after outlier removal | Quantitative (Integer) |
+| **BPXDI1** | Diastolic BP, first reading | Quantitative (Integer) |
+| **BPXDI1_clean** | Diastolic BP, first reading, after outlier removal | Quantitative (Integer) |
+
+Summary statistics for the continuous and categorical variables:
+
+Table 2: Summary of numeric data. "_clean_log" indicates that outliers were removed, and the variable was log-transformed after adding 1 to all values. "_clean" indicates that only outliers were removed.
+
+| Variable     | mean   | stdev | median | min   | max    |
+|:-------------|:-------|:------|:-------|:------|:-------|
+| **RIDAGEYR** | 53.67  | 7.57  | 55.00  | 40.00 | 65.00  |
+| **LBXBPB**   | 1.03   | 0.54  | 0.93   | 0.12  | 2.77  |
+| **LBXBCD**   | 0.37   | 0.25  | 0.30   | 0.07  | 1.21   |
+| **LBXBMN**   | 9.67  | 2.98  | 9.72   | 3.07  | 18.34  |
+| **BPXSY1**   | 126.18 | 15.69 | 126.00 | 88.00 | 170.00 |
+| **BPXDI1**   | 76.00  | 9.69 | 76.00  | 52.00  | 100.00 |
+
+Table 3: Summary of categorical data.
+
+| Variable                            | Count (Percent) |
+|:------------------------------------|:----------------|
+| **RIAGENDR: Sex**                   |                 |
+| Male                                | 943 (47.99%)    |
+| Female                              | 1022 (52.01%)   |
+| **RIDRETH1: Race**                  |                 |
+| Mexican American                    | 294 (14.96%)    |
+| Other Hispanic                      | 218 (11.09%)    |
+| Non-Hispanic White                  | 559 (28.44%)    |
+| Non-Hispanic Black                  | 489 (24.88%)    |
+| Other Race - Including Multi-Racial | 405 (20.61%)    |
 
 
+# Methods
+## High Blood Pressure Prevalence
+First, I calculated the prevalence of high blood pressure. Systolic blood pressure was binarized (HighBP: 1 = systolic BP > 140 mmHg, 0 = systolic BP $\leq$ 140 mmHg, where 1 represents high blood pressure and 0 represents low-normal blood pressure). Prevalence was computed as the fraction of cases with high blood pressure (HighBP = 1). 
 
-## Entering the MD-PhD Phase
+## Exploratory Data Analysis
+Next, I conducted some preliminary data visualization and statistical testing to explore data distributions, variable relationships, and understand overall trends. I examined the prevalence of high blood pressure (outcome vaiable) by age, sex, and race/ethnicity. I created linear models (ANOVA equivalent) to compare mean systolic blood pressure between different racial/ethnic groups and conducted a univariate t-test (equivalent of univariate OLS) to compare mean blood pressure by sex. I computed Cohen's d to assess effect size.  I also compared the prevalence of high blood pressure (systolic BP > 140 mmHg) by sex and racial/ethnic groups using Chi squared testing and relied on Cramer's V for effect size.
 
-### AI for Cancer Management
-<div style="float: right; width: 30%; margin-left: 1rem; margin-bottom: 0.5rem;">
-  <img src="images/white_coat.jpeg" alt="Medical school at Case Western Reserve University" style="width:100%; height:auto; border-radius: 8px;">
-</div>
-As an MD-PhD student at Case Western Reserve University, I now integrate **MRI, pathology imaging, and AI** in the **INVent Lab** to personalize cancer care. Working alongside radiologists, pathologists, and oncologists, I help develop predictive models to identify patients who may benefit from **less invasive treatments**, learning that effective therapy always depends on **individual patient characteristics**.
+Likewise, I examined blood concentrations of the 3 heavy metals by demographic group. I plotted the distributions of blood lead, cadmium, and manganese concentrations in my dashboard. For lead, I also examined the distribution of blood lead levels by sex, age, and racial/ethnic group.
 
+Finally, I created a linear model (OLS) that integrates all the variables to answer my question and understand to what extent blood lead levels are associated with systolic blood pressure, after controlling for demographic covariates, which influence systolic blood pressure as well. 
 
-
-## Looking Ahead
-
-I aspire to **bridge AI research and clinical practice**, developing tools that improve patient outcomes and make personalized medicine **the standard of care**. Beyond research, I am passionate about **mentoring, science communication, and community outreach**, sharing biomedical innovation with students and the public alike.
-
----
-
-> This blog will share reflections on my research journey, insights into AI in healthcare, and the personal experiences that continue to shape my path as a physician-scientist.
-
----
+# Results and Conclusions
+Demographic factors had the strongest relationship with systolic blood pressure. In particular black race ($\beta_1$ = 3.98, p = 0.001) was strongly associated with increased systolic BP, while non-Hispanic white race and ethnicity ($\beta_1$ = -3.11, p = 0.009) was associated with decreased systolic blood pressure. Female sex was also strongly associated with lower blood pressure ($\beta_1$ = -2.27, p = 0.003). Surprisingly, blood lead levels were not associated significantly with systolic blood pressure ($\beta_1$ = -0.11, p = 0.882) and also did not have a clear relationship with any of the demographic groups. The distributions of blood lead levels were virtually the same across all ages, sexes, and racial/ethnic groups. In conclusion, I learned that systolic blood pressure is strongly related with demographic data but has no relationship with blood lead levels.

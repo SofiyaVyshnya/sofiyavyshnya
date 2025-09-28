@@ -6,7 +6,7 @@ listing:
   - id: posts
     template: ../_ejs/blog-post.ejs
     contents: ../posts/*/*.qmd
-    sort: "date desc"
+    sort: "date asc"
     page-size: 10
 page-layout: full
 ---

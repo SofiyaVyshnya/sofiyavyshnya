@@ -1,9 +1,9 @@
 ---
-title: "Blood Pressure and Heavy Metals Dashboard"
+title: "Dashboard"
 format: 
   dashboard:
     page-title: "Blood Pressure and Heavy Metals Dashboard"
-theme: [cosmo, custom.scss]
+    theme: [cosmo, theme/custom.scss]
 fig-width: 10
 fig-asp: 0.3
 editor_options: 
@@ -25,6 +25,7 @@ library(scales)
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
+library(broom)
 
 library(DT)
 library(gt)
@@ -291,6 +292,244 @@ datatable(
 
 
 
+# Heavy Metals {orientation="columns"}
+## Column {width="60%"}
+### Row {height="33.33%"}
+#### Column {width="40%"}
+```{r}
+#| title: Blood Lead Concentration
+
+ggplot(nhanes_data, aes(x = "", y = LBXBPB)) +
+  geom_violin(fill = "#4b85a8", color = "black", alpha = 0.7)  +
+  coord_flip() +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA) + # optional: overlay boxplot
+  labs(
+    x = "",
+    y = "\nConcentration (μg/dL)",
+    title = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 35),       # tick labels
+    axis.title = element_text(size = 35)
+  )
+
+```
+
+#### Column {width="60%"}
+```{r}
+#| title: Blood Lead Concentration by Sex 
+ggplot(nhanes_data, aes(x = as.factor(RIAGENDR), y = LBXBPB, fill = as.factor(RIAGENDR))) +
+  geom_violin(trim = FALSE, alpha = 0.7) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA) +
+  scale_fill_manual(values = c("#aba597", "#e1b200")) +
+  coord_flip() +
+  labs(
+    x = "Sex",
+    y = "\nConcentration (μg/dL)",
+    title = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.title = element_text(size = 25),
+    axis.text = element_text(size = 25),
+    legend.position = "none"
+  )
+
+```
+
+### Row {height="33.33%"}
+#### Column {width="40%"}
+```{r}
+#| title: Blood Cadmium Concentration
+
+ggplot(nhanes_data, aes(x = "", y = LBXBCD)) +
+  geom_violin(fill = "#e1b200", color = "black", alpha = 0.7)  +
+  coord_flip() +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA) + # optional: overlay boxplot
+  labs(
+    x = "",
+    y = "\nConcentration (μg/dL)",
+    title = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 35),       # tick labels
+    axis.title = element_text(size = 35)
+  )
+
+```
+#### Column {width="60%"}
+```{r}
+#| title: Blood Lead Concentration by Age
+
+ggplot(nhanes_data, aes(x = as.factor(age_group), y = LBXBPB, fill = as.factor(age_group))) +
+  geom_violin(trim = FALSE, alpha = 0.7) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA) +
+  scale_fill_manual(values = c("#182139", "#4b85a8", "#aba597", "#e1b200", "#d98100")) +
+  labs(
+    x = "",
+    y = "Concentration\n(μg/dL)",
+    title = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.title = element_text(size = 25),
+    axis.text = element_text(size = 25),
+    legend.position = "none"
+  )
+
+```
+
+### Row {height="33.33%"}
+#### Column {width="40%"}
+```{r}
+#| title: Blood Manganese Concentration
+
+ggplot(nhanes_data, aes(x = "", y = LBXBMN)) +
+  geom_violin(fill = "#aba597", color = "black", alpha = 0.7) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA)  +
+  coord_flip() +
+  labs(
+    x = "",
+    y = "\nConcentration (μg/dL)",
+    title = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 35),       # tick labels
+    axis.title = element_text(size = 35)
+  )
+
+```
+
+
+#### Column {width="60%"}
+```{r}
+#| title: Blood Lead Concentration by Race/Ethnicity
+
+ggplot(nhanes_data, aes(x = as.factor(RIDRETH1), y = LBXBPB, fill = as.factor(RIDRETH1))) +
+  geom_violin(trim = FALSE, alpha = 0.7) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA) +
+  scale_fill_manual(values = c("#182139", "#4b85a8", "#aba597", "#e1b200", "#d98100")) +
+  coord_flip() +
+  labs(
+    x = "",
+    y = "\nConcentration (μg/dL)",
+    title = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.title = element_text(size = 25),
+    axis.text = element_text(size = 25),
+    legend.position = "none"
+  )
+
+```
+
+
+
+# BP & Heavy Metals {orientation="rows"}
+## Row {height="60%"}
+```{r}
+#| title: Regression Output - Predicting Systolic BP from Demographics and Heavy Metal Exposure
+
+# Model
+# Linear regression predicting systolic BP from heavy metal concentration in blood
+model <- lm(BPXSY1_clean ~ LBXBPB_clean + LBXBCD_clean + LBXBMN_clean + RIDAGEYR + RIAGENDR + RIDRETH1, data = nhanes_data)
+
+# Model fit statistics
+model_stats <- glance(model) %>%
+  select(r.squared, adj.r.squared, AIC, BIC) %>%
+  mutate(across(where(is.numeric), round, 3))
+
+# Summarize results: Tidy regression coefficients
+model_coefs <- tidy(model) %>%
+  select(term, estimate, std.error, statistic, p.value) %>%
+  mutate(across(where(is.numeric), round, 3))
+
+
+# Rename coefficient table columns
+model_coefs <- model_coefs %>%
+  rename(
+    `std. error` = std.error,
+    `p-value` = p.value
+  )
+
+# Dictionary of predictor descriptions
+predictor_info <- tibble::tibble(
+  term = c(
+    "LBXBPB_clean", "LBXBCD_clean", "LBXBMN_clean",
+    "RIDAGEYR", "RIAGENDRFemale", "RIDRETH1Other Hispanic", "RIDRETH1Non-Hispanic White", "RIDRETH1Non-Hispanic Black", "RIDRETH1Other/Multiracial"
+  ),
+  description = c(
+    "Blood Lead (μg/dL)",
+    "Blood Cadmium (μg/dL)",
+    "Blood Manganese (μg/dL)",
+    "Age (Years)",
+    "Female Sex",
+    "Race/Ethnicity: Other Hispanic",
+    "Race/Ethnicity: non-Hispanic white",
+    "Race/Ethnicity: non-Hispanic black",
+    "Race/Ethnicity: Other/Multiracial"
+  )
+)
+
+# Add descriptions to coefficients and reorder columns
+model_coefs_annotated <- model_coefs %>%
+  left_join(predictor_info, by = "term") %>%
+  mutate(description = ifelse(term == "(Intercept)", "Model Intercept", description)) %>%
+  select(term, description, everything())  # Put description right after term
+
+# Rename model statistics
+model_stats <- model_stats %>%
+  rename(
+    `R-squared` = r.squared,
+    `Adjusted R-squared` = adj.r.squared,
+    `Akaike Info Criterion (AIC)` = AIC,
+    `Bayesian Info Criterion (BIC)` = BIC
+  )
+
+# Regression Output
+datatable(
+  model_coefs_annotated,
+  options = list(pageLength = 10, scrollX = TRUE),
+  rownames = FALSE
+)
+
+datatable(
+  model_stats,
+  options = list(dom = 't', paging = FALSE), # simple small table
+  rownames = FALSE
+)
+```
+
+## Row {height="40%"}
+```{r}
+#| title: Regression Output - Relative Importance of Predictors
+
+ggplot(
+  model_coefs %>% filter(term != "(Intercept)"),
+  aes(x = reorder(term, estimate), y = estimate, fill = estimate > 0)
+) +
+  geom_col() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  coord_flip() +
+  scale_fill_manual(values = c("TRUE" = "#4b85a8", "FALSE" = "#d98100")) +
+  labs(
+    x = "Predictor",
+    y = "Coefficient Estimate",
+    title = "Regression Coefficients: Systolic BP Model"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16),
+    plot.title = element_text(size = 20, face = "bold"),
+    legend.position = "none"
+  )
+```
+
 
 
 # Data
@@ -300,21 +539,16 @@ datatable(
 nhanes_table <- nhanes_data %>%
   
   select(
-    SEQN, RIDAGEYR, RIAGENDR, RIDRETH1, 
-    LBXBPB, LBXBCD, LBXBMN, BPXSY1, HighBP
-  ) %>%
-  mutate(
-    HighBP = ifelse(HighBP == 1, "Yes", "No")  # convert to Yes/No for display
+    SEQN, RIDAGEYR, RIAGENDR, RIDRETH1, LBXBPB, LBXBCD, LBXBMN
   ) %>%
   rename(
     `Patient ID` = SEQN,
     `Age (Years)` = RIDAGEYR,
     `Sex` = RIAGENDR,
     `Race/Ethnicity` = RIDRETH1,
-    `Blood Lead Concentration (μg/dL)` = LBXBPB,
-    `Blood Cadmium Concentration (μg/dL)` = LBXBCD,
-    `Blood Manganese Concentration (μg/dL)` = LBXBMN,
-    `Systolic Blood Pressure (mmHg)` = BPXSY1
+    `Blood Lead (μg/dL)` = LBXBPB,
+    `Blood Cadmium (μg/dL)` = LBXBCD,
+    `Blood Manganese (μg/dL)` = LBXBMN
   )
 
 # Render scrollable datatable

@@ -1,0 +1,46 @@
+/*-- scss:defaults --*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+// Fonts
+$font-family-sans-serif: "Roboto", sans-serif;
+
+// Colors
+$navbar-bg: #011a42;
+$navbar-fg: #ffffff;
+$link-color: #a9b7cc;
+$hover-color: lighten($link-color, 40%);
+
+/*-- scss:rules --*/
+.navbar {
+  background-color: $navbar-bg !important;
+  color: $navbar-fg !important;
+}
+
+.card-header {
+  background-color: #cfcfcf;
+}
+
+.nav-item .nav-link, .nav-link {
+  color: #ffffff !important;
+}
+.nav-item .nav-link:hover, .nav-link:hover {
+  color: #a9b7cc !important;
+}
+
+div.callout-note.callout {
+  border-left-color: #011a42;
+}
+
+div.callout-note.callout-style-default > .callout-header {
+  background-color: #9ea8ae;
+}
+
+/* Sidebar styling */
+.sidebar, .bslib-sidebar-layout {
+  background-color: #c5c5c5 !important
+}
+
+/* Test rule to confirm SCSS is applied */
+body {
+  background-color: #e0e0e0; /* Remove after testing */
+}

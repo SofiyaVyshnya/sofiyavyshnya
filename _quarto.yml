@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - dashboard/theme/  # Copies theme/ folder to docs/dashboard/
 
 website:
   title: "sofiyavyshnya"
@@ -14,6 +16,14 @@ website:
         text: Research
       - href: blog/index.qmd
         text: Blog
+      - text: Dashboard
+        menu:
+        - href: dashboard/dashboard.qmd
+          text: Dashboard
+        - href: blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.qmd
+          text: Data Exploration (Study 1)
+        - href: blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.qmd
+          text: BP Determinants (Study 2)
       - href: contact.qmd
         text: Contact
 

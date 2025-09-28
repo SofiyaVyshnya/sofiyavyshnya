@@ -1,8 +1,7 @@
 ---
-title: "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure"
+title: "Blood Pressure Determinants: Investigating Relationship Between Lead Exposure and High Blood Pressure"
 author: 
-  - name: "First Last"       # Add full name(s), can list multiple authors
-    affiliation: "Your Institution"
+  - name: "Sofiya Vyshnya"
 date: last-modified
 date-format: iso
 toc: true
@@ -33,6 +32,7 @@ The dataset consists of 2475 adults ages 40-65 participating in NHANES 2017-2020
 library(dplyr)
 library(tidyverse)
 library(patchwork)
+library(xfun)
 
 # Read in the dataset (consisting of 3 NHANES merged datasets on lab values and blood pressure. This dataset only contains the variables of interest and has been filtered by the appropriate age range)
 nhanes_filtered <- readRDS(here::here("data/nhanes_data.rds"))
@@ -173,7 +173,7 @@ Table 1: Variables included in the data.
 
 Summary statistics for the continuous and categorical variables:
 
-Table 2: Summary of numeric data.
+Table 2: Summary of numeric data. "_clean" indicates that outliers were removed.
 
 | Variable     | mean   | stdev | median | min   | max    |
 |:-------------|:-------|:------|:-------|:------|:-------|
@@ -205,6 +205,7 @@ Table 3: Summary of categorical data.
 
 ## Codebook (HTML Rendering)
 
+Check out HTML codebook <a href="/data/study2/codebook.html">here &rarr;</a> 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 library(labelled)
 library(dataReporter)
@@ -234,7 +235,7 @@ var_labels_list <- as.list(var_labels)
 nhanes_clean <- set_variable_labels(nhanes_clean, .labels = var_labels_list)
 
 
-suppressWarnings(makeCodebook(nhanes_clean, file = "codebook.html", output = "html", replace = TRUE))
+makeCodebook(nhanes_clean, file = here::here("data/study2/codebook.html"), output = "html", replace = TRUE)
 ```
 
 ## Codebook (Table Rendering)
@@ -459,4 +460,130 @@ ggplot(resid_data, aes(x = Fitted, y = Residuals)) +
 ```
 
 # In-Sample Comparison
-The full model does a much better job predicting blood pressure. It has a significantly higher adjusted $R^2$ (full: 0.115, small: 0.009) and lower AIC (full: 13022.1, small: 13193.24) and BIC (full: 13081.06, small: 13220.04). Moreover, in the full model, the residuals are normally-distributed with a mean of 0, exhibit no correlation, and have constant variance -- meet iid assumptions. In the reduced model, the residual-vs-fitted plot shows some correlation at smaller systolic BP values, suggesting that the model is under-predicting the actual data. The small model is missing some key predictors, leading to omitted variable bias (observed as correlated residuals for small fitted values).
+## Quality of Fit
+The full model does a much better job predicting blood pressure. It has a significantly higher adjusted $R^2$ (full: 0.115, small: 0.009) and lower AIC (full: 13022.1, small: 13193.24) and BIC (full: 13081.06, small: 13220.04).
+
+## Assessing Assumptions
+Moreover, in the full model, the residuals are normally-distributed with a mean of 0, exhibit no correlation, and have constant variance -- meet iid assumptions. In the reduced model, the residual-vs-fitted plot shows some correlation at smaller systolic BP values, suggesting that the model is under-predicting the actual data. The small model is missing some key predictors, leading to omitted variable bias (observed as correlated residuals for small fitted values).
+
+## Posterior Predictive Checks
+The smaller model tends to underpredict low values of BPXSY1, suggesting a possible non-linear effect or omission of an important predictor. The relationship linearizes with inclusion of demographic predictors in the full model, however, suggesting omitted variable bias.
+
+## Comparing Models
+The full model outperforms the small model in nearly every way. The performance metrics are better (including AIC and BIC, which penalize for including extra parameters; however, the additional demographic predictors were key to modeling systolic blood pressure, so including them outweighed any penalties for increasing the number of features. Also, including demographics corrected the omitted variable bias observed in the residuals-vs-fitted plot.
+
+# Model Validation
+## Calculating Prediction Errors
+```{r}
+
+# Generate predictions
+pred_small <- predict(model_small, newdata = test_data)
+pred_big   <- predict(model, newdata = test_data)
+
+# Actual outcome (original scale)
+actual <- test_data$BPXSY1_clean  
+
+# Compute prediction errors
+errors <- tibble(
+  actual = actual,
+  pred_small = pred_small,
+  pred_big = pred_big,
+  err_small = pred_small - actual,
+  err_big   = pred_big - actual,
+  abs_err_small = abs(err_small),
+  abs_err_big = abs(err_big),
+  sq_err_small = err_small^2,
+  sq_err_big = err_big^2
+)
+
+errors
+```
+
+## Visualizing Predictions
+```{r}
+library(ggplot2)
+
+# Combine into long format for easier plotting
+plot_data <- errors %>%
+  select(actual, pred_small, pred_big) %>%
+  pivot_longer(cols = starts_with("pred"), names_to = "model", values_to = "predicted") %>%
+  mutate(model = recode(model, "pred_small" = "Small Model", "pred_big" = "Big Model"))
+
+# Scatter plot: Observed vs Predicted
+ggplot(plot_data, aes(x = predicted, y = actual, color = model)) +
+  geom_point(alpha = 0.6) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +  # line for perfect prediction
+  facet_wrap(~ model) +
+  labs(
+    x = "Predicted Systolic BP",
+    y = "Observed Systolic BP",
+    title = "Observed vs Predicted Systolic BP in Test Sample"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14),
+    plot.title = element_text(size = 16, face = "bold")
+  )
+
+```
+
+
+## Summarizing the Errors
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Root Mean Squared Prediction Error (RMSPE)
+rmspe_small <- sqrt(mean(errors$sq_err_small))
+rmspe_big   <- sqrt(mean(errors$sq_err_big))
+
+# Mean Absolute Prediction Error (MAPE)
+mape_small <- mean(errors$abs_err_small)
+mape_big   <- mean(errors$abs_err_big)
+
+# Maximum Absolute Error (MaxAE)
+maxae_small <- max(errors$abs_err_small)
+maxae_big   <- max(errors$abs_err_big)
+
+# Squared correlation between actual and predicted (validated R^2)
+val_r2_small <- cor(errors$actual, errors$pred_small)^2
+val_r2_big   <- cor(errors$actual, errors$pred_big)^2
+
+# Summarize in a tibble
+error_summary <- tibble(
+  Model = c("Small Model", "Big Model"),
+  RMSPE = c(rmspe_small, rmspe_big),
+  MAPE = c(mape_small, mape_big),
+  MaxAE = c(maxae_small, maxae_big),
+  R2_val = c(val_r2_small, val_r2_big)
+) %>%
+  mutate(across(where(is.numeric), round, 3))
+
+# Display nicely
+library(DT)
+datatable(error_summary, options = list(dom = 't', paging = FALSE), rownames = FALSE)
+
+```
+
+## Comparing the Models
+The big model has slightly lower RMSPE and MAPE, and its predicted range closely matches the observed systolic BP, while the small model predicts both high and low values poorly. Its predictions are all very similar -- from the scatter plot, the model seems to be guessing the average systolic blood pressure value in the training set. This is likely because the predictors that meaningfully describe systolic blood pressure are absent from the model, and the model is just guessing. Based on these metrics and the scatter plots, I would prefer the big model for prediction in this test sample.
+
+# Discussion
+## Chosen Model
+I chose the big model.
+
+## Answering My Question
+I see no evidence that blood concentrations of heavy metals have a relationship with systolic blood pressure. This goes against my hypothesis. However, my hypothesis was based on papers looking at individuals with extremely high lead levels in the blood (>5 µg/dL), but patients in my data seldom had blood levels this high. Moreover, surprisingly (according to Study 2 and my dashboard), blood lead levels do not appear to be correlated with sociodemographic variables (and are not subsumed by any sociodemographic variables). During preprocessing, I removed outliers (really high blood levels of lead, cadium, and manganese), and perhaps if I had left those values in the dataset, my result may have been different. However, there were so few individuals with high levels of heavy metals in the blood that the effect would likely have been negligible.
+
+## Next Steps
+Since demographics have a strong relationship with systolic blood pressure, I would like to investigate additional demographic variables, such as education, and how they are related to systolic blood pressure. I would also like to replicate my analyses on diastolic blood pressure to see if the same trend holds.
+
+## Reflection
+One of the key things I learned is how to render data generated from my analyses on a website. I started with working on Study 1 and Study 2 and then did my dashboard. While working on the dashboard, I realized the power of data tables from the DT library and how aesthetic they make the results look. I would have implemented the data table format throughout my Study 1 and Study 2 analyses so that the results are more legible when I render my Study 1 and Study 2 reports in HTML.
+
+
+```{r}
+#| echo: TRUE
+#| message: FALSE
+#| warning: FALSE
+library(sessioninfo)
+session_info()
+```

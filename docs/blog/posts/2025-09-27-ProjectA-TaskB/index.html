@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sofiya Vyshnya">
-<meta name="dcterms.date" content="2025-09-17">
-<meta name="description" content="How early clinical experiences inspired my journey as an MD-PhD student and my research in personalized medicine.">
+<meta name="dcterms.date" content="2025-09-27">
+<meta name="description" content="A description of how I created my website and blog, as well as my analyses for Study 1 and 2.">
 
-<title>Bridging Curiosity and Care: The Beginning of My MD-PhD Journey – sofiyavyshnya</title>
+<title>Project A Task B Write-Up – sofiyavyshnya</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,6 +75,35 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -114,6 +143,25 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../../../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-dashboard" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Dashboard</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-dashboard">    
+        <li>
+    <a class="dropdown-item" href="../../../dashboard/dashboard.html">
+ <span class="dropdown-text">Dashboard</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html">
+ <span class="dropdown-text">Data Exploration (Study 1)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html">
+ <span class="dropdown-text">BP Determinants (Study 2)</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../../contact.html"> 
 <span class="menu-text">Contact</span></a>
@@ -134,13 +182,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-patients-hope" id="toc-a-patients-hope" class="nav-link active" data-scroll-target="#a-patients-hope">A Patient’s Hope</a></li>
-  <li><a href="#from-compassion-to-research" id="toc-from-compassion-to-research" class="nav-link" data-scroll-target="#from-compassion-to-research">From Compassion to Research</a></li>
-  <li><a href="#entering-the-md-phd-phase" id="toc-entering-the-md-phd-phase" class="nav-link" data-scroll-target="#entering-the-md-phd-phase">Entering the MD-PhD Phase</a>
+  <li><a href="#central-hypothesis" id="toc-central-hypothesis" class="nav-link active" data-scroll-target="#central-hypothesis">Central Hypothesis</a></li>
+  <li><a href="#dataset-description" id="toc-dataset-description" class="nav-link" data-scroll-target="#dataset-description">Dataset Description</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="#ai-for-cancer-management" id="toc-ai-for-cancer-management" class="nav-link" data-scroll-target="#ai-for-cancer-management">AI for Cancer Management</a></li>
+  <li><a href="#high-blood-pressure-prevalence" id="toc-high-blood-pressure-prevalence" class="nav-link" data-scroll-target="#high-blood-pressure-prevalence">High Blood Pressure Prevalence</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
   </ul></li>
-  <li><a href="#looking-ahead" id="toc-looking-ahead" class="nav-link" data-scroll-target="#looking-ahead">Looking Ahead</a></li>
+  <li><a href="#results-and-conclusions" id="toc-results-and-conclusions" class="nav-link" data-scroll-target="#results-and-conclusions">Results and Conclusions</a></li>
   </ul>
 </nav>
     </div>
@@ -149,16 +198,17 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Bridging Curiosity and Care: The Beginning of My MD-PhD Journey</h1>
+<h1 class="title">Project A Task B Write-Up</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">MD-PhD</div>
-    <div class="quarto-category">Career Journey</div>
+    <div class="quarto-category">PQHS431</div>
+    <div class="quarto-category">Dashboard</div>
+    <div class="quarto-category">ProjectA</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    How early clinical experiences inspired my journey as an MD-PhD student and my research in personalized medicine.
+    A description of how I created my website and blog, as well as my analyses for Study 1 and 2.
   </div>
 </div>
 
@@ -175,7 +225,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 17, 2025</p>
+      <p class="date">September 27, 2025</p>
     </div>
   </div>
   
@@ -188,45 +238,230 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="post-banner">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/banner.jpg" class="banner-image img-fluid figure-img"></p>
-<figcaption>Clinical-Translational Research</figcaption>
-</figure>
+<p><img src="images/what-is-big-data.png" class="banner-image img-fluid"></p>
 </div>
-</div>
-<section id="a-patients-hope" class="level2">
-<h2 class="anchored" data-anchor-id="a-patients-hope">A Patient’s Hope</h2>
-<blockquote class="blockquote">
-<p>“Thanks, Sofie,” said Mrs.&nbsp;H, squeezing my hand. She was suffering from a chronic leg wound, for which few treatments were available. I knew I could do more. Mrs.&nbsp;H’s hope for a cure inspired me to pursue <strong>clinical-translational research</strong>, and it became a defining moment in my journey toward becoming a physician-scientist.</p>
-</blockquote>
+<section id="central-hypothesis" class="level2">
+<h2 class="anchored" data-anchor-id="central-hypothesis">Central Hypothesis</h2>
+<p>My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (particularly lead exposure) have higher systolic blood pressure. This question is motivated by several studies showing a link between high blood lead levels and elevated prevalence of cardiovascular disease, potentially as a result of inflammation. To test this hypothesis, I used data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). First, I conducted data visualization and exploration (Study 1) to understand the data distributions, variable relationships, and trends. Next, I modeled the relationship between systolic blood pressure and the concentrations of 3 heavy metals (lead, cadmium, and manganese) while also controlling for demographic covariates.</p>
 </section>
-<section id="from-compassion-to-research" class="level2">
-<h2 class="anchored" data-anchor-id="from-compassion-to-research">From Compassion to Research</h2>
-<div style="float: left; width: 30%; margin-right: 1rem; margin-bottom: 0.5rem;">
-<p><img src="images/college.jpg" alt="Undergraduate research at Georgia Tech in stem cell therapies and AI" style="width:100%; height:auto; border-radius: 8px;"></p>
-</div>
-<p>During my undergraduate studies, I wanted to learn how I could one day address unmet clinical needs like Mrs.&nbsp;H’s. I joined Dr.&nbsp;Edward Botchwey’s lab to explore <strong>stem cell therapies for regenerative medicine</strong>. I applied <strong>statistical and machine learning approaches</strong> to identify biomarkers in stem cells that correlated with therapeutic outcomes. It was here that I realized the need for <strong>personalizing teatment approaches</strong>.</p>
-<p>To explore my intetest in computational research and personalized medicine, I joined Dr.&nbsp;May Wang’s lab. There, I developed a <strong>personalized model for predicting heart disease risk</strong>. This experience reinforced how computational tools can enable <strong>precision medicine</strong> by helping clinicians make patient-specific decisions. It was here that I realized the unique power of the MD-PhD path: combining deep clinical insight with technical expertise to develop therapies tailored toward each patient.</p>
+<section id="dataset-description" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-description">Dataset Description</h2>
+<p>The NHANES dataset from 2017-2020 consists of 9254 observations collected from individuals age 0-80. After filtering for individuals ages 40-65, 2475 observations were left. Missing data were imputed assuming missing at random (Study 2) or dropped (Study 1). For Study 1, concentrations of heavy metals in the blood were log-normalized.</p>
+<p>Table 1: Variables included in the data.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>SEQN</strong></td>
+<td style="text-align: left;">Subject ID: Individual Identifier</td>
+<td style="text-align: left;">Quantitative (Integer)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>RIDAGEYR</strong></td>
+<td style="text-align: left;">Age: Age in years at screening, range 40-65</td>
+<td style="text-align: left;">Quantitative (Integer)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>RIAGENDR</strong></td>
+<td style="text-align: left;">Sex: male or female</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>RIDRETH1</strong></td>
+<td style="text-align: left;">Race</td>
+<td style="text-align: left;">Multi-level Categorical</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>LBXBPB</strong></td>
+<td style="text-align: left;">Blood lead (µg/dL)</td>
+<td style="text-align: left;">Quantitative (Continuous)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>LBXBPB_clean_log</strong></td>
+<td style="text-align: left;">Blood lead after outlier removal and log transformation</td>
+<td style="text-align: left;">Quantitative (Continuous)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>LBXBCD</strong></td>
+<td style="text-align: left;">Blood cadmium (µg/dL)</td>
+<td style="text-align: left;">Quantitative (Continuous)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>LBXBCD_clean_log</strong></td>
+<td style="text-align: left;">Blood cadmium (µg/dL) after outlier removal and log transformation</td>
+<td style="text-align: left;">Quantitative (Continuous)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>LBXBMN</strong></td>
+<td style="text-align: left;">Blood manganese (µg/dL)</td>
+<td style="text-align: left;">Quantitative (Continuous)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>LBXBMN_clean_log</strong></td>
+<td style="text-align: left;">Blood manganese (µg/dL) after outlier removal and log transformation</td>
+<td style="text-align: left;">Quantitative (Continuous)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>BPXSY1</strong></td>
+<td style="text-align: left;">Systolic BP, first reading</td>
+<td style="text-align: left;">Quantitative (Integer)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>BPXSY1_clean</strong></td>
+<td style="text-align: left;">Systolic BP, first reading, after outlier removal</td>
+<td style="text-align: left;">Quantitative (Integer)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>BPXDI1</strong></td>
+<td style="text-align: left;">Diastolic BP, first reading</td>
+<td style="text-align: left;">Quantitative (Integer)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>BPXDI1_clean</strong></td>
+<td style="text-align: left;">Diastolic BP, first reading, after outlier removal</td>
+<td style="text-align: left;">Quantitative (Integer)</td>
+</tr>
+</tbody>
+</table>
+<p>Summary statistics for the continuous and categorical variables:</p>
+<p>Table 2: Summary of numeric data. “_clean_log” indicates that outliers were removed, and the variable was log-transformed after adding 1 to all values. “_clean” indicates that only outliers were removed.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">mean</th>
+<th style="text-align: left;">stdev</th>
+<th style="text-align: left;">median</th>
+<th style="text-align: left;">min</th>
+<th style="text-align: left;">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>RIDAGEYR</strong></td>
+<td style="text-align: left;">53.67</td>
+<td style="text-align: left;">7.57</td>
+<td style="text-align: left;">55.00</td>
+<td style="text-align: left;">40.00</td>
+<td style="text-align: left;">65.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>LBXBPB</strong></td>
+<td style="text-align: left;">1.03</td>
+<td style="text-align: left;">0.54</td>
+<td style="text-align: left;">0.93</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">2.77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>LBXBCD</strong></td>
+<td style="text-align: left;">0.37</td>
+<td style="text-align: left;">0.25</td>
+<td style="text-align: left;">0.30</td>
+<td style="text-align: left;">0.07</td>
+<td style="text-align: left;">1.21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>LBXBMN</strong></td>
+<td style="text-align: left;">9.67</td>
+<td style="text-align: left;">2.98</td>
+<td style="text-align: left;">9.72</td>
+<td style="text-align: left;">3.07</td>
+<td style="text-align: left;">18.34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>BPXSY1</strong></td>
+<td style="text-align: left;">126.18</td>
+<td style="text-align: left;">15.69</td>
+<td style="text-align: left;">126.00</td>
+<td style="text-align: left;">88.00</td>
+<td style="text-align: left;">170.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>BPXDI1</strong></td>
+<td style="text-align: left;">76.00</td>
+<td style="text-align: left;">9.69</td>
+<td style="text-align: left;">76.00</td>
+<td style="text-align: left;">52.00</td>
+<td style="text-align: left;">100.00</td>
+</tr>
+</tbody>
+</table>
+<p>Table 3: Summary of categorical data.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Count (Percent)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>RIAGENDR: Sex</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">943 (47.99%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Female</td>
+<td style="text-align: left;">1022 (52.01%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>RIDRETH1: Race</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mexican American</td>
+<td style="text-align: left;">294 (14.96%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Other Hispanic</td>
+<td style="text-align: left;">218 (11.09%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Non-Hispanic White</td>
+<td style="text-align: left;">559 (28.44%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Non-Hispanic Black</td>
+<td style="text-align: left;">489 (24.88%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Other Race - Including Multi-Racial</td>
+<td style="text-align: left;">405 (20.61%)</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="entering-the-md-phd-phase" class="level2">
-<h2 class="anchored" data-anchor-id="entering-the-md-phd-phase">Entering the MD-PhD Phase</h2>
-<section id="ai-for-cancer-management" class="level3">
-<h3 class="anchored" data-anchor-id="ai-for-cancer-management">AI for Cancer Management</h3>
-<div style="float: right; width: 30%; margin-left: 1rem; margin-bottom: 0.5rem;">
-<p><img src="images/white_coat.jpeg" alt="Medical school at Case Western Reserve University" style="width:100%; height:auto; border-radius: 8px;"></p>
-</div>
-<p>As an MD-PhD student at Case Western Reserve University, I now integrate <strong>MRI, pathology imaging, and AI</strong> in the <strong>INVent Lab</strong> to personalize cancer care. Working alongside radiologists, pathologists, and oncologists, I help develop predictive models to identify patients who may benefit from <strong>less invasive treatments</strong>, learning that effective therapy always depends on <strong>individual patient characteristics</strong>.</p>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<section id="high-blood-pressure-prevalence" class="level2">
+<h2 class="anchored" data-anchor-id="high-blood-pressure-prevalence">High Blood Pressure Prevalence</h2>
+<p>First, I calculated the prevalence of high blood pressure. Systolic blood pressure was binarized (HighBP: 1 = systolic BP &gt; 140 mmHg, 0 = systolic BP <span class="math inline">\(\leq\)</span> 140 mmHg, where 1 represents high blood pressure and 0 represents low-normal blood pressure). Prevalence was computed as the fraction of cases with high blood pressure (HighBP = 1).</p>
+</section>
+<section id="exploratory-data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
+<p>Next, I conducted some preliminary data visualization and statistical testing to explore data distributions, variable relationships, and understand overall trends. I examined the prevalence of high blood pressure (outcome vaiable) by age, sex, and race/ethnicity. I created linear models (ANOVA equivalent) to compare mean systolic blood pressure between different racial/ethnic groups and conducted a univariate t-test (equivalent of univariate OLS) to compare mean blood pressure by sex. I computed Cohen’s d to assess effect size. I also compared the prevalence of high blood pressure (systolic BP &gt; 140 mmHg) by sex and racial/ethnic groups using Chi squared testing and relied on Cramer’s V for effect size.</p>
+<p>Likewise, I examined blood concentrations of the 3 heavy metals by demographic group. I plotted the distributions of blood lead, cadmium, and manganese concentrations in my dashboard. For lead, I also examined the distribution of blood lead levels by sex, age, and racial/ethnic group.</p>
+<p>Finally, I created a linear model (OLS) that integrates all the variables to answer my question and understand to what extent blood lead levels are associated with systolic blood pressure, after controlling for demographic covariates, which influence systolic blood pressure as well.</p>
 </section>
 </section>
-<section id="looking-ahead" class="level2">
-<h2 class="anchored" data-anchor-id="looking-ahead">Looking Ahead</h2>
-<p>I aspire to <strong>bridge AI research and clinical practice</strong>, developing tools that improve patient outcomes and make personalized medicine <strong>the standard of care</strong>. Beyond research, I am passionate about <strong>mentoring, science communication, and community outreach</strong>, sharing biomedical innovation with students and the public alike.</p>
-<hr>
-<blockquote class="blockquote">
-<p>This blog will share reflections on my research journey, insights into AI in healthcare, and the personal experiences that continue to shape my path as a physician-scientist.</p>
-</blockquote>
-<hr>
+<section id="results-and-conclusions" class="level1">
+<h1>Results and Conclusions</h1>
+<p>Demographic factors had the strongest relationship with systolic blood pressure. In particular black race (<span class="math inline">\(\beta_1\)</span> = 3.98, p = 0.001) was strongly associated with increased systolic BP, while non-Hispanic white race and ethnicity (<span class="math inline">\(\beta_1\)</span> = -3.11, p = 0.009) was associated with decreased systolic blood pressure. Female sex was also strongly associated with lower blood pressure (<span class="math inline">\(\beta_1\)</span> = -2.27, p = 0.003). Surprisingly, blood lead levels were not associated significantly with systolic blood pressure (<span class="math inline">\(\beta_1\)</span> = -0.11, p = 0.882) and also did not have a clear relationship with any of the demographic groups. The distributions of blood lead levels were virtually the same across all ages, sexes, and racial/ethnic groups. In conclusion, I learned that systolic blood pressure is strongly related with demographic data but has no relationship with blood lead levels.</p>
 
 
 </section>

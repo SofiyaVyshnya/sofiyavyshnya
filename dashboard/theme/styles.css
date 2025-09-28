@@ -1,0 +1,312 @@
+/* =================================== */
+/* BODY */
+body {
+  padding: 1rem;
+  font-family: "Roboto", sans-serif;
+  color: #333333;
+}
+
+/* =================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+/* Headings */
+h1, h2, h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #012761;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.4rem; }
+
+/* =================================== */
+/* PROFILE / IMAGES */
+.home-about img,
+.about-page img,
+.research-page img {
+  border-radius: 50%;
+  max-width: 35%;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  border: 0.2rem solid #4a90e2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+}
+
+/* =================================== */
+/* SOCIAL ICONS */
+.home-about .social a,
+.about-entity .social a,
+.research-page .social a {
+  color: #4a90e2;
+  margin: 0 0.5rem;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.home-about .social a:hover,
+.about-entity .social a:hover,
+.research-page .social a:hover {
+  color: #1c5d99;
+  transform: scale(1.2);
+}
+
+/* =================================== */
+/* CV BUTTONS */
+a.cv-button {
+  display: inline-block;
+  background-color: #4a90e2;
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+a.cv-button:hover {
+  background-color: #1c5d99;
+  transform: scale(1.05);
+}
+
+/* =================================== */
+/* SECTION HEADINGS / SPACING */
+section, h2, h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* =================================== */
+/* TABLES */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  display: block;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+}
+
+table th {
+  background-color: #f4f4f4;
+  color: #2a2a2a;
+}
+
+/* =================================== */
+/* LINKS */
+a {
+  color: #4a90e2;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #1c5d99;
+  text-decoration: underline;
+}
+
+/* =================================== */
+/* LIGHTBOX IMAGES */
+img.lightbox {
+  cursor: zoom-in;
+  transition: all 0.3s ease;
+}
+
+img.lightbox:hover {
+  transform: scale(1.03);
+}
+
+/* =================================== */
+/* NAVBAR */
+.navbar {
+  background-color: #011a42 !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 0.5rem 1rem;
+}
+
+.navbar .navbar-brand {
+  color: white !important;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.navbar a.nav-link {
+  color: white !important;
+  margin: 0 0.5rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar a.nav-link:hover {
+  color: #a9b7cc !important;
+  text-decoration: none;
+}
+
+.navbar a.nav-link.active {
+  color: #a9b7cc !important;
+  font-weight: bold;
+}
+
+/* =================================== */
+/* GENERAL PAGE PADDING */
+body {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+/* =================================== */
+/* MEDIA QUERIES FOR MOBILE */
+@media (max-width: 768px) {
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
+
+  .home-about img,
+  .about-page img,
+  .research-page img {
+    max-width: 50%;
+  }
+
+  a.cv-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .home-about .social a,
+  .about-entity .social a,
+  .research-page .social a {
+    font-size: 1rem;
+    margin: 0 0.3rem;
+  }
+
+  .navbar a.nav-link {
+    margin: 0.3rem 0;
+    font-size: 1rem;
+  }
+}
+
+
+/* Blog listing styles */
+.blog-post {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;         /* allow wrapping on small screens */
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.blog-thumbnail-wrapper {
+    flex-shrink: 0;
+    width: 30%;              /* smaller default thumbnail width */
+    max-width: 200px;        /* cap thumbnail size */
+    min-width: 80px;         /* prevent it from getting too tiny */
+}
+
+.blog-thumbnail {
+    width: 100%;              /* fills container */
+    height: auto;             /* maintain aspect ratio */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    object-fit: cover;
+}
+
+.blog-content {
+    flex: 1;
+    min-width: 220px;         /* ensures readability on small screens */
+}
+
+.blog-title {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+}
+
+.blog-title a {
+    text-decoration: none;
+    color: #2c3e50;
+}
+
+.blog-title a:hover {
+    color: #1abc9c;
+}
+
+.blog-meta {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.blog-description {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Banner image container */
+.post-banner {
+    width: 100%;          /* full width of parent/container */
+    overflow: hidden;     /* hide any overflow if image is too big */
+    margin-bottom: 2rem;  /* optional spacing below banner */
+}
+
+/* The image itself */
+.post-banner .banner-image {
+    width: 100%;          /* stretch image to fill container width */
+    height: auto;         /* maintain aspect ratio */
+    display: block;       /* remove default inline spacing */
+    border-radius: 0;     /* optional: remove any rounding */
+    object-fit: cover;    /* optional: crop to fill container if needed */
+}
+
+
+/* ----- Responsive adjustments ----- */
+@media (max-width: 768px) {
+    .blog-post {
+        flex-direction: column;   /* stack thumbnail above content */
+        align-items: center;      /* center everything */
+        text-align: left;
+    }
+
+    .blog-thumbnail-wrapper {
+        width: 40%;               /* slightly bigger on small screens */
+        max-width: 200px;         /* cap it so it doesn’t dominate */
+        margin-bottom: 0.5rem;
+    }
+
+    .blog-content {
+        width: 100%;
+    }
+
+    .blog-title {
+        font-size: 1.3rem;
+    }
+
+    .blog-description {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-thumbnail-wrapper {
+        width: 50%;               /* allow image to scale nicely */
+        max-width: 200px;
+    }
+
+    .blog-title {
+        font-size: 1.1rem;
+    }
+
+    .blog-description {
+        font-size: 0.9rem;
+    }
+}

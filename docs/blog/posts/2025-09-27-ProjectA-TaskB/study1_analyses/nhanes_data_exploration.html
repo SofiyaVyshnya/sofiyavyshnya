@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sofiya Vyshnya">
-<meta name="dcterms.date" content="2025-09-27">
+<meta name="dcterms.date" content="2025-09-28">
 
-<title>NHANES Data Exploration (Heavy Metal Exposure &amp; High blood Pressure) – sofiyavyshnya</title>
+<title>NHANES Data Exploration: Heavy Metal Exposure &amp; High blood Pressure – sofiyavyshnya</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -180,6 +180,25 @@ window.Quarto = {
     <a class="nav-link" href="../../../../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-dashboard" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Dashboard</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-dashboard">    
+        <li>
+    <a class="dropdown-item" href="../../../../dashboard/dashboard.html">
+ <span class="dropdown-text">Dashboard</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html">
+ <span class="dropdown-text">Data Exploration (Study 1)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html">
+ <span class="dropdown-text">BP Determinants (Study 2)</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../../../contact.html"> 
 <span class="menu-text">Contact</span></a>
@@ -230,7 +249,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">NHANES Data Exploration (Heavy Metal Exposure &amp; High blood Pressure)</h1>
+<h1 class="title">NHANES Data Exploration: Heavy Metal Exposure &amp; High blood Pressure</h1>
 </div>
 
 
@@ -247,7 +266,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-09-27</p>
+      <p class="date">2025-09-28</p>
     </div>
   </div>
   
@@ -315,7 +334,7 @@ window.Quarto = {
 <section id="data-cleaning" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Data Cleaning</h1>
 <p><em>General:</em> Individuals with missing data for any of the variables listed in Table 1 were removed.</p>
-<p><em>Numeric Variable Processing:</em> Outliers (defined as values &lt; Q1- 1.5<em>IQR or &gt; Q3+1.5</em>IQR) were removed. Numeric variables were subsequently log-transformed to make them approximately log-normal (see histograms below).</p>
+<p><em>Numeric Variable Processing:</em> Outliers (defined as values &lt; Q1- 1.5<em>IQR or &gt; Q3+1.5</em>IQR) were removed. Numeric variables were subsequently log-transformed (after adding 1 to each value) to make them approximately log-normal (see histograms below).</p>
 <p>The resulting dataset has 1590 observations.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate plots showing data distribution for all numeric variables. Show the original distribution, the distribution after removing outliers, and the distribution after log transforming the data. </span></span>
@@ -454,7 +473,7 @@ window.Quarto = {
 </tbody>
 </table>
 <p>Summary statistics for the continuous and categorical variables:</p>
-<p>Table 2: Summary of numeric data.</p>
+<p>Table 2: Summary of numeric data. “_clean_log” indicates that outliers were removed, and the variable was log-transformed after adding 1 to all values. “_clean” indicates that only outliers were removed.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -470,50 +489,90 @@ window.Quarto = {
 <tr class="odd">
 <td style="text-align: left;"><strong>RIDAGEYR</strong></td>
 <td style="text-align: left;">53.67</td>
-<td style="text-align: left;">7.54</td>
+<td style="text-align: left;">7.57</td>
 <td style="text-align: left;">55.00</td>
 <td style="text-align: left;">40.00</td>
 <td style="text-align: left;">65.00</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>LBXBPB</strong></td>
-<td style="text-align: left;">1.36</td>
-<td style="text-align: left;">1.69</td>
-<td style="text-align: left;">1.02</td>
+<td style="text-align: left;">1.03</td>
+<td style="text-align: left;">0.54</td>
+<td style="text-align: left;">0.93</td>
 <td style="text-align: left;">0.12</td>
-<td style="text-align: left;">42.48</td>
+<td style="text-align: left;">2.77</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>LBXBCD</strong></td>
-<td style="text-align: left;">0.53</td>
-<td style="text-align: left;">0.60</td>
-<td style="text-align: left;">0.34</td>
+<td style="text-align: left;">0.37</td>
+<td style="text-align: left;">0.25</td>
+<td style="text-align: left;">0.30</td>
 <td style="text-align: left;">0.07</td>
-<td style="text-align: left;">7.50</td>
+<td style="text-align: left;">1.21</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>LBXBMN</strong></td>
-<td style="text-align: left;">10.07</td>
-<td style="text-align: left;">3.78</td>
-<td style="text-align: left;">9.39</td>
-<td style="text-align: left;">1.57</td>
-<td style="text-align: left;">35.56</td>
+<td style="text-align: left;">9.67</td>
+<td style="text-align: left;">2.98</td>
+<td style="text-align: left;">9.72</td>
+<td style="text-align: left;">3.07</td>
+<td style="text-align: left;">18.34</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>BPXSY1</strong></td>
-<td style="text-align: left;">127.95</td>
-<td style="text-align: left;">18.52</td>
+<td style="text-align: left;">126.18</td>
+<td style="text-align: left;">15.69</td>
 <td style="text-align: left;">126.00</td>
-<td style="text-align: left;">78.00</td>
-<td style="text-align: left;">224.00</td>
+<td style="text-align: left;">88.00</td>
+<td style="text-align: left;">170.00</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>BPXDI1</strong></td>
-<td style="text-align: left;">76.06</td>
-<td style="text-align: left;">12.04</td>
 <td style="text-align: left;">76.00</td>
-<td style="text-align: left;">0.00</td>
-<td style="text-align: left;">124.00</td>
+<td style="text-align: left;">9.69</td>
+<td style="text-align: left;">76.00</td>
+<td style="text-align: left;">52.00</td>
+<td style="text-align: left;">100.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>LBXBPB_clean_log</strong></td>
+<td style="text-align: left;">0.68</td>
+<td style="text-align: left;">0.25</td>
+<td style="text-align: left;">0.66</td>
+<td style="text-align: left;">0.11</td>
+<td style="text-align: left;">1.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>LBXBCD_clean_log</strong></td>
+<td style="text-align: left;">0.07</td>
+<td style="text-align: left;">0.17</td>
+<td style="text-align: left;">0.26</td>
+<td style="text-align: left;">0.07</td>
+<td style="text-align: left;">0.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>LBXBMN_clean_log</strong></td>
+<td style="text-align: left;">2.33</td>
+<td style="text-align: left;">0.28</td>
+<td style="text-align: left;">2.33</td>
+<td style="text-align: left;">1.40</td>
+<td style="text-align: left;">2.96</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>BPXSY1_clean</strong></td>
+<td style="text-align: left;">126.18</td>
+<td style="text-align: left;">15.69</td>
+<td style="text-align: left;">125.60</td>
+<td style="text-align: left;">88.00</td>
+<td style="text-align: left;">170.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>BPXDI1_clean</strong></td>
+<td style="text-align: left;">76.00</td>
+<td style="text-align: left;">9.69</td>
+<td style="text-align: left;">75.94</td>
+<td style="text-align: left;">52.00</td>
+<td style="text-align: left;">100.00</td>
 </tr>
 </tbody>
 </table>
@@ -532,11 +591,11 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: left;">Male</td>
-<td style="text-align: left;">975 (48.39%)</td>
+<td style="text-align: left;">769 (48.36%)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Female</td>
-<td style="text-align: left;">1040 (51.61%)</td>
+<td style="text-align: left;">821 (51.63%)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>RIDRETH1: Race</strong></td>
@@ -544,29 +603,30 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Mexican American</td>
-<td style="text-align: left;">303 (15.03%)</td>
+<td style="text-align: left;">249 (15.66%)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Other Hispanic</td>
-<td style="text-align: left;">208 (10.32%)</td>
+<td style="text-align: left;">179 (11.25%)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Non-Hispanic White</td>
-<td style="text-align: left;">581 (28.83%)</td>
+<td style="text-align: left;">459 (28.87%)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Non-Hispanic Black</td>
-<td style="text-align: left;">483 (23.97%)</td>
+<td style="text-align: left;">376 (23.64%)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Other Race - Including Multi-Racial</td>
-<td style="text-align: left;">440 (21.84%)</td>
+<td style="text-align: left;">327 (20.57%)</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="codebook-html-rendering" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="codebook-html-rendering"><span class="header-section-number">5.2</span> Codebook (HTML Rendering)</h2>
+<p>Check out HTML codebook <a href="../../../../data/study1/codebook.html">here →</a></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dataReporter)</span>
@@ -881,6 +941,146 @@ X-squared = 23.096, df = 4, p-value = 0.0001211</code></pre>
   Other Hispanic     -0.1217046  0.2632472
   Non-Hispanic Black -1.6355084  3.5376056
   Other/Multiracial   0.4621035 -0.9995300</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sessioninfo)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">session_info</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.5.1 (2025-06-13 ucrt)
+ os       Windows 11 x64 (build 26100)
+ system   x86_64, mingw32
+ ui       RTerm
+ language (EN)
+ collate  English_United States.utf8
+ ctype    English_United States.utf8
+ tz       America/New_York
+ date     2025-09-28
+ pandoc   3.6.3 @ C:\\Users\\User\\AppData\\Local\\Programs\\Quarto\\bin\\tools/ (via rmarkdown)
+ quarto   NA @ C:\\Users\\User\\AppData\\Local\\Programs\\Quarto\\bin\\quarto.exe
+
+─ Packages ───────────────────────────────────────────────────────────────────
+ package      * version  date (UTC) lib source
+ abind          1.4-8    2024-09-12 [1] CRAN (R 4.5.0)
+ backports      1.5.0    2024-05-23 [1] CRAN (R 4.5.0)
+ boot           1.3-31   2024-08-28 [2] CRAN (R 4.5.1)
+ broom          1.0.10   2025-09-13 [1] CRAN (R 4.5.1)
+ bslib          0.9.0    2025-01-30 [1] CRAN (R 4.5.1)
+ cachem         1.1.0    2024-05-16 [1] CRAN (R 4.5.1)
+ car            3.1-3    2024-09-27 [1] CRAN (R 4.5.1)
+ carData        3.0-5    2022-01-06 [1] CRAN (R 4.5.1)
+ cellranger     1.1.0    2016-07-27 [1] CRAN (R 4.5.1)
+ class          7.3-23   2025-01-01 [2] CRAN (R 4.5.1)
+ cli            3.6.5    2025-04-23 [1] CRAN (R 4.5.1)
+ codetools      0.2-20   2024-03-31 [2] CRAN (R 4.5.1)
+ coin           1.4-3    2023-09-27 [1] CRAN (R 4.5.1)
+ curl           7.0.0    2025-08-19 [1] CRAN (R 4.5.1)
+ data.table     1.17.8   2025-07-10 [1] CRAN (R 4.5.1)
+ dataReporter * 1.0.5    2025-04-13 [1] CRAN (R 4.5.1)
+ DEoptimR       1.1-4    2025-07-27 [1] CRAN (R 4.5.1)
+ DescTools      0.99.60  2025-03-28 [1] CRAN (R 4.5.1)
+ digest         0.6.37   2024-08-19 [1] CRAN (R 4.5.1)
+ dplyr        * 1.1.4    2023-11-17 [1] CRAN (R 4.5.1)
+ e1071          1.7-16   2024-09-16 [1] CRAN (R 4.5.1)
+ epitools     * 0.5-10.1 2020-03-22 [1] CRAN (R 4.5.0)
+ evaluate       1.0.5    2025-08-27 [1] CRAN (R 4.5.1)
+ Exact          3.3      2024-07-21 [1] CRAN (R 4.5.0)
+ expm           1.0-0    2024-08-19 [1] CRAN (R 4.5.1)
+ farver         2.1.2    2024-05-13 [1] CRAN (R 4.5.1)
+ fastmap        1.2.0    2024-05-15 [1] CRAN (R 4.5.1)
+ forcats      * 1.0.1    2025-09-25 [1] CRAN (R 4.5.1)
+ foreign        0.8-90   2025-03-31 [2] CRAN (R 4.5.1)
+ Formula        1.2-5    2023-02-24 [1] CRAN (R 4.5.0)
+ fs             1.6.6    2025-04-12 [1] CRAN (R 4.5.1)
+ generics       0.1.4    2025-05-09 [1] CRAN (R 4.5.1)
+ ggplot2      * 4.0.0    2025-09-11 [1] CRAN (R 4.5.1)
+ gld            2.6.8    2025-09-14 [1] CRAN (R 4.5.1)
+ glue           1.8.0    2024-09-30 [1] CRAN (R 4.5.1)
+ gridExtra      2.3      2017-09-09 [1] CRAN (R 4.5.1)
+ gtable         0.3.6    2024-10-25 [1] CRAN (R 4.5.1)
+ haven          2.5.5    2025-05-30 [1] CRAN (R 4.5.1)
+ here           1.0.2    2025-09-15 [1] CRAN (R 4.5.1)
+ hms            1.1.3    2023-03-21 [1] CRAN (R 4.5.1)
+ htmltools      0.5.8.1  2024-04-04 [1] CRAN (R 4.5.1)
+ htmlwidgets    1.6.4    2023-12-06 [1] CRAN (R 4.5.1)
+ httr           1.4.7    2023-08-15 [1] CRAN (R 4.5.1)
+ jquerylib      0.1.4    2021-04-26 [1] CRAN (R 4.5.1)
+ jsonlite       2.0.0    2025-03-27 [1] CRAN (R 4.5.1)
+ knitr          1.50     2025-03-16 [1] CRAN (R 4.5.1)
+ labeling       0.4.3    2023-08-29 [1] CRAN (R 4.5.0)
+ labelled     * 2.15.0   2025-09-16 [1] CRAN (R 4.5.1)
+ lattice        0.22-7   2025-04-02 [2] CRAN (R 4.5.1)
+ libcoin        1.0-10   2023-09-27 [1] CRAN (R 4.5.1)
+ lifecycle      1.0.4    2023-11-07 [1] CRAN (R 4.5.1)
+ lmom           3.2      2024-09-30 [1] CRAN (R 4.5.0)
+ lmtest         0.9-40   2022-03-21 [1] CRAN (R 4.5.1)
+ lubridate    * 1.9.4    2024-12-08 [1] CRAN (R 4.5.1)
+ magrittr       2.0.4    2025-09-12 [1] CRAN (R 4.5.1)
+ MASS           7.3-65   2025-02-28 [2] CRAN (R 4.5.1)
+ Matrix         1.7-3    2025-03-11 [2] CRAN (R 4.5.1)
+ matrixStats    1.5.0    2025-01-07 [1] CRAN (R 4.5.1)
+ mnormt         2.1.1    2022-09-26 [1] CRAN (R 4.5.0)
+ modeltools     0.2-24   2025-05-02 [1] CRAN (R 4.5.0)
+ multcomp       1.4-28   2025-01-29 [1] CRAN (R 4.5.1)
+ multcompView   0.1-10   2024-03-08 [1] CRAN (R 4.5.1)
+ mvtnorm        1.3-3    2025-01-10 [1] CRAN (R 4.5.1)
+ nhanesA      * 1.4      2025-09-10 [1] CRAN (R 4.5.1)
+ nlme           3.1-168  2025-03-31 [2] CRAN (R 4.5.1)
+ nortest        1.0-4    2015-07-30 [1] CRAN (R 4.5.0)
+ pander       * 0.6.6    2025-03-01 [1] CRAN (R 4.5.1)
+ patchwork    * 1.3.2    2025-08-25 [1] CRAN (R 4.5.1)
+ pillar         1.11.1   2025-09-17 [1] CRAN (R 4.5.1)
+ pkgconfig      2.0.3    2019-09-22 [1] CRAN (R 4.5.1)
+ plyr           1.8.9    2023-10-02 [1] CRAN (R 4.5.1)
+ proxy          0.4-27   2022-06-09 [1] CRAN (R 4.5.1)
+ psych        * 2.5.6    2025-06-23 [1] CRAN (R 4.5.1)
+ purrr        * 1.1.0    2025-07-10 [1] CRAN (R 4.5.1)
+ R6             2.6.1    2025-02-15 [1] CRAN (R 4.5.1)
+ RColorBrewer   1.1-3    2022-04-03 [1] CRAN (R 4.5.0)
+ rcompanion   * 2.5.0    2025-02-13 [1] CRAN (R 4.5.1)
+ Rcpp           1.1.0    2025-07-02 [1] CRAN (R 4.5.1)
+ readr        * 2.1.5    2024-01-10 [1] CRAN (R 4.5.1)
+ readxl         1.4.5    2025-03-07 [1] CRAN (R 4.5.1)
+ rlang          1.1.6    2025-04-11 [1] CRAN (R 4.5.1)
+ rmarkdown      2.29     2024-11-04 [1] CRAN (R 4.5.1)
+ robustbase     0.99-6   2025-09-04 [1] CRAN (R 4.5.1)
+ rootSolve      1.8.2.4  2023-09-21 [1] CRAN (R 4.5.0)
+ rprojroot      2.1.1    2025-08-26 [1] CRAN (R 4.5.1)
+ rstatix      * 0.7.2    2023-02-01 [1] CRAN (R 4.5.1)
+ rstudioapi     0.17.1   2024-10-22 [1] CRAN (R 4.5.1)
+ rvest          1.0.5    2025-08-29 [1] CRAN (R 4.5.1)
+ S7             0.2.0    2024-11-07 [1] CRAN (R 4.5.1)
+ sandwich       3.1-1    2024-09-15 [1] CRAN (R 4.5.1)
+ sass           0.4.10   2025-04-11 [1] CRAN (R 4.5.1)
+ scales         1.4.0    2025-04-24 [1] CRAN (R 4.5.1)
+ selectr        0.4-2    2019-11-20 [1] CRAN (R 4.5.1)
+ sessioninfo  * 1.2.3    2025-02-05 [1] CRAN (R 4.5.1)
+ stringi        1.8.7    2025-03-27 [1] CRAN (R 4.5.0)
+ stringr      * 1.5.2    2025-09-08 [1] CRAN (R 4.5.1)
+ survival       3.8-3    2024-12-17 [2] CRAN (R 4.5.1)
+ TH.data        1.1-4    2025-09-02 [1] CRAN (R 4.5.1)
+ tibble       * 3.3.0    2025-06-08 [1] CRAN (R 4.5.1)
+ tidyr        * 1.3.1    2024-01-24 [1] CRAN (R 4.5.1)
+ tidyselect     1.2.1    2024-03-11 [1] CRAN (R 4.5.1)
+ tidyverse    * 2.0.0    2023-02-22 [1] CRAN (R 4.5.1)
+ timechange     0.3.0    2024-01-18 [1] CRAN (R 4.5.1)
+ tzdb           0.5.0    2025-03-15 [1] CRAN (R 4.5.1)
+ utf8           1.2.6    2025-06-08 [1] CRAN (R 4.5.1)
+ vctrs          0.6.5    2023-12-01 [1] CRAN (R 4.5.1)
+ whoami         1.3.0    2019-03-19 [1] CRAN (R 4.5.1)
+ withr          3.0.2    2024-10-28 [1] CRAN (R 4.5.1)
+ xfun           0.53     2025-08-19 [1] CRAN (R 4.5.1)
+ xml2           1.4.0    2025-08-20 [1] CRAN (R 4.5.1)
+ yaml           2.3.10   2024-07-26 [1] CRAN (R 4.5.0)
+ zoo            1.8-14   2025-04-10 [1] CRAN (R 4.5.1)
+
+ [1] C:/Users/User/AppData/Local/R/win-library/4.5
+ [2] C:/Program Files/R/R-4.5.1/library
+ * ── Packages attached to the search path.
+
+──────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
 </div>
 

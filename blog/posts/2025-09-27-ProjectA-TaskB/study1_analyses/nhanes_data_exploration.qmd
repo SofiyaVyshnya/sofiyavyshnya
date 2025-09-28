@@ -1,5 +1,5 @@
 ---
-title: "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)"
+title: "NHANES Data Exploration: Heavy Metal Exposure & High blood Pressure"
 author: 
   - name: "Sofiya Vyshnya"
 date: last-modified
@@ -75,7 +75,7 @@ saveRDS(nhanes_filtered, here::here("data/nhanes_data.rds"))
 
 *General:* Individuals with missing data for any of the variables listed in Table 1 were removed.
 
-*Numeric Variable Processing:* Outliers (defined as values \< Q1- 1.5*IQR or \> Q3+1.5*IQR) were removed. Numeric variables were subsequently log-transformed to make them approximately log-normal (see histograms below).
+*Numeric Variable Processing:* Outliers (defined as values \< Q1- 1.5*IQR or \> Q3+1.5*IQR) were removed. Numeric variables were subsequently log-transformed (after adding 1 to each value) to make them approximately log-normal (see histograms below).
 
 The resulting dataset has 1590 observations.
 
@@ -150,32 +150,39 @@ Table 1: Variables included in the data.
 
 Summary statistics for the continuous and categorical variables:
 
-Table 2: Summary of numeric data.
+Table 2: Summary of numeric data. "_clean_log" indicates that outliers were removed, and the variable was log-transformed after adding 1 to all values. "_clean" indicates that only outliers were removed.
 
 | Variable     | mean   | stdev | median | min   | max    |
 |:-------------|:-------|:------|:-------|:------|:-------|
-| **RIDAGEYR** | 53.67  | 7.54  | 55.00  | 40.00 | 65.00  |
-| **LBXBPB**   | 1.36   | 1.69  | 1.02   | 0.12  | 42.48  |
-| **LBXBCD**   | 0.53   | 0.60  | 0.34   | 0.07  | 7.50   |
-| **LBXBMN**   | 10.07  | 3.78  | 9.39   | 1.57  | 35.56  |
-| **BPXSY1**   | 127.95 | 18.52 | 126.00 | 78.00 | 224.00 |
-| **BPXDI1**   | 76.06  | 12.04 | 76.00  | 0.00  | 124.00 |
+| **RIDAGEYR** | 53.67  | 7.57  | 55.00  | 40.00 | 65.00  |
+| **LBXBPB**   | 1.03   | 0.54  | 0.93   | 0.12  | 2.77  |
+| **LBXBCD**   | 0.37   | 0.25  | 0.30   | 0.07  | 1.21   |
+| **LBXBMN**   | 9.67  | 2.98  | 9.72   | 3.07  | 18.34  |
+| **BPXSY1**   | 126.18 | 15.69 | 126.00 | 88.00 | 170.00 |
+| **BPXDI1**   | 76.00  | 9.69 | 76.00  | 52.00  | 100.00 |
+| **LBXBPB_clean_log**   | 0.68   | 0.25  | 0.66   | 0.11  | 1.33  |
+| **LBXBCD_clean_log**   | 0.07   | 0.17  | 0.26   | 0.07  | 0.79   |
+| **LBXBMN_clean_log**   | 2.33  | 0.28  | 2.33   | 1.40  | 2.96  |
+| **BPXSY1_clean**   | 126.18 | 15.69 | 125.60 | 88.00 | 170.00 |
+| **BPXDI1_clean**   | 76.00  | 9.69 | 75.94  | 52.00  | 100.00 |
 
 Table 3: Summary of categorical data.
 
 | Variable                            | Count (Percent) |
 |:------------------------------------|:----------------|
 | **RIAGENDR: Sex**                   |                 |
-| Male                                | 975 (48.39%)    |
-| Female                              | 1040 (51.61%)   |
+| Male                                | 769 (48.36%)    |
+| Female                              | 821 (51.63%)   |
 | **RIDRETH1: Race**                  |                 |
-| Mexican American                    | 303 (15.03%)    |
-| Other Hispanic                      | 208 (10.32%)    |
-| Non-Hispanic White                  | 581 (28.83%)    |
-| Non-Hispanic Black                  | 483 (23.97%)    |
-| Other Race - Including Multi-Racial | 440 (21.84%)    |
+| Mexican American                    | 249 (15.66%)    |
+| Other Hispanic                      | 179 (11.25%)    |
+| Non-Hispanic White                  | 459 (28.87%)    |
+| Non-Hispanic Black                  | 376 (23.64%)    |
+| Other Race - Including Multi-Racial | 327 (20.57%)    |
 
 ## Codebook (HTML Rendering)
+Check out HTML codebook <a href="/data/study1/codebook.html">here &rarr;</a> 
+
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 library(labelled)
@@ -208,6 +215,7 @@ nhanes_clean <- set_variable_labels(nhanes_clean, .labels = var_labels_list)
 
 makeCodebook(nhanes_clean, file = here::here("data/study1/codebook.html"), output = "html", replace = TRUE)
 ```
+
 
 ## Codebook (Table Rendering)
 
@@ -495,4 +503,14 @@ cramerV(tab)
 ```{r}
 # look at chi square Pearson residuals: (observed - expected)/(sqrt expected)
 chisq_res$residuals
+```
+
+
+
+```{r}
+#| echo: TRUE
+#| message: FALSE
+#| warning: FALSE
+library(sessioninfo)
+session_info()
 ```
