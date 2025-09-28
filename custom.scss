@@ -1,0 +1,34 @@
+/*-- scss:defaults --*/
+
+// fonts
+$font-family-sans-serif: "Roboto", sans-serif;
+
+// colors
+
+$navbar-bg: #011a42;
+$navbar-fg: #aba597;
+
+$link-color: #aba597;
+$hover-color: lighten($link-color, 40%);
+
+/*-- scss:rules --*/
+.card-header {
+  background-color: #F0F0F0;
+}
+
+.nav-item > a:hover {
+  color: #011a42;
+}
+
+.nav-link{
+  color: #a9b7cc;
+}
+
+
+div.callout-note.callout {
+  border-left-color: #011a42;
+}
+
+div.callout-note.callout-style-default>.callout-header {
+  background-color: #9ea8ae;
+}

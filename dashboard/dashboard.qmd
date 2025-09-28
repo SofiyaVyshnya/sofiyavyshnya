@@ -1,0 +1,330 @@
+---
+title: "Blood Pressure and Heavy Metals Dashboard"
+format: 
+  dashboard:
+    page-title: "Blood Pressure and Heavy Metals Dashboard"
+theme: [cosmo, custom.scss]
+fig-width: 10
+fig-asp: 0.3
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r}
+#| label: load-packages
+#| message: false
+
+library(janitor)
+library(naniar)
+library(knitr)
+library(easystats)
+library(magrittr)
+library(Hmisc)
+library(scales)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+
+library(DT)
+library(gt)
+theme_set(theme_minimal(base_size = 24, base_family = "sans"))
+```
+
+```{r}
+#| label: load-data
+#| message: false
+
+#--------------- Import Data --------------------- 
+# read in the data
+nhanes_data <- readRDS(here::here("data/study1/nhanes_data_cleaned.Rds"))  # absolute path to data/
+
+# import helper functions
+source(here::here("R/helpers.R"))  # absolute path to R/
+
+#--------------- Data Preprocessing --------------------- 
+# Binarize systolic BP into high (>140) and normal/low (<= 140)
+nhanes_data <- nhanes_data %>%
+  mutate(
+    
+    HighBP = ifelse(BPXSY1 > 140, 1, 0)  #use original data, prior to outlier removal
+  )
+
+# Bin Age into 5-year Bins
+nhanes_data <- nhanes_data %>%
+  mutate(
+    age_group = cut(
+      RIDAGEYR, 
+      breaks = c(40, 44, 49, 54, 59, 65),   # define the bin edges
+      labels = c("40-44", "45-49", "50-54", "55-59", "60-65"),  # labels for bins
+      include.lowest = TRUE,   # include 40 in the first bin
+      right = TRUE             # intervals are closed on the right (default)
+    )
+  )
+
+```
+
+#  {.sidebar}
+
+This dashboard displays national level statistics for the pre-pandemic period in the United States:
+
+|              |                     |
+|--------------|---------------------|
+| **Source** | NHANES |
+| **Begin**     | 2017  |
+| **End**    | March 2020   |
+
+------------------------------------------------------------------------
+
+::: {.callout-note collapse="true"}
+## Disclaimer
+
+These data do not include sample weights from NHANES and thus are not truly representative of national estimates.
+:::
+
+# Blood Pressure {orientation="columns"}
+
+```{r}
+#| label: all-values
+#| results: hide
+
+
+#--------------- High BP Prevalence Calculation --------------------- 
+# Calculate prevalence
+HighBP_prevalence <- nhanes_data %>%
+  summarise(prevalence = mean(HighBP == 1, na.rm = TRUE))
+n <- nrow(nhanes_data) 
+pd <- HighBP_prevalence$prevalence  
+z_score <- qnorm(0.95)  
+se <- sqrt((pd * (1 - pd)) / n)
+lower_boundd <- pd - z_score * se
+upper_boundd <- pd + z_score * se
+
+HighBP_p <- as.character(cat("Estimated National Prevalence [90%]: ", round(pd*100,2), "% [",round(lower_boundd*100,2), ",",round(upper_boundd*100,2), "]", sep = ""))
+
+# Sample Size
+n <- nrow(nhanes_data)
+```
+
+
+## Column {width="60%"}
+### Row {height="20%"}
+
+```{r}
+#| content: valuebox
+#| title: "Prevalence of High Blood Pressure (Systolic > 140 mmHg, %)"
+list(
+  color = "primary",
+  value = round(pd*100,2)
+)
+value = HighBP_p
+# use this color: #ffcc66
+```
+
+
+### Row {height="30%"}
+
+#### Column {width="55%"}
+
+```{r}
+#| title: High Blood Pressure Prevalence by Age
+
+# Summarize proportion of high BP by age group
+bp_summary <- nhanes_data %>%
+  group_by(age_group) %>%
+  summarise(
+    n = n(),
+    high_bp = sum(HighBP, na.rm = TRUE),
+    prop_high_bp = high_bp / n
+  )
+
+# Custom color palette
+palette <- c("#182139", "#4b85a8", "#aba597", "#e1b200", "#d98100")
+
+# Bar plot
+ggplot(bp_summary, aes(x = age_group, y = prop_high_bp, fill = age_group)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop_high_bp, accuracy = 1)), 
+            vjust = -0.5,
+            size = 8) +  # larger font
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,0.4)) +
+  scale_fill_manual(values = palette) +  # apply custom colors
+  labs(
+    x = "Age",
+    y = "",
+    fill = "Age"  # legend title
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 24),       # tick labels
+    axis.title = element_text(size = 26),      # axis labels
+    legend.text = element_text(size = 24),
+    legend.title = element_text(size = 26),
+    plot.margin = margin(t = 5, r = 5, b = 5, l = 5)
+  )
+```
+
+#### Column {width="45%"}
+
+```{r}
+#| title: High Blood Pressure Prevalence by Sex
+
+# Summarize proportion of HighBP by sex
+bp_summary <- nhanes_data %>%
+  group_by(RIAGENDR) %>%
+  summarise(
+    n_total = n(),
+    n_highbp = sum(HighBP == 1, na.rm = TRUE),
+    prop_high_bp = n_highbp / n_total
+  )
+
+# custom color palette
+palette <- c("#aba597", "#e1b200")
+
+# Bar plot
+ggplot(bp_summary, aes(x = RIAGENDR, y = prop_high_bp, fill = RIAGENDR)) +
+  geom_col()  +
+  geom_text(aes(label = scales::percent(prop_high_bp, 1)),
+            vjust = -0.5, size = 10) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,0.25)) +
+  scale_fill_manual(values = palette) +  # apply custom colors
+  labs(
+    x = "Sex",
+    y = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 28),       # tick labels
+    axis.title = element_text(size = 32),      # axis labels
+    legend.text = element_text(size = 28),
+    legend.title = element_text(size = 32),
+    plot.margin = margin(t = 5, r = 5, b = 5, l = 5)
+  ) +
+  theme(legend.position = "none")
+```
+
+### Row {height="50%"}
+
+```{r}
+#| title: High Blood Pressure Prevalence by Race/Ethnicity
+
+# Custom color palette
+palette <- c("#182139", "#4b85a8", "#aba597", "#e1b200", "#d98100")
+
+
+# Summarize proportion of HighBP by race/ethnicity
+bp_race_summary <- nhanes_data %>%
+mutate(RIDRETH1 = recode(RIDRETH1,
+    "Non-Hispanic White" = "Non-Hispanic\nWhite",
+    "Non-Hispanic Black" = "Non-Hispanic\nBlack",
+    "Mexican American" = "Mexican\nAmerican",
+    "Other Race - Including Multi-Racial" = "Other/Multi"
+  ))   %>%
+group_by(RIDRETH1) %>%
+  summarise(
+    n_total = n(),
+    n_highbp = sum(HighBP == 1, na.rm = TRUE),
+    prop_high_bp = n_highbp / n_total
+  )
+
+# Bar plot
+ggplot(bp_race_summary, aes(x = RIDRETH1, y = prop_high_bp, fill = RIDRETH1)) +
+  geom_col()  +
+  geom_text(aes(label = scales::percent(prop_high_bp, 1)),
+            vjust = -0.5, size = 6) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,0.35)) +
+  scale_fill_manual(values = palette) +  # apply custom colors
+  labs(
+    x = "\nRace/Ethnicity",
+    y = ""
+  ) +
+  theme_minimal() +
+  theme(
+    #axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),  # rotate labels
+    axis.text = element_text(size = 14),       # tick labels
+    axis.title = element_text(size = 16),      # axis labels
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 16),
+    plot.margin = margin(t = 5, r = 5, b = 5, l = 5)
+  ) +
+  theme(legend.position = "none")
+```
+
+
+
+
+## Column {width = "40%"}
+
+```{r all_data_table}
+#| title: Data
+
+# Select and rename variables
+nhanes_table <- nhanes_data %>%
+  
+  select(
+    SEQN, RIDAGEYR, RIAGENDR, RIDRETH1, BPXSY1, HighBP
+  ) %>%
+  mutate(
+    HighBP = ifelse(HighBP == 1, "Yes", "No")  # convert to Yes/No for display
+  ) %>%
+  rename(
+    `Patient ID` = SEQN,
+    `Age (Years)` = RIDAGEYR,
+    `Sex` = RIAGENDR,
+    `Race/Ethnicity` = RIDRETH1,
+    `Systolic Blood Pressure (mmHg)` = BPXSY1
+  )
+
+# Render scrollable datatable
+datatable(
+  nhanes_table,
+  options = list(
+    pageLength = 20,      # number of rows per page
+    scrollX = TRUE,       # horizontal scrolling
+    dom = 'ftp'           # filter, table, pagination
+  ),
+  rownames = FALSE
+)
+
+
+```
+
+
+
+
+
+# Data
+
+```{r}
+# Select and rename variables
+nhanes_table <- nhanes_data %>%
+  
+  select(
+    SEQN, RIDAGEYR, RIAGENDR, RIDRETH1, 
+    LBXBPB, LBXBCD, LBXBMN, BPXSY1, HighBP
+  ) %>%
+  mutate(
+    HighBP = ifelse(HighBP == 1, "Yes", "No")  # convert to Yes/No for display
+  ) %>%
+  rename(
+    `Patient ID` = SEQN,
+    `Age (Years)` = RIDAGEYR,
+    `Sex` = RIAGENDR,
+    `Race/Ethnicity` = RIDRETH1,
+    `Blood Lead Concentration (μg/dL)` = LBXBPB,
+    `Blood Cadmium Concentration (μg/dL)` = LBXBCD,
+    `Blood Manganese Concentration (μg/dL)` = LBXBMN,
+    `Systolic Blood Pressure (mmHg)` = BPXSY1
+  )
+
+# Render scrollable datatable
+datatable(
+  nhanes_table,
+  options = list(
+    pageLength = 20,      # number of rows per page
+    scrollX = TRUE,       # horizontal scrolling
+    dom = 'ftp'           # filter, table, pagination
+  ),
+  rownames = FALSE
+)
+```

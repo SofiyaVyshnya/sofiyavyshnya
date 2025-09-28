@@ -7,6 +7,132 @@
     "text": "Overview\nMy research is driven by a long-term goal of advancing personalized medicine. I focus on integrating MRI, pathology imaging, and artificial intelligence to improve cancer diagnosis, prognosis, and treatment, with the ultimate aim of making therapies more precise, efficient, and accessible for every patient.\nI am particularly interested in:\n\nMultimodal imaging integration: Combining MRI and pathology data to capture the full complexity of tumors and improve diagnostic accuracy.\n\nMachine learning for therapy personalization: Developing predictive models that help clinicians select the optimal treatment for individual patients.\n\nTranslational impact: Creating tools that can be incorporated into clinical workflows to support real-world patient care.\n\n\n\n\n\n\n\n\n\n\n\n\nFuture Directions\nLooking ahead, I aim to expand my work to broader applications of personalized medicine, combining imaging, genomics, and AI-driven decision support to help bring precision therapies from the lab to the clinic efficiently."
   },
   {
+    "objectID": "data/study1/codebook.html",
+    "href": "data/study1/codebook.html",
+    "title": "Codebook for nhanes_clean",
+    "section": "",
+    "text": "The dataset examined has the following dimensions:\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nNumber of observations\n1590\n\n\nNumber of variables\n17"
+  },
+  {
+    "objectID": "data/study1/codebook.html#seqn",
+    "href": "data/study1/codebook.html#seqn",
+    "title": "Codebook for nhanes_clean",
+    "section": "SEQN",
+    "text": "SEQN\nSubject ID: Individual Identifier\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n1590\n\n\nMedian\n98328.5\n\n\n1st and 3rd quartiles\n96018.25; 100753.5\n\n\nMin. and max.\n93711; 102954"
+  },
+  {
+    "objectID": "data/study1/codebook.html#ridageyr",
+    "href": "data/study1/codebook.html#ridageyr",
+    "title": "Codebook for nhanes_clean",
+    "section": "RIDAGEYR",
+    "text": "RIDAGEYR\nAge in years at screening (40-65)\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n26\n\n\nMedian\n55\n\n\n1st and 3rd quartiles\n47; 60\n\n\nMin. and max.\n40; 65"
+  },
+  {
+    "objectID": "data/study1/codebook.html#riagendr",
+    "href": "data/study1/codebook.html#riagendr",
+    "title": "Codebook for nhanes_clean",
+    "section": "RIAGENDR",
+    "text": "RIAGENDR\nSex: male or female\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nfactor\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n2\n\n\nMode\n“Female”\n\n\nReference category\nMale\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObserved factor levels: \"Female\", \"Male\"."
+  },
+  {
+    "objectID": "data/study1/codebook.html#ridreth1",
+    "href": "data/study1/codebook.html#ridreth1",
+    "title": "Codebook for nhanes_clean",
+    "section": "RIDRETH1",
+    "text": "RIDRETH1\nRace / Ethnicity\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nfactor\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n5\n\n\nMode\n“Non-Hispanic White”\n\n\nReference category\nMexican American\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObserved factor levels: \"Mexican American\", \"Non-Hispanic Black\", \"Non-Hispanic White\", \"Other Hispanic\", \"Other/Multiracial\"."
+  },
+  {
+    "objectID": "data/study1/codebook.html#lbxbpb",
+    "href": "data/study1/codebook.html#lbxbpb",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBPB",
+    "text": "LBXBPB\nBlood lead (µg/dL)\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n245\n\n\nMedian\n0.93\n\n\n1st and 3rd quartiles\n0.61; 1.33\n\n\nMin. and max.\n0.12; 2.77"
+  },
+  {
+    "objectID": "data/study1/codebook.html#lbxbcd",
+    "href": "data/study1/codebook.html#lbxbcd",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBCD",
+    "text": "LBXBCD\nBlood cadmium (µg/dL)\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n110\n\n\nMedian\n0.3\n\n\n1st and 3rd quartiles\n0.18; 0.48\n\n\nMin. and max.\n0.07; 1.21"
+  },
+  {
+    "objectID": "data/study1/codebook.html#lbxbmn",
+    "href": "data/study1/codebook.html#lbxbmn",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBMN",
+    "text": "LBXBMN\nBlood manganese (µg/dL)\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n845\n\n\nMedian\n9.27\n\n\n1st and 3rd quartiles\n7.49; 11.49\n\n\nMin. and max.\n3.07; 18.34"
+  },
+  {
+    "objectID": "data/study1/codebook.html#bpxsy1",
+    "href": "data/study1/codebook.html#bpxsy1",
+    "title": "Codebook for nhanes_clean",
+    "section": "BPXSY1",
+    "text": "BPXSY1\nSystolic BP, first reading\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n42\n\n\nMedian\n126\n\n\n1st and 3rd quartiles\n116; 136\n\n\nMin. and max.\n88; 170"
+  },
+  {
+    "objectID": "data/study1/codebook.html#bpxdi1",
+    "href": "data/study1/codebook.html#bpxdi1",
+    "title": "Codebook for nhanes_clean",
+    "section": "BPXDI1",
+    "text": "BPXDI1\nDiastolic BP, first reading\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n25\n\n\nMedian\n76\n\n\n1st and 3rd quartiles\n70; 82\n\n\nMin. and max.\n52; 100"
+  },
+  {
+    "objectID": "data/study1/codebook.html#lbxbpb_clean",
+    "href": "data/study1/codebook.html#lbxbpb_clean",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBPB_clean",
+    "text": "LBXBPB_clean\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n245\n\n\nMedian\n0.93\n\n\n1st and 3rd quartiles\n0.61; 1.33\n\n\nMin. and max.\n0.12; 2.77"
+  },
+  {
+    "objectID": "data/study1/codebook.html#lbxbcd_clean",
+    "href": "data/study1/codebook.html#lbxbcd_clean",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBCD_clean",
+    "text": "LBXBCD_clean\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n110\n\n\nMedian\n0.3\n\n\n1st and 3rd quartiles\n0.18; 0.48\n\n\nMin. and max.\n0.07; 1.21"
+  },
+  {
+    "objectID": "data/study1/codebook.html#lbxbmn_clean",
+    "href": "data/study1/codebook.html#lbxbmn_clean",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBMN_clean",
+    "text": "LBXBMN_clean\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n845\n\n\nMedian\n9.27\n\n\n1st and 3rd quartiles\n7.49; 11.49\n\n\nMin. and max.\n3.07; 18.34"
+  },
+  {
+    "objectID": "data/study1/codebook.html#lbxbpb_clean_log",
+    "href": "data/study1/codebook.html#lbxbpb_clean_log",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBPB_clean_log",
+    "text": "LBXBPB_clean_log\nBlood lead after outlier removal and log transformation\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n245\n\n\nMedian\n0.66\n\n\n1st and 3rd quartiles\n0.48; 0.85\n\n\nMin. and max.\n0.11; 1.33"
+  },
+  {
+    "objectID": "data/study1/codebook.html#lbxbcd_clean_log",
+    "href": "data/study1/codebook.html#lbxbcd_clean_log",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBCD_clean_log",
+    "text": "LBXBCD_clean_log\nBlood cadmium after outlier removal and log transformation\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n110\n\n\nMedian\n0.26\n\n\n1st and 3rd quartiles\n0.17; 0.39\n\n\nMin. and max.\n0.07; 0.79"
+  },
+  {
+    "objectID": "data/study1/codebook.html#lbxbmn_clean_log",
+    "href": "data/study1/codebook.html#lbxbmn_clean_log",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBMN_clean_log",
+    "text": "LBXBMN_clean_log\nBlood manganese after outlier removal and log transformation\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n845\n\n\nMedian\n2.33\n\n\n1st and 3rd quartiles\n2.14; 2.52\n\n\nMin. and max.\n1.4; 2.96"
+  },
+  {
+    "objectID": "data/study1/codebook.html#bpxsy1_clean",
+    "href": "data/study1/codebook.html#bpxsy1_clean",
+    "title": "Codebook for nhanes_clean",
+    "section": "BPXSY1_clean",
+    "text": "BPXSY1_clean\nSystolic BP, first reading after outlier removal\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n42\n\n\nMedian\n126\n\n\n1st and 3rd quartiles\n116; 136\n\n\nMin. and max.\n88; 170"
+  },
+  {
+    "objectID": "data/study1/codebook.html#bpxdi1_clean",
+    "href": "data/study1/codebook.html#bpxdi1_clean",
+    "title": "Codebook for nhanes_clean",
+    "section": "BPXDI1_clean",
+    "text": "BPXDI1_clean\nDiastolic BP, first reading after outlier removal\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n25\n\n\nMedian\n76\n\n\n1st and 3rd quartiles\n70; 82\n\n\nMin. and max.\n52; 100\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReport generation information:\n\nCreated by: SofiyaVyshnya (username: User).\nReport creation time: Sat Sep 27 2025 21:07:05\nReport was run from directory: C:/Users/User/sofiyavyshnya/blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses\ndataReporter v1.0.5 [Pkg: 2025-04-13 from standard (@1.0.5)]\nR version 4.5.1 (2025-06-13 ucrt).\nPlatform: x86_64-w64-mingw32/x64(America/New_York).\nFunction call: dataReporter::makeDataReport(data = nhanes_clean, output = \"html\",      mode = c(\"summarize\", \"visualize\", \"check\"), smartNum = FALSE,      file = \"C:/Users/User/sofiyavyshnya/data/study1/codebook.html\",      replace = TRUE, checks = list(character = \"showAllFactorLevels\",          factor = \"showAllFactorLevels\", labelled = \"showAllFactorLevels\",          haven_labelled = \"showAllFactorLevels\", numeric = NULL,          integer = NULL, logical = NULL, Date = NULL), listChecks = FALSE,      maxProbVals = Inf, codebook = TRUE, reportTitle = \"Codebook for nhanes_clean\")"
+  },
+  {
     "objectID": "contact.html",
     "href": "contact.html",
     "title": "Contact",
@@ -21,32 +147,102 @@
     "text": "Send a Message\nYou can also send me a message directly using the form below:\n\nName:  Email:  Message:\n\n Send\n\n\nThank you for visiting my site! I look forward to connecting with colleagues, collaborators, and anyone interested in advancing personalized medicine and biomedical innovation."
   },
   {
-    "objectID": "blog/index.html",
-    "href": "blog/index.html",
-    "title": "Blog",
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html",
+    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
     "section": "",
-    "text": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey\n\n        \n          Sep 17, 2025 | Sofiya Vyshnya\n        \n\n        \n          How early clinical experiences inspired my journey as an MD-PhD student and my research in personalized medicine.\n        \n\n        \n          \n            \n              #Personal, \n            \n              #Research, \n            \n              #MD-PhD, \n            \n              #Personalized Medicine\n            \n          \n        \n\n        \n        \n          Read full post →\n        \n\n      \n    \n\n  \n\nNo matching items"
+    "text": "My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (e.g. lead exposure) have higher systolic blood pressure. To test this hypothesis, I am using data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). In this study (Study 2 analyses), I am modeling the relationship between the concentration of lead in the blood and blood pressure."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#data-imputation",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#data-imputation",
+    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
+    "section": "4.1 Data Imputation",
+    "text": "4.1 Data Imputation\n\n4.1.1 Demonstration of Missing Data & Investigating Patterns of Data Missingness (MCAR, MAR, NMAR)\nFirst, I want to find out any patterns in my missing values to understand whether the data is missing completely at random (MCAR), missing at random (MAR), or missing not at random (MNAR).\n\n\n\n\n\n\n\n\n\n# A tibble: 9 × 3\n  variable n_miss pct_miss\n  &lt;chr&gt;     &lt;int&gt;    &lt;num&gt;\n1 BPXSY1      378    15.3 \n2 BPXDI1      378    15.3 \n3 LBXBPB      197     7.96\n4 LBXBCD      197     7.96\n5 LBXBMN      197     7.96\n6 SEQN          0     0   \n7 RIDAGEYR      0     0   \n8 RIAGENDR      0     0   \n9 RIDRETH1      0     0   \n\n\nThe data is not missing completely at random. Missingness is observed in blocks/clusters: one cluster is for lab values (LBXBPB, LBXBCD, LBXBMN) and another is for blood pressure readings (BPXSY1, BPXDI1). Individuals who are missing one lab value are also going to be missing the others. Likewise, individuals who are missing one blood pressure reading will also be missing the others. Furthermore, it’s possible that individuals missing lab values are also more likely to have blood pressure readings missing. To investigate this, I will use a Chi square test to see if there is any dependency in the missingness of lab values and blood pressure:\n\n# create indicators\nnhanes_filtered$lab_missing  &lt;- as.integer(\n  is.na(nhanes_filtered$LBXBPB) | is.na(nhanes_filtered$LBXBCD) | is.na(nhanes_filtered$LBXBMN)\n)\nnhanes_filtered$bp_missing   &lt;- as.integer(\n  is.na(nhanes_filtered$BPXSY1) | is.na(nhanes_filtered$BPXDI1)\n)\n\n# Contingency table\ntab &lt;- table(nhanes_filtered$lab_missing, nhanes_filtered$bp_missing)\ntab\n\n   \n       0    1\n  0 2015  263\n  1   82  115\n\n# Chi-squared test\nchisq.test(tab)    \n\n\n    Pearson's Chi-squared test with Yates' continuity correction\n\ndata:  tab\nX-squared = 303.69, df = 1, p-value &lt; 2.2e-16\n\n# Effect size: Cramer's V (equivalent to phi coefficient for 2x2)\nlibrary(rcompanion)\ncramerV(tab)\n\nCramer V \n  0.3524 \n\n\nThe significant test result and moderate effect size suggests some dependency: individuals missing lab values are also somewhat more likely to have BP values missing (or vice versa?).\nNext, I want to check if the missingness is associated with observed covariates. This makes it more likely that the missing values are MAR.\n\n\n\nCall:\nglm(formula = lab_missing ~ RIDAGEYR + RIAGENDR + RIDRETH1, family = binomial, \n    data = nhanes_filtered)\n\nCoefficients:\n                            Estimate Std. Error z value Pr(&gt;|z|)   \n(Intercept)                -1.496040   0.564560  -2.650  0.00805 **\nRIDAGEYR                   -0.022070   0.009855  -2.239  0.02513 * \nRIAGENDRFemale             -0.137618   0.149291  -0.922  0.35663   \nRIDRETH1Other Hispanic     -0.649419   0.421871  -1.539  0.12371   \nRIDRETH1Non-Hispanic White  0.234973   0.262735   0.894  0.37114   \nRIDRETH1Non-Hispanic Black  0.579121   0.257134   2.252  0.02431 * \nRIDRETH1Other/Multiracial   0.428955   0.265799   1.614  0.10656   \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 1375.0  on 2474  degrees of freedom\nResidual deviance: 1352.3  on 2468  degrees of freedom\nAIC: 1366.3\n\nNumber of Fisher Scoring iterations: 6\n\n\n\nCall:\nglm(formula = bp_missing ~ RIDAGEYR + RIAGENDR + RIDRETH1, family = binomial, \n    data = nhanes_filtered)\n\nCoefficients:\n                            Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept)                -1.656627   0.427797  -3.872 0.000108 ***\nRIDAGEYR                   -0.004570   0.007429  -0.615 0.538452    \nRIAGENDRFemale              0.141990   0.112422   1.263 0.206587    \nRIDRETH1Other Hispanic      0.132636   0.231888   0.572 0.567332    \nRIDRETH1Non-Hispanic White  0.029522   0.187244   0.158 0.874719    \nRIDRETH1Non-Hispanic Black  0.280575   0.185378   1.514 0.130146    \nRIDRETH1Other/Multiracial   0.070331   0.194831   0.361 0.718109    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 2115.7  on 2474  degrees of freedom\nResidual deviance: 2110.0  on 2468  degrees of freedom\nAIC: 2124\n\nNumber of Fisher Scoring iterations: 4\n\n\nFrom the regression otput, it appears that missingness in lab values is related to observed covariates in the dataset – certain sexes and races are more likely to have data missing. Therefore, I can plausibly assume that the data is missing at random (MAR). However, for blood pressure values, that does not seem to be the case. It is therefore possible that missingness is driven by some unobserved variable and BP values could be NMAR. However, for the purposes of this assignment, I will assume that all data is MAR. Thus, standard imputation methods like multiple imputation (MICE) are appropriate.\n\n\n4.1.2 Imputation Method: MICE (Based on Desired Model that uses heavy metal concentrations in the blood + race/ethnicity + sex to predict systolic blood pressure)\nI used predictive mean matching (PMM) for continuous variables. The categorical variables in the dataset (sex, race/ethnicity) had no missing values according to the heatmap in the section “Demonstration of Missing Data & Investigating Patterns of Data Missingness (MCAR, MAR, NMAR)”. Only predictor variables were imputed; the outcome variable, systolic blood pressure (BPXSY1), was not imputed.\n\nlibrary(mice)\n\n# Impute filtered dataset \n# Define methods per variable\nmeth &lt;- make.method(nhanes_filtered)\nmeth[c(\"LBXBPB\", \"LBXBCD\", \"LBXBMN\")] &lt;- \"pmm\"\nmeth[\"SEQN\"] &lt;- \"\"  # ID variable excluded\n\n# Perform imputation\nset.seed(123)\nimp &lt;- mice(\n  nhanes_filtered,\n  m = 1,       # single imputed dataset\n  method = meth,\n  maxit = 20,\n  printFlag = FALSE    # &lt;-- suppress iteration output\n)\n\n# Complete data after imputation\nnhanes_imputed &lt;- complete(imp, 1)\n\n\n\n       SEQN    RIDAGEYR    RIAGENDR    RIDRETH1      LBXBPB      LBXBCD \n          0           0           0           0           0           0 \n     LBXBMN      BPXSY1      BPXDI1 lab_missing  bp_missing \n          0           0           0           0           0 \n\n\nThe only missing values should be in the outcome variable, not the predictor variables."
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#outlier-removal",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#outlier-removal",
+    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
+    "section": "4.2 Outlier Removal",
+    "text": "4.2 Outlier Removal\nOutliers (defined as values &lt; Q1- 1.5IQR or &gt; Q3+1.5IQR) were removed. An alternative strategy would be to impute outliers instead of simply dropping them."
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#dataset-description-summary-statistics",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#dataset-description-summary-statistics",
+    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
+    "section": "5.1 Dataset Description & Summary Statistics",
+    "text": "5.1 Dataset Description & Summary Statistics\nTable 1: Variables included in the data.\n\n\n\n\n\n\n\n\nVariable\nDescription\nData Type\n\n\n\n\nSEQN\nSubject ID: Individual Identifier\nQuantitative (Integer)\n\n\nRIDAGEYR\nAge: Age in years at screening, range 40-65\nQuantitative (Integer)\n\n\nRIAGENDR\nSex: male or female\nBinary\n\n\nRIDRETH1\nRace\nMulti-level Categorical\n\n\nLBXBPB\nBlood lead (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBPB_clean\nKey Predictor: Blood lead after outlier removal\nQuantitative (Continuous)\n\n\nLBXBCD\nBlood cadmium (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBCD_clean\nKey Predictor: Blood cadmium (µg/dL) after outlier removal\nQuantitative (Continuous)\n\n\nLBXBMN\nBlood manganese (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBMN_clean\nKey Predictor: Blood manganese (µg/dL) after outlier removal\nQuantitative (Continuous)\n\n\nBPXSY1\nSystolic BP, first reading\nQuantitative (Integer)\n\n\nBPXSY1_clean\nOutcome: Systolic BP, first reading, after outlier removal\nQuantitative (Integer)\n\n\nBPXDI1\nDiastolic BP, first reading\nQuantitative (Integer)\n\n\nBPXDI1_clean\nDiastolic BP, first reading, after outlier removal\nQuantitative (Integer)\n\n\n\nSummary statistics for the continuous and categorical variables:\nTable 2: Summary of numeric data.\n\n\n\nVariable\nmean\nstdev\nmedian\nmin\nmax\n\n\n\n\nRIDAGEYR\n53.46\n7.59\n54.00\n40.00\n65.00\n\n\nLBXBPB\n1.04\n0.54\n0.94\n0.12\n2.79\n\n\nLBXBCD\n0.37\n0.25\n0.30\n0.07\n1.21\n\n\nLBXBMN\n9.67\n3.01\n9.32\n3.07\n18.34\n\n\nBPXSY1\n126.68\n16.01\n126.00\n88.00\n170.00\n\n\nBPXDI1\n76.17\n10.02\n76.00\n50.00\n104.00\n\n\nLBXBPB_clean\n1.04\n0.54\n0.94\n0.11\n0.12\n\n\nLBXBCD_clean\n0.37\n0.25\n0.30\n0.07\n0.07\n\n\nLBXBMN_clean\n9.67\n3.01\n9.32\n1.40\n3.07\n\n\nBPXSY1_clean\n126.68\n16.01\n126.00\n88.00\n170.00\n\n\nBPXDI1_clean\n76.17\n10.02\n76.00\n50.00\n104.00\n\n\n\nTable 3: Summary of categorical data.\n\n\n\nVariable\nCount (Percent)\n\n\n\n\nRIAGENDR: Sex\n\n\n\nMale\n943 (47.99%)\n\n\nFemale\n1022 (52.01%)\n\n\nRIDRETH1: Race\n\n\n\nMexican American\n294 (14.96%)\n\n\nOther Hispanic\n218 (11.09%)\n\n\nNon-Hispanic White\n559 (28.44%)\n\n\nNon-Hispanic Black\n489 (24.88%)\n\n\nOther Race - Including Multi-Racial\n405 (20.61%)"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#codebook-html-rendering",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#codebook-html-rendering",
+    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
+    "section": "5.2 Codebook (HTML Rendering)",
+    "text": "5.2 Codebook (HTML Rendering)\n\nlibrary(labelled)\nlibrary(dataReporter)\n\n# Assign variable labels\nvar_labels &lt;- c(\n  SEQN = \"Subject ID: Individual Identifier\",\n  RIDAGEYR = \"Age in years at screening (40-65)\",\n  RIAGENDR = \"Sex: male or female\",\n  RIDRETH1 = \"Race / Ethnicity\",\n  LBXBPB = \"Blood lead (µg/dL)\",\n  LBXBPB_clean = \"Blood lead after outlier removal\",\n  LBXBCD = \"Blood cadmium (µg/dL)\",\n  LBXBCD_clean = \"Blood cadmium after outlier removal\",\n  LBXBMN = \"Blood manganese (µg/dL)\",\n  LBXBMN_clean = \"Blood manganese after outlier removal\",\n  BPXSY1 = \"Systolic BP, first reading\",\n  BPXSY1_clean = \"Systolic BP, first reading after outlier removal\",\n  BPXDI1 = \"Diastolic BP, first reading\",\n  BPXDI1_clean = \"Diastolic BP, first reading after outlier removal\"\n)\n\n# Convert your named character vector to a named list\nvar_labels_list &lt;- as.list(var_labels)\n\n# Apply labels to the dataframe\nnhanes_clean &lt;- set_variable_labels(nhanes_clean, .labels = var_labels_list)\n\n\nsuppressWarnings(makeCodebook(nhanes_clean, file = \"codebook.html\", output = \"html\", replace = TRUE))"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#codebook-table-rendering",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#codebook-table-rendering",
+    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
+    "section": "5.3 Codebook (Table Rendering)",
+    "text": "5.3 Codebook (Table Rendering)\n\n\n# A tibble: 14 × 9\n   variable     type    missing      min      q25  median    mean     q75    max\n   &lt;chr&gt;        &lt;chr&gt;     &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;\n 1 SEQN         numeric       0 93711    95997    9.83e+4 9.83e+4 1.01e+5 1.03e5\n 2 RIDAGEYR     numeric       0    40       47    5.4 e+1 5.35e+1 6   e+1 6.5 e1\n 3 LBXBPB       numeric       0     0.12     0.61 9.4 e-1 1.04e+0 1.33e+0 2.79e0\n 4 LBXBCD       numeric       0     0.07     0.18 3   e-1 3.72e-1 4.8 e-1 1.21e0\n 5 LBXBMN       numeric       0     3.07     7.46 9.32e+0 9.67e+0 1.15e+1 1.83e1\n 6 BPXSY1       numeric       0    88      116    1.26e+2 1.27e+2 1.38e+2 1.7 e2\n 7 BPXDI1       numeric       0    50       70    7.6 e+1 7.62e+1 8.2 e+1 1.04e2\n 8 lab_missing  integer       0     0        0    0       7.33e-2 0       1   e0\n 9 bp_missing   integer       0     0        0    0       1.54e-1 0       1   e0\n10 LBXBPB_clean numeric       0     0.12     0.61 9.4 e-1 1.04e+0 1.33e+0 2.79e0\n11 LBXBCD_clean numeric       0     0.07     0.18 3   e-1 3.72e-1 4.8 e-1 1.21e0\n12 LBXBMN_clean numeric       0     3.07     7.46 9.32e+0 9.67e+0 1.15e+1 1.83e1\n13 BPXSY1_clean numeric       0    88      116    1.26e+2 1.27e+2 1.38e+2 1.7 e2\n14 BPXDI1_clean numeric       0    50       70    7.6 e+1 7.62e+1 8.2 e+1 1.04e2\n\n\n\n\n# A tibble: 2 × 5\n  variable type   missing n_unique levels                                       \n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt;                                        \n1 RIAGENDR factor       0        2 Male, Female                                 \n2 RIDRETH1 factor       0        5 Other/Multiracial, Non-Hispanic Black, Mexic…\n\n\n\n\n# A tibble: 7 × 4\n  variable level              count missing\n  &lt;chr&gt;    &lt;fct&gt;              &lt;int&gt;   &lt;int&gt;\n1 RIAGENDR Male                 943       0\n2 RIAGENDR Female              1022       0\n3 RIDRETH1 Mexican American     294       0\n4 RIDRETH1 Other Hispanic       218       0\n5 RIDRETH1 Non-Hispanic White   559       0\n6 RIDRETH1 Non-Hispanic Black   489       0\n7 RIDRETH1 Other/Multiracial    405       0"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#analytic-tibble",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study2_analyses/nhanes_bp_leadExposure.html#analytic-tibble",
+    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
+    "section": "5.4 Analytic Tibble",
+    "text": "5.4 Analytic Tibble\n\n\n   SEQN RIDAGEYR RIAGENDR           RIDRETH1 LBXBPB LBXBCD LBXBMN BPXSY1 BPXDI1\n1 93711       56     Male  Other/Multiracial   2.15   0.38   6.55    108     68\n2 93714       54   Female Non-Hispanic Black   0.71   0.31   7.85    126     76\n3 93716       61     Male  Other/Multiracial   1.99   0.23   8.80    120     72\n4 93718       45     Male Non-Hispanic Black   0.62   0.10  12.00    128     88\n5 93721       60   Female   Mexican American   0.75   0.18   9.92    132     68\n6 93722       60   Female Non-Hispanic White   0.98   0.38  15.05    116     68\n  lab_missing bp_missing LBXBPB_clean LBXBCD_clean LBXBMN_clean BPXSY1_clean\n1           0          0         2.15         0.38         6.55          108\n2           0          1         0.71         0.31         7.85          126\n3           0          0         1.99         0.23         8.80          120\n4           0          0         0.62         0.10        12.00          128\n5           0          0         0.75         0.18         9.92          132\n6           0          0         0.98         0.38        15.05          116\n  BPXDI1_clean\n1           68\n2           76\n3           72\n4           88\n5           68\n6           68"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html",
+    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
     "section": "",
-    "text": "I am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, where I am pursuing my long-term goal of advancing personalized medicine. I am deeply motivated by the belief that medical care should be tailored to each individual—making treatments not only more effective, but also more streamlined, affordable, and accessible to all patients.\nMy current research focuses on integrating MRI, pathology imaging, and artificial intelligence to personalize cancer management. By combining insights across different imaging modalities with advanced computational methods, I aim to develop tools that help clinicians deliver the right treatment to the right patient at the right time.\nBeyond research, I am passionate about science communication, mentoring, and community outreach. I enjoy helping others discover science, supporting students as they find their paths in STEM, and engaging with the public to make complex scientific ideas approachable and meaningful.\nLooking ahead, I aspire to build a career at the intersection of medicine, engineering, and innovation, working toward a future where personalized medicine is the standard of care."
+    "text": "My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (e.g. lead exposure) have higher systolic blood pressure. To test this hypothesis, I am using data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). In this study (Study 1 analyses), I am performing data exploration to understand the distributions for each variable and investigate relationships between variables."
   },
   {
-    "objectID": "about.html#curriculum-vitae",
-    "href": "about.html#curriculum-vitae",
-    "title": "About",
-    "section": "Curriculum Vitae",
-    "text": "Curriculum Vitae\n📄 Download my CV (PDF)"
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#dataset-description-summary-statistics",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#dataset-description-summary-statistics",
+    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
+    "section": "5.1 Dataset Description & Summary Statistics",
+    "text": "5.1 Dataset Description & Summary Statistics\nTable 1: Variables included in the data.\n\n\n\n\n\n\n\n\nVariable\nDescription\nData Type\n\n\n\n\nSEQN\nSubject ID: Individual Identifier\nQuantitative (Integer)\n\n\nRIDAGEYR\nAge: Age in years at screening, range 40-65\nQuantitative (Integer)\n\n\nRIAGENDR\nSex: male or female\nBinary\n\n\nRIDRETH1\nRace\nMulti-level Categorical\n\n\nLBXBPB\nBlood lead (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBPB_clean_log\nBlood lead after outlier removal and log transformation\nQuantitative (Continuous)\n\n\nLBXBCD\nBlood cadmium (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBCD_clean_log\nBlood cadmium (µg/dL) after outlier removal and log transformation\nQuantitative (Continuous)\n\n\nLBXBMN\nBlood manganese (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBMN_clean_log\nBlood manganese (µg/dL) after outlier removal and log transformation\nQuantitative (Continuous)\n\n\nBPXSY1\nSystolic BP, first reading\nQuantitative (Integer)\n\n\nBPXSY1_clean\nSystolic BP, first reading, after outlier removal\nQuantitative (Integer)\n\n\nBPXDI1\nDiastolic BP, first reading\nQuantitative (Integer)\n\n\nBPXDI1_clean\nDiastolic BP, first reading, after outlier removal\nQuantitative (Integer)\n\n\n\nSummary statistics for the continuous and categorical variables:\nTable 2: Summary of numeric data.\n\n\n\nVariable\nmean\nstdev\nmedian\nmin\nmax\n\n\n\n\nRIDAGEYR\n53.67\n7.54\n55.00\n40.00\n65.00\n\n\nLBXBPB\n1.36\n1.69\n1.02\n0.12\n42.48\n\n\nLBXBCD\n0.53\n0.60\n0.34\n0.07\n7.50\n\n\nLBXBMN\n10.07\n3.78\n9.39\n1.57\n35.56\n\n\nBPXSY1\n127.95\n18.52\n126.00\n78.00\n224.00\n\n\nBPXDI1\n76.06\n12.04\n76.00\n0.00\n124.00\n\n\n\nTable 3: Summary of categorical data.\n\n\n\nVariable\nCount (Percent)\n\n\n\n\nRIAGENDR: Sex\n\n\n\nMale\n975 (48.39%)\n\n\nFemale\n1040 (51.61%)\n\n\nRIDRETH1: Race\n\n\n\nMexican American\n303 (15.03%)\n\n\nOther Hispanic\n208 (10.32%)\n\n\nNon-Hispanic White\n581 (28.83%)\n\n\nNon-Hispanic Black\n483 (23.97%)\n\n\nOther Race - Including Multi-Racial\n440 (21.84%)"
   },
   {
-    "objectID": "about.html#life-outside-the-lab",
-    "href": "about.html#life-outside-the-lab",
-    "title": "About",
-    "section": "Life Outside the Lab",
-    "text": "Life Outside the Lab\nIn my free time, I enjoy spending time outdoors… in any kind of weather. I love hiking, kayaking, apple picking, and anything else that involves being outside. I also enjoy visiting art and history museums and playing board games with friends. And of course, nothing beats a cozy night in with a cup of tea and a good TV show."
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#codebook-html-rendering",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#codebook-html-rendering",
+    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
+    "section": "5.2 Codebook (HTML Rendering)",
+    "text": "5.2 Codebook (HTML Rendering)\n\nlibrary(labelled)\nlibrary(dataReporter)\n\n# Assign variable labels\nvar_labels &lt;- c(\n  SEQN = \"Subject ID: Individual Identifier\",\n  RIDAGEYR = \"Age in years at screening (40-65)\",\n  RIAGENDR = \"Sex: male or female\",\n  RIDRETH1 = \"Race / Ethnicity\",\n  LBXBPB = \"Blood lead (µg/dL)\",\n  LBXBPB_clean_log = \"Blood lead after outlier removal and log transformation\",\n  LBXBCD = \"Blood cadmium (µg/dL)\",\n  LBXBCD_clean_log = \"Blood cadmium after outlier removal and log transformation\",\n  LBXBMN = \"Blood manganese (µg/dL)\",\n  LBXBMN_clean_log = \"Blood manganese after outlier removal and log transformation\",\n  BPXSY1 = \"Systolic BP, first reading\",\n  BPXSY1_clean = \"Systolic BP, first reading after outlier removal\",\n  BPXDI1 = \"Diastolic BP, first reading\",\n  BPXDI1_clean = \"Diastolic BP, first reading after outlier removal\"\n)\n\n# Convert your named character vector to a named list\nvar_labels_list &lt;- as.list(var_labels)\n\n# Apply labels to the dataframe\nnhanes_clean &lt;- set_variable_labels(nhanes_clean, .labels = var_labels_list)\n\n\nmakeCodebook(nhanes_clean, file = here::here(\"data/study1/codebook.html\"), output = \"html\", replace = TRUE)"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#codebook-table-rendering",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#codebook-table-rendering",
+    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
+    "section": "5.3 Codebook (Table Rendering)",
+    "text": "5.3 Codebook (Table Rendering)\n\n\n# A tibble: 15 × 9\n   variable        type  missing     min     q25  median    mean     q75     max\n   &lt;chr&gt;           &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n 1 SEQN            nume…       0 9.37e+4 9.60e+4 9.83e+4 9.83e+4 1.01e+5 1.03e+5\n 2 RIDAGEYR        nume…       0 4   e+1 4.7 e+1 5.5 e+1 5.37e+1 6   e+1 6.5 e+1\n 3 LBXBPB          nume…       0 1.2 e-1 6.1 e-1 9.3 e-1 1.03e+0 1.33e+0 2.77e+0\n 4 LBXBCD          nume…       0 7   e-2 1.8 e-1 3   e-1 3.68e-1 4.8 e-1 1.21e+0\n 5 LBXBMN          nume…       0 3.07e+0 7.49e+0 9.28e+0 9.67e+0 1.15e+1 1.83e+1\n 6 BPXSY1          nume…       0 8.8 e+1 1.16e+2 1.26e+2 1.26e+2 1.36e+2 1.7 e+2\n 7 BPXDI1          nume…       0 5.2 e+1 7   e+1 7.6 e+1 7.60e+1 8.2 e+1 1   e+2\n 8 LBXBPB_clean    nume…       0 1.2 e-1 6.1 e-1 9.3 e-1 1.03e+0 1.33e+0 2.77e+0\n 9 LBXBCD_clean    nume…       0 7   e-2 1.8 e-1 3   e-1 3.68e-1 4.8 e-1 1.21e+0\n10 LBXBMN_clean    nume…       0 3.07e+0 7.49e+0 9.28e+0 9.67e+0 1.15e+1 1.83e+1\n11 LBXBPB_clean_l… nume…       0 1.13e-1 4.76e-1 6.58e-1 6.77e-1 8.46e-1 1.33e+0\n12 LBXBCD_clean_l… nume…       0 6.77e-2 1.66e-1 2.62e-1 2.98e-1 3.92e-1 7.93e-1\n13 LBXBMN_clean_l… nume…       0 1.40e+0 2.14e+0 2.33e+0 2.33e+0 2.52e+0 2.96e+0\n14 BPXSY1_clean    nume…       0 8.8 e+1 1.16e+2 1.26e+2 1.26e+2 1.36e+2 1.7 e+2\n15 BPXDI1_clean    nume…       0 5.2 e+1 7   e+1 7.6 e+1 7.60e+1 8.2 e+1 1   e+2\n\n\n\n\n# A tibble: 2 × 5\n  variable type   missing n_unique levels                                       \n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt;                                        \n1 RIAGENDR factor       0        2 Male, Female                                 \n2 RIDRETH1 factor       0        5 Other/Multiracial, Non-Hispanic Black, Mexic…\n\n\n\n\n# A tibble: 7 × 4\n  variable level              count missing\n  &lt;chr&gt;    &lt;fct&gt;              &lt;int&gt;   &lt;int&gt;\n1 RIAGENDR Male                 769       0\n2 RIAGENDR Female               821       0\n3 RIDRETH1 Mexican American     249       0\n4 RIDRETH1 Other Hispanic       179       0\n5 RIDRETH1 Non-Hispanic White   459       0\n6 RIDRETH1 Non-Hispanic Black   376       0\n7 RIDRETH1 Other/Multiracial    327       0"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#analytic-tibble",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#analytic-tibble",
+    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
+    "section": "5.4 Analytic Tibble",
+    "text": "5.4 Analytic Tibble\n\n\n   SEQN RIDAGEYR RIAGENDR           RIDRETH1 LBXBPB LBXBCD LBXBMN BPXSY1 BPXDI1\n1 93711       56     Male  Other/Multiracial   2.15   0.38   6.55    108     68\n2 93716       61     Male  Other/Multiracial   1.99   0.23   8.80    120     72\n3 93718       45     Male Non-Hispanic Black   0.62   0.10  12.00    128     88\n4 93721       60   Female   Mexican American   0.75   0.18   9.92    132     68\n5 93722       60   Female Non-Hispanic White   0.98   0.38  15.05    116     68\n6 93723       64     Male Non-Hispanic White   0.99   0.19   7.68    124     72\n  LBXBPB_clean LBXBCD_clean LBXBMN_clean LBXBPB_clean_log LBXBCD_clean_log\n1         2.15         0.38         6.55        1.1474025       0.32208350\n2         1.99         0.23         8.80        1.0952734       0.20701417\n3         0.62         0.10        12.00        0.4824261       0.09531018\n4         0.75         0.18         9.92        0.5596158       0.16551444\n5         0.98         0.38        15.05        0.6830968       0.32208350\n6         0.99         0.19         7.68        0.6881346       0.17395331\n  LBXBMN_clean_log BPXSY1_clean BPXDI1_clean\n1         2.021548          108           68\n2         2.282382          120           72\n3         2.564949          128           88\n4         2.390596          132           68\n5         2.775709          116           68\n6         2.161022          124           72"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#analysis-b-comparing-2-means-with-independent-samples-blood-lead-levels-by-sex",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#analysis-b-comparing-2-means-with-independent-samples-blood-lead-levels-by-sex",
+    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
+    "section": "7.1 Analysis B: Comparing 2 Means with Independent Samples (Blood Lead Levels by Sex)",
+    "text": "7.1 Analysis B: Comparing 2 Means with Independent Samples (Blood Lead Levels by Sex)\nQuestion: Is the blood lead level different in males and females?\nDataset Description: The dataset was stratified by sex. Mean blood lead levels (LBXBPB_clean_log), were compared between the two sexes (male, female). There were 769 males and 821 females in the dataset.\nMain analysis: A two-tailed t-test was used to compare the difference in mean blood lead levels (log-transformed) between males and females. A significance level of 0.1 was used. The effect size (Cohen’s d) was also computed (small: 0.2, medium: 0.5, large: 0.8). This set-up is essentially equivalent to univariate OLS, where the beta coefficient (\\(\\beta_1\\)) corresponds to the difference in means of the two groups and the intercept (\\(\\beta_0\\)) corresponds to the mean lead concentration of the reference group. OLS assumes that the data (or rather, the errors) follow a normal distribution, the errors are independent, and the errors have a constant variance. \\[log(lead\\_conc) = \\beta_0 + \\beta_1(male\\_sex)\\] \\[lead\\_conc = e^{\\beta_0 + \\beta_1(male\\_sex)}\\] \\[\\text{Fold change }lead\\_conc = e^{\\beta_1}\\]\nConclusions: The median blood lead level was 0.71 ± 0.25 (mean ± SD) for males and 0.65 ± 0.25 for females, which translates to a 6% (difference in means: 0.71-0.65 = 0.06 \\(\\rightarrow\\) fold change: \\(e^{0.06} = 1.06\\), \\(\\rightarrow\\) 6% increase) difference in blood lead concentrations between males and females. The difference was statistically significant at the 0.1 level, but the effect size was low (0.26). I conclude that males and females have no appreciable difference in blood lead levels.\n\n\n# A tibble: 1 × 9\n  n_Male n_Female mean_Male mean_Female sd_Male sd_Female t_statistic   p_value\n   &lt;int&gt;    &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;\n1    769      821     0.711       0.646   0.248     0.251        5.15 0.0000003\n# ℹ 1 more variable: cohen_d &lt;dbl&gt;"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#analysis-c-comparing-blood-lead-levels-across-races",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/study1_analyses/nhanes_data_exploration.html#analysis-c-comparing-blood-lead-levels-across-races",
+    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
+    "section": "7.2 Analysis C: Comparing Blood Lead Levels Across Races",
+    "text": "7.2 Analysis C: Comparing Blood Lead Levels Across Races\nQuestion: Are blood lead levels different between races?\nDataset Description: The dataset was stratified by race (Mexican American, other Hispanic, non-Hispanic white, non-Hispanic black, other/multiracial). Mean blood levels of lead (LBXBPB_clean_log), were compared across the 5 racial/ethnic groups. There were 459 individuals identifying as non-Hispanic white, 249 individuals identifying as Mexican American, 179 as other Hispanic, 376 as non-Hispanic black, and 327 as other/multiracial.\nMain analysis: Race/ethnicity was dummy-coded. A multivariate OLS model was used to compare mean blood lead levels, setting non-Hispanic white as the reference group. A significance level of 0.1 was used. This set-up is similar to an ANOVA followed by post-hoc testing. OLS assumes that the errors are iid, follow a normal distribution with a mean of 0, and have constant variance.\nConclusions: The mean blood lead level was 0.64 ± 0.25 (mean ± SD) for non-Hispanic whites, 0.66 ± 0.24 for Mexican Americans, 0.59 ± 0.24 for other Hispanics, 0.71 ± 0.26 for blacks, and 0.74 ± 0.24 for multiracial individuals. This translates into a 1.7% increase in blood lead levels in Mexican Americans compared to non-Hispanic whites, a 5.2% decrease in other Hispanics, a 6.23% increase in black individuals, and a 10.0% increase in blood lead levels multiracial individuals. All the comparisons were statistically significant except for Mexican Americans, whose blood lead levels were closer to the reference group. In conclusion,\n\n\n# A tibble: 5 × 4\n  group              mean_LBXBPB_log sd_LBXBPB_log     n\n  &lt;fct&gt;                        &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;\n1 Mexican American             0.664         0.237   249\n2 Other Hispanic               0.594         0.237   179\n3 Non-Hispanic White           0.647         0.252   459\n4 Non-Hispanic Black           0.708         0.262   376\n5 Other/Multiracial            0.741         0.239   327\n\n\n\n\n\nCall:\nlm(formula = LBXBPB_clean_log ~ RIDRETH1, data = nhanes_clean)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-0.55052 -0.18873 -0.02102  0.16841  0.67480 \n\nCoefficients:\n                           Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)                 0.64696    0.01156  55.973  &lt; 2e-16 ***\nRIDRETH1Mexican American    0.01694    0.01949   0.869  0.38494    \nRIDRETH1Other Hispanic     -0.05336    0.02182  -2.445  0.01458 *  \nRIDRETH1Non-Hispanic Black  0.06056    0.01722   3.516  0.00045 ***\nRIDRETH1Other/Multiracial   0.09438    0.01792   5.267 1.58e-07 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.2476 on 1585 degrees of freedom\nMultiple R-squared:  0.03385,   Adjusted R-squared:  0.03142 \nF-statistic: 13.88 on 4 and 1585 DF,  p-value: 3.898e-11\n\n\n\n\n# A tibble: 4 × 3\n  group              fold_change percent_change\n  &lt;chr&gt;                    &lt;dbl&gt;          &lt;dbl&gt;\n1 Mexican American         1.02            1.71\n2 Other Hispanic           0.948          -5.20\n3 Non-Hispanic Black       1.06            6.24\n4 Other/Multiracial        1.10            9.90"
   },
   {
     "objectID": "blog/posts/2025-09-17-journey-to-MD-PhD/index.html",
@@ -84,108 +280,164 @@
     "text": "Looking Ahead\nI aspire to bridge AI research and clinical practice, developing tools that improve patient outcomes and make personalized medicine the standard of care. Beyond research, I am passionate about mentoring, science communication, and community outreach, sharing biomedical innovation with students and the public alike.\n\n\nThis blog will share reflections on my research journey, insights into AI in healthcare, and the personal experiences that continue to shape my path as a physician-scientist."
   },
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, where I am pursuing my long-term goal of advancing personalized medicine. I am deeply motivated by the belief that medical care should be tailored to each individual—making treatments not only more effective, but also more streamlined, affordable, and accessible to all patients.\nMy current research focuses on integrating MRI, pathology imaging, and artificial intelligence to personalize cancer management. By combining insights across different imaging modalities with advanced computational methods, I aim to develop tools that help clinicians deliver the right treatment to the right patient at the right time.\nBeyond research, I am passionate about science communication, mentoring, and community outreach. I enjoy helping others discover science, supporting students as they find their paths in STEM, and engaging with the public to make complex scientific ideas approachable and meaningful.\nLooking ahead, I aspire to build a career at the intersection of medicine, engineering, and innovation, working toward a future where personalized medicine is the standard of care."
+  },
+  {
+    "objectID": "about.html#curriculum-vitae",
+    "href": "about.html#curriculum-vitae",
+    "title": "About",
+    "section": "Curriculum Vitae",
+    "text": "Curriculum Vitae\n📄 Download my CV (PDF)"
+  },
+  {
+    "objectID": "about.html#life-outside-the-lab",
+    "href": "about.html#life-outside-the-lab",
+    "title": "About",
+    "section": "Life Outside the Lab",
+    "text": "Life Outside the Lab\nIn my free time, I enjoy spending time outdoors… in any kind of weather. I love hiking, kayaking, apple picking, and anything else that involves being outside. I also enjoy visiting art and history museums and playing board games with friends. And of course, nothing beats a cozy night in with a cup of tea and a good TV show."
+  },
+  {
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey\n\n        \n          Sep 17, 2025 | Sofiya Vyshnya\n        \n\n        \n          How early clinical experiences inspired my journey as an MD-PhD student and my research in personalized medicine.\n        \n\n        \n          \n            \n              #Personal, \n            \n              #Research, \n            \n              #MD-PhD, \n            \n              #Personalized Medicine\n            \n          \n        \n\n        \n        \n          Read full post →\n        \n\n      \n    \n\n  \n\n    \n\n      \n      \n        \n          \n        \n      \n\n      \n      \n        Bridging Curiosity and Care: The Beginning of My MD-PhD Journey\n\n        \n          Sep 17, 2025 | Sofiya Vyshnya\n        \n\n        \n          How early clinical experiences inspired my journey as an MD-PhD student and my research in personalized medicine.\n        \n\n        \n          \n            \n              #Personal, \n            \n              #Research, \n            \n              #MD-PhD, \n            \n              #Personalized Medicine\n            \n          \n        \n\n        \n        \n          Read full post →\n        \n\n      \n    \n\n  \n\nNo matching items"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/index.html",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/index.html",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "",
+    "text": "Clinical-Translational Research"
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/index.html#a-patients-hope",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/index.html#a-patients-hope",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "A Patient’s Hope",
+    "text": "A Patient’s Hope\n\n“Thanks, Sofie,” said Mrs. H, squeezing my hand. She was suffering from a chronic leg wound, for which few treatments were available. I knew I could do more. Mrs. H’s hope for a cure inspired me to pursue clinical-translational research, and it became a defining moment in my journey toward becoming a physician-scientist."
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/index.html#from-compassion-to-research",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/index.html#from-compassion-to-research",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "From Compassion to Research",
+    "text": "From Compassion to Research\n\n\n\nDuring my undergraduate studies, I wanted to learn how I could one day address unmet clinical needs like Mrs. H’s. I joined Dr. Edward Botchwey’s lab to explore stem cell therapies for regenerative medicine. I applied statistical and machine learning approaches to identify biomarkers in stem cells that correlated with therapeutic outcomes. It was here that I realized the need for personalizing teatment approaches.\nTo explore my intetest in computational research and personalized medicine, I joined Dr. May Wang’s lab. There, I developed a personalized model for predicting heart disease risk. This experience reinforced how computational tools can enable precision medicine by helping clinicians make patient-specific decisions. It was here that I realized the unique power of the MD-PhD path: combining deep clinical insight with technical expertise to develop therapies tailored toward each patient."
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/index.html#entering-the-md-phd-phase",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/index.html#entering-the-md-phd-phase",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "Entering the MD-PhD Phase",
+    "text": "Entering the MD-PhD Phase\n\nAI for Cancer Management\n\n\n\nAs an MD-PhD student at Case Western Reserve University, I now integrate MRI, pathology imaging, and AI in the INVent Lab to personalize cancer care. Working alongside radiologists, pathologists, and oncologists, I help develop predictive models to identify patients who may benefit from less invasive treatments, learning that effective therapy always depends on individual patient characteristics."
+  },
+  {
+    "objectID": "blog/posts/2025-09-27-ProjectA-TaskB/index.html#looking-ahead",
+    "href": "blog/posts/2025-09-27-ProjectA-TaskB/index.html#looking-ahead",
+    "title": "Bridging Curiosity and Care: The Beginning of My MD-PhD Journey",
+    "section": "Looking Ahead",
+    "text": "Looking Ahead\nI aspire to bridge AI research and clinical practice, developing tools that improve patient outcomes and make personalized medicine the standard of care. Beyond research, I am passionate about mentoring, science communication, and community outreach, sharing biomedical innovation with students and the public alike.\n\n\nThis blog will share reflections on my research journey, insights into AI in healthcare, and the personal experiences that continue to shape my path as a physician-scientist."
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html",
+    "href": "codebook_nhanes_clean.html",
+    "title": "Codebook for nhanes_clean",
+    "section": "",
+    "text": "The dataset examined has the following dimensions:\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nNumber of observations\n2015\n\n\nNumber of variables\n12"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#seqn",
+    "href": "codebook_nhanes_clean.html#seqn",
+    "title": "Codebook for nhanes_clean",
+    "section": "SEQN",
+    "text": "SEQN\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n2015\n\n\nMedian\n98287\n\n\n1st and 3rd quartiles\n95988.5; 100695.5\n\n\nMin. and max.\n93711; 102954"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#ridageyr",
+    "href": "codebook_nhanes_clean.html#ridageyr",
+    "title": "Codebook for nhanes_clean",
+    "section": "RIDAGEYR",
+    "text": "RIDAGEYR\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n26\n\n\nMedian\n55\n\n\n1st and 3rd quartiles\n47; 60\n\n\nMin. and max.\n40; 65"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#riagendr",
+    "href": "codebook_nhanes_clean.html#riagendr",
+    "title": "Codebook for nhanes_clean",
+    "section": "RIAGENDR",
+    "text": "RIAGENDR\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nfactor\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n2\n\n\nMode\n“Female”\n\n\nReference category\nMale\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObserved factor levels: \"Female\", \"Male\"."
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#ridreth1",
+    "href": "codebook_nhanes_clean.html#ridreth1",
+    "title": "Codebook for nhanes_clean",
+    "section": "RIDRETH1",
+    "text": "RIDRETH1\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nfactor\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n5\n\n\nMode\n“Non-Hispanic White”\n\n\nReference category\nMexican American\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObserved factor levels: \"Mexican American\", \"Non-Hispanic Black\", \"Non-Hispanic White\", \"Other Hispanic\", \"Other/Multiracial\"."
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#lbxbpb",
+    "href": "codebook_nhanes_clean.html#lbxbpb",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBPB",
+    "text": "LBXBPB\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n369\n\n\nMedian\n1.02\n\n\n1st and 3rd quartiles\n0.66; 1.51\n\n\nMin. and max.\n0.12; 42.48"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#lbxbcd",
+    "href": "codebook_nhanes_clean.html#lbxbcd",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBCD",
+    "text": "LBXBCD\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n231\n\n\nMedian\n0.34\n\n\n1st and 3rd quartiles\n0.2; 0.61\n\n\nMin. and max.\n0.07; 7.5"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#lbxbmn",
+    "href": "codebook_nhanes_clean.html#lbxbmn",
+    "title": "Codebook for nhanes_clean",
+    "section": "LBXBMN",
+    "text": "LBXBMN\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n997\n\n\nMedian\n9.39\n\n\n1st and 3rd quartiles\n7.5; 11.8\n\n\nMin. and max.\n1.57; 35.56"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#bpxsy1",
+    "href": "codebook_nhanes_clean.html#bpxsy1",
+    "title": "Codebook for nhanes_clean",
+    "section": "BPXSY1",
+    "text": "BPXSY1\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n62\n\n\nMedian\n126\n\n\n1st and 3rd quartiles\n116; 138\n\n\nMin. and max.\n78; 224"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#bpxdi1",
+    "href": "codebook_nhanes_clean.html#bpxdi1",
+    "title": "Codebook for nhanes_clean",
+    "section": "BPXDI1",
+    "text": "BPXDI1\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n46\n\n\nMedian\n76\n\n\n1st and 3rd quartiles\n70; 84\n\n\nMin. and max.\n0; 124"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#wtmec2yr",
+    "href": "codebook_nhanes_clean.html#wtmec2yr",
+    "title": "Codebook for nhanes_clean",
+    "section": "WTMEC2YR",
+    "text": "WTMEC2YR\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n1917\n\n\nMedian\n23509.5\n\n\n1st and 3rd quartiles\n14190.52; 42117.25\n\n\nMin. and max.\n4579.58; 419056.58"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#sdmvpsu",
+    "href": "codebook_nhanes_clean.html#sdmvpsu",
+    "title": "Codebook for nhanes_clean",
+    "section": "SDMVPSU",
+    "text": "SDMVPSU\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n2\n\n\nMedian\n2\n\n\n1st and 3rd quartiles\n1; 2\n\n\nMin. and max.\n1; 2"
+  },
+  {
+    "objectID": "codebook_nhanes_clean.html#sdmvstra",
+    "href": "codebook_nhanes_clean.html#sdmvstra",
+    "title": "Codebook for nhanes_clean",
+    "section": "SDMVSTRA",
+    "text": "SDMVSTRA\n\n\n\n\n\n\n\n\n\nFeature\nResult\n\n\n\n\nVariable type\nnumeric\n\n\nNumber of missing obs.\n0 (0 %)\n\n\nNumber of unique values\n15\n\n\nMedian\n141\n\n\n1st and 3rd quartiles\n137; 145\n\n\nMin. and max.\n134; 148\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReport generation information:\n\nCreated by: Could not determine from system (username: User).\nReport creation time: Fri Sep 26 2025 14:42:29\nReport was run from directory: C:/Users/User/sofiyavyshnya\ndataMaid v1.4.2 [Pkg: 2025-04-13 from standard (@1.4.2)]\nR version 4.5.1 (2025-06-13 ucrt).\nPlatform: x86_64-w64-mingw32/x64(America/New_York).\nFunction call: dataMaid::makeDataReport(data = nhanes_clean, mode = c(\"summarize\",  \"visualize\", \"check\"), smartNum = FALSE, file = \"codebook_nhanes_clean.Rmd\",      checks = list(character = \"showAllFactorLevels\", factor = \"showAllFactorLevels\",          labelled = \"showAllFactorLevels\", haven_labelled = \"showAllFactorLevels\",          numeric = NULL, integer = NULL, logical = NULL, Date = NULL),      listChecks = FALSE, maxProbVals = Inf, codebook = TRUE, reportTitle = \"Codebook for nhanes_clean\")"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "sofiyavyshnya",
     "section": "",
     "text": "Sofiya Vyshnya\nI am an MD-PhD student in Biomedical Engineering at Case Western Reserve University, dedicated to advancing personalized medicine. My research integrates MRI, pathology imaging, and artificial intelligence to improve cancer care and make therapies more streamlined, affordable, and accessible. Beyond the lab, I am passionate about science communication, mentoring, and community outreach.\n\nDownload my CV"
-  },
-  {
-    "objectID": "nhanes_bp_leadExposure.html",
-    "href": "nhanes_bp_leadExposure.html",
-    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
-    "section": "",
-    "text": "My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (e.g. lead exposure) have higher systolic blood pressure. To test this hypothesis, I am using data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). In this study (Study 2 analyses), I am modeling the relationship between the concentration of lead in the blood and blood pressure."
-  },
-  {
-    "objectID": "nhanes_bp_leadExposure.html#data-imputation",
-    "href": "nhanes_bp_leadExposure.html#data-imputation",
-    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
-    "section": "3.1 Data Imputation",
-    "text": "3.1 Data Imputation\n\n3.1.1 Demonstration of Missing Data & Investigating Patterns of Data Missingness (MCAR, MAR, NMAR)\nFirst, I want to find out any patterns in my missing values to understand whether the data is missing completely at random (MCAR), missing at random (MAR), or missing not at random (MNAR).\n\n\n\n\n\n\n\n\n\n# A tibble: 9 × 3\n  variable n_miss pct_miss\n  &lt;chr&gt;     &lt;int&gt;    &lt;num&gt;\n1 BPXSY1      378    15.3 \n2 BPXDI1      378    15.3 \n3 LBXBPB      197     7.96\n4 LBXBCD      197     7.96\n5 LBXBMN      197     7.96\n6 SEQN          0     0   \n7 RIDAGEYR      0     0   \n8 RIAGENDR      0     0   \n9 RIDRETH1      0     0   \n\n\nThe data is not missing completely at random. Missingness is observed in blocks/clusters: one cluster is for lab values (LBXBPB, LBXBCD, LBXBMN) and another is for blood pressure readings (BPXSY1, BPXDI1). Individuals who are missing one lab value are also going to be missing the others. Likewise, individuals who are missing one blood pressure reading will also be missing the others. Furthermore, it’s possible that individuals missing lab values are also more likely to have blood pressure readings missing. To investigate this, I will use a Chi square test to see if there is any dependency in the missingness of lab values and blood pressure:\n\n\n   \n       0    1\n  0 2015  263\n  1   82  115\n\n\n\n    Pearson's Chi-squared test with Yates' continuity correction\n\ndata:  tab\nX-squared = 303.69, df = 1, p-value &lt; 2.2e-16\n\n\nCramer V \n  0.3524 \n\n\nThe significant test result and moderate effect size suggests some dependency: individuals missing lab values are also somewhat more likely to have BP values missing (or vice versa?).\nNext, I want to check if the missingness is associated with observed covariates. This makes it more likely that the missing values are MAR.\n\n\n\nCall:\nglm(formula = lab_missing ~ RIDAGEYR + RIAGENDR + RIDRETH1, family = binomial, \n    data = nhanes_filtered)\n\nCoefficients:\n                            Estimate Std. Error z value Pr(&gt;|z|)   \n(Intercept)                -1.496040   0.564560  -2.650  0.00805 **\nRIDAGEYR                   -0.022070   0.009855  -2.239  0.02513 * \nRIAGENDRFemale             -0.137618   0.149291  -0.922  0.35663   \nRIDRETH1Other Hispanic     -0.649419   0.421871  -1.539  0.12371   \nRIDRETH1Non-Hispanic White  0.234973   0.262735   0.894  0.37114   \nRIDRETH1Non-Hispanic Black  0.579121   0.257134   2.252  0.02431 * \nRIDRETH1Other/Multiracial   0.428955   0.265799   1.614  0.10656   \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 1375.0  on 2474  degrees of freedom\nResidual deviance: 1352.3  on 2468  degrees of freedom\nAIC: 1366.3\n\nNumber of Fisher Scoring iterations: 6\n\n\n\nCall:\nglm(formula = bp_missing ~ RIDAGEYR + RIAGENDR + RIDRETH1, family = binomial, \n    data = nhanes_filtered)\n\nCoefficients:\n                            Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept)                -1.656627   0.427797  -3.872 0.000108 ***\nRIDAGEYR                   -0.004570   0.007429  -0.615 0.538452    \nRIAGENDRFemale              0.141990   0.112422   1.263 0.206587    \nRIDRETH1Other Hispanic      0.132636   0.231888   0.572 0.567332    \nRIDRETH1Non-Hispanic White  0.029522   0.187244   0.158 0.874719    \nRIDRETH1Non-Hispanic Black  0.280575   0.185378   1.514 0.130146    \nRIDRETH1Other/Multiracial   0.070331   0.194831   0.361 0.718109    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 2115.7  on 2474  degrees of freedom\nResidual deviance: 2110.0  on 2468  degrees of freedom\nAIC: 2124\n\nNumber of Fisher Scoring iterations: 4\n\n\nFrom the regression otput, it appears that missingness in lab values is related to observed covariates in the dataset – certain sexes and races are more likely to have data missing. Therefore, I can plausibly assume that the data is missing at random (MAR). However, for blood pressure values, that does not seem to be the case. It is therefore possible that missingness is driven by some unobserved variable and BP values could be NMAR. However, for the purposes of this assignment, I will assume that all data is MAR. Thus, standard imputation methods like multiple imputation (MICE) are appropriate.\n\n\n3.1.2 Imputation Method: MICE (Based on Desired Model that uses heavy metal concentrations in the blood + race/ethnicity + sex to predict systolic blood pressure)\nI used predictive mean matching (PMM) for continuous variables. The categorical variables in the dataset (sex, race/ethnicity) had no missing values according to the heatmap in the section “Demonstration of Missing Data & Investigating Patterns of Data Missingness (MCAR, MAR, NMAR)”. Only predictor variables were imputed; the outcome variable, systolic blood pressure (BPXSY1), was not imputed.\n\nlibrary(mice)\n\n# Impute filtered dataset \n# Define methods per variable\nmeth &lt;- make.method(nhanes_filtered)\nmeth[c(\"LBXBPB\", \"LBXBCD\", \"LBXBMN\")] &lt;- \"pmm\"\nmeth[\"SEQN\"] &lt;- \"\"  # ID variable excluded\n\n# Perform imputation\nset.seed(123)\nimp &lt;- mice(\n  nhanes_filtered,\n  m = 1,       # single imputed dataset\n  method = meth,\n  maxit = 20,\n  printFlag = FALSE    # &lt;-- suppress iteration output\n)\n\n# Complete data after imputation\nnhanes_imputed &lt;- complete(imp, 1)\n\n\n\n       SEQN    RIDAGEYR    RIAGENDR    RIDRETH1      LBXBPB      LBXBCD \n          0           0           0           0           0           0 \n     LBXBMN      BPXSY1      BPXDI1 lab_missing  bp_missing \n          0           0           0           0           0 \n\n\nThe only missing values should be in the outcome variable, not the predictor variables."
-  },
-  {
-    "objectID": "nhanes_bp_leadExposure.html#outlier-removal",
-    "href": "nhanes_bp_leadExposure.html#outlier-removal",
-    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
-    "section": "3.2 Outlier Removal",
-    "text": "3.2 Outlier Removal\nAn alternative strategy would be to impute outliers instead of simply dropping them.\nCheck data distributions before and after dropping outliers"
-  },
-  {
-    "objectID": "nhanes_bp_leadExposure.html#final-dataset-description-summary-statistics",
-    "href": "nhanes_bp_leadExposure.html#final-dataset-description-summary-statistics",
-    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
-    "section": "4.1 [Final] Dataset Description & Summary Statistics",
-    "text": "4.1 [Final] Dataset Description & Summary Statistics\nTable 1: Variables included in the data.\n\n\n\n\n\n\n\n\nVariable\nDescription\nData Type\n\n\n\n\nSEQN\nSubject ID: Individual Identifier\nQuantitative (Integer)\n\n\nRIDAGEYR\nAge: Age in years at screening, range 40-65\nQuantitative (Integer)\n\n\nRIAGENDR\nSex: male or female\nBinary\n\n\nRIDRETH1\nRace\nMulti-level Categorical\n\n\nLBXBPB\nBlood lead (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBPB_clean\nKey Predictor: Blood lead after outlier removal\nQuantitative (Continuous)\n\n\nLBXBCD\nBlood cadmium (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBCD_clean\nKey Predictor: Blood cadmium (µg/dL) after outlier removal\nQuantitative (Continuous)\n\n\nLBXBMN\nBlood manganese (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBMN_clean\nKey Predictor: Blood manganese (µg/dL) after outlier removal\nQuantitative (Continuous)\n\n\nBPXSY1\nSystolic BP, first reading\nQuantitative (Integer)\n\n\nBPXSY1_clean\nOutcome: Systolic BP, first reading, after outlier removal\nQuantitative (Integer)\n\n\nBPXDI1\nDiastolic BP, first reading\nQuantitative (Integer)\n\n\nBPXDI1_clean\nDiastolic BP, first reading, after outlier removal\nQuantitative (Integer)\n\n\n\nSummary statistics for the continuous and categorical variables:\nTable 2: Summary of numeric data.\n\n\n\nVariable\nmean\nstdev\nmedian\nmin\nmax\n\n\n\n\nRIDAGEYR\n53.46\n7.59\n54.00\n40.00\n65.00\n\n\nLBXBPB\n1.04\n0.54\n0.94\n0.12\n2.79\n\n\nLBXBCD\n0.37\n0.25\n0.30\n0.07\n1.21\n\n\nLBXBMN\n9.67\n3.01\n9.32\n3.07\n18.34\n\n\nBPXSY1\n126.68\n16.01\n126.00\n88.00\n170.00\n\n\nBPXDI1\n76.17\n10.02\n76.00\n50.00\n104.00\n\n\nLBXBPB_clean\n1.04\n0.54\n0.94\n0.11\n0.12\n\n\nLBXBCD_clean\n0.37\n0.25\n0.30\n0.07\n0.07\n\n\nLBXBMN_clean\n9.67\n3.01\n9.32\n1.40\n3.07\n\n\nBPXSY1_clean\n126.68\n16.01\n126.00\n88.00\n170.00\n\n\nBPXDI1_clean\n76.17\n10.02\n76.00\n50.00\n104.00\n\n\n\nTable 3: Summary of categorical data.\n\n\n\nVariable\nCount (Percent)\n\n\n\n\nRIAGENDR: Sex\n\n\n\nMale\n943 (47.99%)\n\n\nFemale\n1022 (52.01%)\n\n\nRIDRETH1: Race\n\n\n\nMexican American\n294 (14.96%)\n\n\nOther Hispanic\n218 (11.09%)\n\n\nNon-Hispanic White\n559 (28.44%)\n\n\nNon-Hispanic Black\n489 (24.88%)\n\n\nOther Race - Including Multi-Racial\n405 (20.61%)"
-  },
-  {
-    "objectID": "nhanes_bp_leadExposure.html#codebook-html-rendering",
-    "href": "nhanes_bp_leadExposure.html#codebook-html-rendering",
-    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
-    "section": "4.2 Codebook (HTML Rendering)",
-    "text": "4.2 Codebook (HTML Rendering)"
-  },
-  {
-    "objectID": "nhanes_bp_leadExposure.html#codebook-table-rendering",
-    "href": "nhanes_bp_leadExposure.html#codebook-table-rendering",
-    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
-    "section": "4.3 Codebook (Table Rendering)",
-    "text": "4.3 Codebook (Table Rendering)\n\n\n# A tibble: 14 × 9\n   variable     type    missing      min      q25  median    mean     q75    max\n   &lt;chr&gt;        &lt;chr&gt;     &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;\n 1 SEQN         numeric       0 93711    95997    9.83e+4 9.83e+4 1.01e+5 1.03e5\n 2 RIDAGEYR     numeric       0    40       47    5.4 e+1 5.35e+1 6   e+1 6.5 e1\n 3 LBXBPB       numeric       0     0.12     0.61 9.4 e-1 1.04e+0 1.33e+0 2.79e0\n 4 LBXBCD       numeric       0     0.07     0.18 3   e-1 3.72e-1 4.8 e-1 1.21e0\n 5 LBXBMN       numeric       0     3.07     7.46 9.32e+0 9.67e+0 1.15e+1 1.83e1\n 6 BPXSY1       numeric       0    88      116    1.26e+2 1.27e+2 1.38e+2 1.7 e2\n 7 BPXDI1       numeric       0    50       70    7.6 e+1 7.62e+1 8.2 e+1 1.04e2\n 8 lab_missing  integer       0     0        0    0       7.33e-2 0       1   e0\n 9 bp_missing   integer       0     0        0    0       1.54e-1 0       1   e0\n10 LBXBPB_clean numeric       0     0.12     0.61 9.4 e-1 1.04e+0 1.33e+0 2.79e0\n11 LBXBCD_clean numeric       0     0.07     0.18 3   e-1 3.72e-1 4.8 e-1 1.21e0\n12 LBXBMN_clean numeric       0     3.07     7.46 9.32e+0 9.67e+0 1.15e+1 1.83e1\n13 BPXSY1_clean numeric       0    88      116    1.26e+2 1.27e+2 1.38e+2 1.7 e2\n14 BPXDI1_clean numeric       0    50       70    7.6 e+1 7.62e+1 8.2 e+1 1.04e2\n\n\n\n\n# A tibble: 2 × 5\n  variable type   missing n_unique levels                                       \n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt;                                        \n1 RIAGENDR factor       0        2 Male, Female                                 \n2 RIDRETH1 factor       0        5 Other/Multiracial, Non-Hispanic Black, Mexic…\n\n\n\n\n# A tibble: 7 × 4\n  variable level              count missing\n  &lt;chr&gt;    &lt;fct&gt;              &lt;int&gt;   &lt;int&gt;\n1 RIAGENDR Male                 943       0\n2 RIAGENDR Female              1022       0\n3 RIDRETH1 Mexican American     294       0\n4 RIDRETH1 Other Hispanic       218       0\n5 RIDRETH1 Non-Hispanic White   559       0\n6 RIDRETH1 Non-Hispanic Black   489       0\n7 RIDRETH1 Other/Multiracial    405       0"
-  },
-  {
-    "objectID": "nhanes_bp_leadExposure.html#analytic-tibble",
-    "href": "nhanes_bp_leadExposure.html#analytic-tibble",
-    "title": "NHANES Data: Investigating Relationship Between Lead Exposure and High Blood Pressure",
-    "section": "4.4 Analytic Tibble",
-    "text": "4.4 Analytic Tibble\n\n\n   SEQN RIDAGEYR RIAGENDR           RIDRETH1 LBXBPB LBXBCD LBXBMN BPXSY1 BPXDI1\n1 93711       56     Male  Other/Multiracial   2.15   0.38   6.55    108     68\n2 93714       54   Female Non-Hispanic Black   0.71   0.31   7.85    126     76\n3 93716       61     Male  Other/Multiracial   1.99   0.23   8.80    120     72\n4 93718       45     Male Non-Hispanic Black   0.62   0.10  12.00    128     88\n5 93721       60   Female   Mexican American   0.75   0.18   9.92    132     68\n6 93722       60   Female Non-Hispanic White   0.98   0.38  15.05    116     68\n  lab_missing bp_missing LBXBPB_clean LBXBCD_clean LBXBMN_clean BPXSY1_clean\n1           0          0         2.15         0.38         6.55          108\n2           0          1         0.71         0.31         7.85          126\n3           0          0         1.99         0.23         8.80          120\n4           0          0         0.62         0.10        12.00          128\n5           0          0         0.75         0.18         9.92          132\n6           0          0         0.98         0.38        15.05          116\n  BPXDI1_clean\n1           68\n2           76\n3           72\n4           88\n5           68\n6           68"
-  },
-  {
-    "objectID": "nhanes_data_exploration.html",
-    "href": "nhanes_data_exploration.html",
-    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
-    "section": "",
-    "text": "My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (e.g. lead exposure) have higher systolic blood pressure. To test this hypothesis, I am using data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). In this study (Study 1 analyses), I am simply exploring the data and learning about the distributions of each of my variables of interest (sex, race/ethnicity, and heavy metal concentrations in the blood)."
-  },
-  {
-    "objectID": "nhanes_data_exploration.html#final-dataset-description-summary-statistics",
-    "href": "nhanes_data_exploration.html#final-dataset-description-summary-statistics",
-    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
-    "section": "4.1 [Final] Dataset Description & Summary Statistics",
-    "text": "4.1 [Final] Dataset Description & Summary Statistics\nTable 1: Variables included in the data.\n\n\n\n\n\n\n\n\nVariable\nDescription\nData Type\n\n\n\n\nSEQN\nSubject ID: Individual Identifier\nQuantitative (Integer)\n\n\nRIDAGEYR\nAge: Age in years at screening, range 40-65\nQuantitative (Integer)\n\n\nRIAGENDR\nSex: male or female\nBinary\n\n\nRIDRETH1\nRace\nMulti-level Categorical\n\n\nLBXBPB\nBlood lead (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBPB_clean_log\nBlood lead after outlier removal and log transformation\nQuantitative (Continuous)\n\n\nLBXBCD\nBlood cadmium (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBCD_clean_log\nBlood cadmium (µg/dL) after outlier removal and log transformation\nQuantitative (Continuous)\n\n\nLBXBMN\nBlood manganese (µg/dL)\nQuantitative (Continuous)\n\n\nLBXBMN_clean_log\nBlood manganese (µg/dL) after outlier removal and log transformation\nQuantitative (Continuous)\n\n\nBPXSY1\nSystolic BP, first reading\nQuantitative (Integer)\n\n\nBPXSY1_clean\nSystolic BP, first reading, after outlier removal\nQuantitative (Integer)\n\n\nBPXDI1\nDiastolic BP, first reading\nQuantitative (Integer)\n\n\nBPXDI1_clean\nDiastolic BP, first reading, after outlier removal\nQuantitative (Integer)\n\n\n\nSummary statistics for the continuous and categorical variables:\nTable 2: Summary of numeric data.\n\n\n\nVariable\nmean\nstdev\nmedian\nmin\nmax\n\n\n\n\nRIDAGEYR\n53.67\n7.54\n55.00\n40.00\n65.00\n\n\nLBXBPB\n1.36\n1.69\n1.02\n0.12\n42.48\n\n\nLBXBCD\n0.53\n0.60\n0.34\n0.07\n7.50\n\n\nLBXBMN\n10.07\n3.78\n9.39\n1.57\n35.56\n\n\nBPXSY1\n127.95\n18.52\n126.00\n78.00\n224.00\n\n\nBPXDI1\n76.06\n12.04\n76.00\n0.00\n124.00\n\n\n\nTable 3: Summary of categorical data.\n\n\n\nVariable\nCount (Percent)\n\n\n\n\nRIAGENDR: Sex\n\n\n\nMale\n975 (48.39%)\n\n\nFemale\n1040 (51.61%)\n\n\nRIDRETH1: Race\n\n\n\nMexican American\n303 (15.03%)\n\n\nOther Hispanic\n208 (10.32%)\n\n\nNon-Hispanic White\n581 (28.83%)\n\n\nNon-Hispanic Black\n483 (23.97%)\n\n\nOther Race - Including Multi-Racial\n440 (21.84%)"
-  },
-  {
-    "objectID": "nhanes_data_exploration.html#codebook-html-rendering",
-    "href": "nhanes_data_exploration.html#codebook-html-rendering",
-    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
-    "section": "4.2 Codebook (HTML Rendering)",
-    "text": "4.2 Codebook (HTML Rendering)"
-  },
-  {
-    "objectID": "nhanes_data_exploration.html#codebook-table-rendering",
-    "href": "nhanes_data_exploration.html#codebook-table-rendering",
-    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
-    "section": "4.3 Codebook (Table Rendering)",
-    "text": "4.3 Codebook (Table Rendering)\n\n\n# A tibble: 12 × 9\n   variable        type  missing     min     q25  median    mean     q75     max\n   &lt;chr&gt;           &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n 1 SEQN            nume…       0 9.37e+4 9.60e+4 9.83e+4 9.83e+4 1.01e+5 1.03e+5\n 2 RIDAGEYR        nume…       0 4   e+1 4.7 e+1 5.5 e+1 5.37e+1 6   e+1 6.5 e+1\n 3 LBXBPB          nume…       0 1.2 e-1 6.1 e-1 9.3 e-1 1.03e+0 1.33e+0 2.77e+0\n 4 LBXBCD          nume…       0 7   e-2 1.8 e-1 3   e-1 3.68e-1 4.8 e-1 1.21e+0\n 5 LBXBMN          nume…       0 3.07e+0 7.49e+0 9.28e+0 9.67e+0 1.15e+1 1.83e+1\n 6 BPXSY1          nume…       0 8.8 e+1 1.16e+2 1.26e+2 1.26e+2 1.36e+2 1.7 e+2\n 7 BPXDI1          nume…       0 5.2 e+1 7   e+1 7.6 e+1 7.60e+1 8.2 e+1 1   e+2\n 8 LBXBPB_clean_l… nume…       0 1.13e-1 4.76e-1 6.58e-1 6.77e-1 8.46e-1 1.33e+0\n 9 LBXBCD_clean_l… nume…       0 6.77e-2 1.66e-1 2.62e-1 2.98e-1 3.92e-1 7.93e-1\n10 LBXBMN_clean_l… nume…       0 1.40e+0 2.14e+0 2.33e+0 2.33e+0 2.52e+0 2.96e+0\n11 BPXSY1_clean    nume…       0 8.8 e+1 1.16e+2 1.26e+2 1.26e+2 1.36e+2 1.7 e+2\n12 BPXDI1_clean    nume…       0 5.2 e+1 7   e+1 7.6 e+1 7.60e+1 8.2 e+1 1   e+2\n\n\n\n\n# A tibble: 2 × 5\n  variable type   missing n_unique levels                                       \n  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt;                                        \n1 RIAGENDR factor       0        2 Male, Female                                 \n2 RIDRETH1 factor       0        5 Other/Multiracial, Non-Hispanic Black, Mexic…\n\n\n\n\n# A tibble: 7 × 4\n  variable level              count missing\n  &lt;chr&gt;    &lt;fct&gt;              &lt;int&gt;   &lt;int&gt;\n1 RIAGENDR Male                 769       0\n2 RIAGENDR Female               821       0\n3 RIDRETH1 Mexican American     249       0\n4 RIDRETH1 Other Hispanic       179       0\n5 RIDRETH1 Non-Hispanic White   459       0\n6 RIDRETH1 Non-Hispanic Black   376       0\n7 RIDRETH1 Other/Multiracial    327       0"
-  },
-  {
-    "objectID": "nhanes_data_exploration.html#analytic-tibble",
-    "href": "nhanes_data_exploration.html#analytic-tibble",
-    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
-    "section": "4.4 Analytic Tibble",
-    "text": "4.4 Analytic Tibble\n\n\n   SEQN RIDAGEYR RIAGENDR           RIDRETH1 LBXBPB LBXBCD LBXBMN BPXSY1 BPXDI1\n1 93711       56     Male  Other/Multiracial   2.15   0.38   6.55    108     68\n2 93716       61     Male  Other/Multiracial   1.99   0.23   8.80    120     72\n3 93718       45     Male Non-Hispanic Black   0.62   0.10  12.00    128     88\n4 93721       60   Female   Mexican American   0.75   0.18   9.92    132     68\n5 93722       60   Female Non-Hispanic White   0.98   0.38  15.05    116     68\n6 93723       64     Male Non-Hispanic White   0.99   0.19   7.68    124     72\n  LBXBPB_clean_log LBXBCD_clean_log LBXBMN_clean_log BPXSY1_clean BPXDI1_clean\n1        1.1474025       0.32208350         2.021548          108           68\n2        1.0952734       0.20701417         2.282382          120           72\n3        0.4824261       0.09531018         2.564949          128           88\n4        0.5596158       0.16551444         2.390596          132           68\n5        0.6830968       0.32208350         2.775709          116           68\n6        0.6881346       0.17395331         2.161022          124           72"
-  },
-  {
-    "objectID": "nhanes_data_exploration.html#analysis-b-comparing-2-means-with-independent-samples-blood-lead-levels-by-sex",
-    "href": "nhanes_data_exploration.html#analysis-b-comparing-2-means-with-independent-samples-blood-lead-levels-by-sex",
-    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
-    "section": "6.1 Analysis B: Comparing 2 Means with Independent Samples (Blood Lead Levels by Sex)",
-    "text": "6.1 Analysis B: Comparing 2 Means with Independent Samples (Blood Lead Levels by Sex)\nQuestion: Is the blood lead level different in males and females?\nDataset Description: The dataset was stratified by sex. Mean blood lead levels (LBXBPB_clean_log), were compared between the two sexes (male, female). There were 769 males and 821 females in the dataset.\nMain analysis: A two-tailed t-test was used to compare the difference in mean blood lead levels (log-transformed) between males and females. A significance level of 0.1 was used. The effect size (Cohen’s d) was also computed (small: 0.2, medium: 0.5, large: 0.8). This set-up is essentially equivalent to univariate OLS, where the beta coefficient (\\(\\beta_1\\)) corresponds to the difference in means of the two groups and the intercept (\\(\\beta_0\\)) corresponds to the mean lead concentration of the reference group. OLS assumes that the data (or rather, the errors) follow a normal distribution, the errors are independent, and the errors have a constant variance. \\[log(lead\\_conc) = \\beta_0 + \\beta_1(male\\_sex)\\] \\[lead\\_conc = e^{\\beta_0 + \\beta_1(male\\_sex)}\\] \\[\\text{Fold change }lead\\_conc = e^{\\beta_1}\\]\nConclusions: The median blood lead level was 0.71 ± 0.25 (mean ± SD) for males and 0.65 ± 0.25 for females, which translates to a 6% (difference in means: 0.71-0.65 = 0.06 \\(\\rightarrow\\) fold change: \\(e^{0.06} = 1.06\\), \\(\\rightarrow\\) 6% increase) difference in blood lead concentrations between males and females. The difference was statistically significant at the 0.1 level, but the effect size was low (0.26). I conclude that males and females have no appreciable difference in blood lead levels.\nNote: The same analyses were conducted for other numeric variables: blood cadmium level (LBXBCD), blood manganese level (LBXBMN), systolic blood pressure (BPXSY1), and diastolic blood pressure (BPXDI1).\n\n\n# A tibble: 9 × 6\n  descriptor  LBXBPB_clean_log LBXBCD_clean_log LBXBMN_clean_log BPXSY1_clean\n  &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;\n1 n_Male               769              769              769          769    \n2 n_Female             821              821              821          821    \n3 mean_Male              0.711            0.265            2.29       127.   \n4 mean_Female            0.646            0.330            2.36       125.   \n5 sd_Male                0.248            0.168            0.280       15.2  \n6 sd_Female              0.251            0.165            0.281       16.1  \n7 t_statistic            5.15            -7.86            -4.87         2.40 \n8 p_value                0                0                0            0.017\n9 cohen_d                0.258           -0.395           -0.244        0.12 \n# ℹ 1 more variable: BPXDI1_clean &lt;dbl&gt;"
-  },
-  {
-    "objectID": "nhanes_data_exploration.html#analysis-c-comparing-blood-lead-levels-across-races",
-    "href": "nhanes_data_exploration.html#analysis-c-comparing-blood-lead-levels-across-races",
-    "title": "NHANES Data Exploration (Heavy Metal Exposure & High blood Pressure)",
-    "section": "6.2 Analysis C: Comparing Blood Lead Levels Across Races",
-    "text": "6.2 Analysis C: Comparing Blood Lead Levels Across Races\nQuestion: Are blood lead levels different between races?\nDataset Description: The dataset was stratified by race (Mexican American, other Hispanic, non-Hispanic white, non-Hispanic black, other/multiracial). Mean blood levels of lead (LBXBPB_clean_log), were compared across the 5 racial/ethnic groups. There were 459 individuals identifying as non-Hispanic white, 249 individuals identifying as Mexican American, 179 as other Hispanic, 376 as non-Hispanic black, and 327 as other/multiracial.\nMain analysis: Race/ethnicity was dummy-coded. A multivariate OLS model was used to compare mean blood lead levels, setting non-Hispanic white as the reference group. A significance level of 0.1 was used. This set-up is similar to an ANOVA followed by post-hoc testing. OLS assumes that the errors are iid, follow a normal distribution with a mean of 0, and have constant variance.\nConclusions: The mean blood lead level was 0.64 ± 0.25 (mean ± SD) for non-Hispanic whites, 0.66 ± 0.24 for Mexican Americans, 0.59 ± 0.24 for other Hispanics, 0.71 ± 0.26 for blacks, and 0.74 ± 0.24 for multiracial individuals. This translates into a 1.7% increase in blood lead levels in Mexican Americans compared to non-Hispanic whites, a 5.2% decrease in other Hispanics, a 6.23% increase in black individuals, and a 10.0% increase in blood lead levels multiracial individuals. All the comparisons were statistically significant except for Mexican Americans, whose blood lead levels were closer to the reference group. In conclusion,\n\n\n# A tibble: 5 × 4\n  group              mean_LBXBPB_log sd_LBXBPB_log     n\n  &lt;fct&gt;                        &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;\n1 Mexican American             0.664         0.237   249\n2 Other Hispanic               0.594         0.237   179\n3 Non-Hispanic White           0.647         0.252   459\n4 Non-Hispanic Black           0.708         0.262   376\n5 Other/Multiracial            0.741         0.239   327\n\n\n\n\n\nCall:\nlm(formula = LBXBPB_clean_log ~ RIDRETH1, data = nhanes_clean)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-0.55052 -0.18873 -0.02102  0.16841  0.67480 \n\nCoefficients:\n                           Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)                 0.64696    0.01156  55.973  &lt; 2e-16 ***\nRIDRETH1Mexican American    0.01694    0.01949   0.869  0.38494    \nRIDRETH1Other Hispanic     -0.05336    0.02182  -2.445  0.01458 *  \nRIDRETH1Non-Hispanic Black  0.06056    0.01722   3.516  0.00045 ***\nRIDRETH1Other/Multiracial   0.09438    0.01792   5.267 1.58e-07 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.2476 on 1585 degrees of freedom\nMultiple R-squared:  0.03385,   Adjusted R-squared:  0.03142 \nF-statistic: 13.88 on 4 and 1585 DF,  p-value: 3.898e-11\n\n\n\n\n# A tibble: 4 × 3\n  group              fold_change percent_change\n  &lt;chr&gt;                    &lt;dbl&gt;          &lt;dbl&gt;\n1 Mexican American         1.02            1.71\n2 Other Hispanic           0.948          -5.20\n3 Non-Hispanic Black       1.06            6.24\n4 Other/Multiracial        1.10            9.90"
   }
 ]
