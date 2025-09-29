@@ -13,6 +13,9 @@ categories: [PQHS431, Dashboard, ProjectA]
 ![](images/what-is-big-data.png){.banner-image}
 :::
 
+## Building the Website
+I built the website in Quarto using a custom structure inspired by <a href="https://www.jhelvy.com/">Dr. John Paul Helveston's personal website</a> at George Washington University (<a href="https://github.com/jhelvy/jhelvy_quarto/blob/main/index.qmd">>GitHub</a>) and the <a href="https://faculty.washington.edu/masiello/research/">Masiello Group's website</a> at the University of Washington (<a href="https://github.com/MasielloGroup/MasielloGroupWebsite/blob/main/index.qmd">GitHub</a>). I utilized <a href="https://github.com/LyonsZhang/431-projectA-2025/blob/main/dashboard1.qmd">Dr. Zhang's</a> and <a href="https://github.com/atepp2001/atepp2001.github.io/blob/main/dashboard-main/dashboard.qmd">Alex Epp's</a> templates for the dashboard.
+
 ## Central Hypothesis
 
 My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (particularly lead exposure) have higher systolic blood pressure. This question is motivated by several studies showing a link between high blood lead levels and elevated prevalence of cardiovascular disease, potentially as a result of inflammation.  To test this hypothesis, I used data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). First, I conducted data visualization and exploration (Study 1) to understand the data distributions, variable relationships, and trends. Next, I modeled the relationship between systolic blood pressure and the concentrations of 3 heavy metals (lead, cadmium, and manganese) while also controlling for demographic covariates.

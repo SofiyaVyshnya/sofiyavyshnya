@@ -20,7 +20,7 @@ execute:
 My central hypothesis for this study is that middle-aged adults (age 40-65) adults with heavy metal exposure (e.g. lead exposure) have higher systolic blood pressure. To test this hypothesis, I am using data gathered from NHANES during the years of 2017-March 2020 (the pre-pandemic years). In this study (Study 1 analyses), I am performing data exploration to understand the distributions for each variable and investigate relationships between variables. 
 
 # Import Helper Functions
-```{r}
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 source(here::here("R/helpers.R"))  # absolute path to R/
 ```
 
